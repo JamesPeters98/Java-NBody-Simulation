@@ -18,8 +18,8 @@ public class Moon extends Body {
     private static final String SPECULAR_MAP =
             "";
 
-    public Moon(String name, double radius, double x, double y, double z) {
-        super(name, radius, MASS, x, y, z);
+    public Moon() {
+        super();
 
         setVelocity(new Point3D(0,1022,0));
 
@@ -56,7 +56,28 @@ public class Moon extends Body {
         setMaterial(earthMaterial);
     }
 
-    public Moon(double x, double y, double z){
-        this("Moon", RADIUS, x,y,z);
+    @Override
+    public Point3D getInitialPosition() {
+        return null;
+    }
+
+    @Override
+    public Point3D getInitialVelocity() {
+        return null;
+    }
+
+    @Override
+    public String getName() {
+        return null;
+    }
+
+    @Override
+    public double getMass() {
+        return 0;
+    }
+
+    @Override
+    public double getBodyRadius() {
+        return 0;
     }
 }

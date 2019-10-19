@@ -1,7 +1,40 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="ad04138a-3b59-443a-aed4-fcbb00a30516" name="Default Changelist" comment="" />
+    <list default="true" id="c10789bf-efff-4737-8ba7-343012b8843c" name="Default Changelist" comment="">
+      <change afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/jamesdpeters/JsonConverter.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/jamesdpeters/Utils.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/jamesdpeters/bodies/Mars.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/jamesdpeters/bodies/Sun.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/jamesdpeters/builders/BodyBuilder.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/jamesdpeters/builders/UniverseBuilder.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/Body.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/3DTests.iml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/pom.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/jamesdpeters/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/jamesdpeters/Main.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/jamesdpeters/MouseControl.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/jamesdpeters/MouseControl.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/jamesdpeters/Test.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/jamesdpeters/Test.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/jamesdpeters/bodies/Body.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/jamesdpeters/bodies/Body.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/jamesdpeters/bodies/Earth.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/jamesdpeters/bodies/Earth.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/jamesdpeters/bodies/Moon.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/jamesdpeters/bodies/Moon.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/jamesdpeters/universes/NormalUniverse.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/jamesdpeters/universes/NormalUniverse.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/jamesdpeters/universes/Universe.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/jamesdpeters/universes/Universe.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/jamesdpeters/Main.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/jamesdpeters/Main.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/jamesdpeters/MouseControl.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/jamesdpeters/MouseControl.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/jamesdpeters/Test.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/jamesdpeters/Test.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/jamesdpeters/bodies/Body.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/jamesdpeters/bodies/Body.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/jamesdpeters/bodies/Earth.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/jamesdpeters/bodies/Earth.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/jamesdpeters/bodies/Moon.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/jamesdpeters/bodies/Moon.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/jamesdpeters/universes/NormalUniverse.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/jamesdpeters/universes/NormalUniverse.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/jamesdpeters/universes/Universe$1.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/jamesdpeters/universes/Universe$1.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/jamesdpeters/universes/Universe$2.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/jamesdpeters/universes/Universe$2.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/jamesdpeters/universes/Universe.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/jamesdpeters/universes/Universe.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/maven-status/maven-compiler-plugin/compile/null/createdFiles.lst" beforeDir="false" afterPath="$PROJECT_DIR$/target/maven-status/maven-compiler-plugin/compile/null/createdFiles.lst" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/maven-status/maven-compiler-plugin/compile/null/inputFiles.lst" beforeDir="false" afterPath="$PROJECT_DIR$/target/maven-status/maven-compiler-plugin/compile/null/inputFiles.lst" afterDir="false" />
+    </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -11,22 +44,26 @@
   <component name="FileTemplateManagerImpl">
     <option name="RECENT_TEMPLATES">
       <list>
-        <option value="package-info" />
         <option value="Class" />
       </list>
     </option>
   </component>
-  <component name="ProjectId" id="1RbLUKXCfaFkhmcRs1P37XzSC6B" />
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
+  <component name="ProjectId" id="1S3PA0x8rgZ65Lja7WFOHsqVbGN" />
   <component name="PropertiesComponent">
+    <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="aspect.path.notification.shown" value="true" />
-    <property name="project.structure.last.edited" value="Project" />
-    <property name="project.structure.proportion" value="0.15" />
-    <property name="project.structure.side.proportion" value="0.47821465" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/src/main/resources" />
   </component>
   <component name="RecentsManager">
     <key name="CopyClassDialog.RECENTS_KEY">
-      <recent name="" />
+      <recent name="com.jamesdpeters.bodies" />
+    </key>
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="C:\Users\James\Documents\GitHub\Java-NBody-Simulation\src\main\resources" />
     </key>
   </component>
   <component name="RunDashboard">
@@ -41,20 +78,27 @@
       </list>
     </option>
   </component>
-  <component name="RunManager" selected="Maven.3DTests [javafx:run]">
-    <configuration name="Main" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
-      <option name="MAIN_CLASS_NAME" value="com.jamesdpeters.Main" />
-      <module name="3DTests" />
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
-    <configuration name="Test" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
-      <option name="MAIN_CLASS_NAME" value="com.jamesdpeters.Test" />
+  <component name="RunManager" selected="Maven.Run">
+    <configuration name="Json" type="Application" factoryName="Application">
+      <option name="MAIN_CLASS_NAME" value="com.jamesdpeters.JsonConverter" />
       <module name="3DTests" />
       <extension name="coverage">
         <pattern>
-          <option name="PATTERN" value="com.jamesdpeters.universes.Universe" />
+          <option name="PATTERN" value="com.jamesdpeters.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <method v="2">
+        <option name="Maven.BeforeRunTask" enabled="true" file="$PROJECT_DIR$/pom.xml" goal="clean:clean" />
+        <option name="Maven.BeforeRunTask" enabled="true" file="$PROJECT_DIR$/pom.xml" goal="javafx:compile" />
+      </method>
+    </configuration>
+    <configuration name="JsonConverter" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="com.jamesdpeters.JsonConverter" />
+      <module name="3DTests" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="com.jamesdpeters.*" />
           <option name="ENABLED" value="true" />
         </pattern>
       </extension>
@@ -62,7 +106,21 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="3DTests [javafx:run]" type="MavenRunConfiguration" factoryName="Maven" nameIsGenerated="true">
+    <configuration name="Main" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="com.jamesdpeters.Main" />
+      <module name="3DTests" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="com.jamesdpeters.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <method v="2">
+        <option name="Maven.BeforeRunTask" enabled="true" file="$PROJECT_DIR$/pom.xml" goal="clean:clean" />
+        <option name="Maven.BeforeRunTask" enabled="true" file="$PROJECT_DIR$/pom.xml" goal="javafx:compile" />
+      </method>
+    </configuration>
+    <configuration name="Run" type="MavenRunConfiguration" factoryName="Maven">
       <MavenSettings>
         <option name="myGeneralSettings" />
         <option name="myRunnerSettings" />
@@ -72,9 +130,7 @@
               <set />
             </option>
             <option name="goals">
-              <list>
-                <option value="javafx:run" />
-              </list>
+              <list />
             </option>
             <option name="pomFileName" />
             <option name="profilesMap">
@@ -87,17 +143,19 @@
       </MavenSettings>
       <method v="2">
         <option name="Maven.BeforeRunTask" enabled="true" file="$PROJECT_DIR$/pom.xml" goal="clean:clean" />
+        <option name="Maven.BeforeRunTask" enabled="true" file="$PROJECT_DIR$/pom.xml" goal="javafx:run" />
       </method>
     </configuration>
     <list>
+      <item itemvalue="Application.Json" />
       <item itemvalue="Application.Main" />
-      <item itemvalue="Application.Test" />
-      <item itemvalue="Maven.3DTests [javafx:run]" />
+      <item itemvalue="Application.JsonConverter" />
+      <item itemvalue="Maven.Run" />
     </list>
     <recent_temporary>
       <list>
+        <item itemvalue="Application.JsonConverter" />
         <item itemvalue="Application.Main" />
-        <item itemvalue="Application.Test" />
       </list>
     </recent_temporary>
   </component>
@@ -106,19 +164,30 @@
   </component>
   <component name="TaskManager">
     <task active="true" id="Default" summary="Default task">
-      <changelist id="ad04138a-3b59-443a-aed4-fcbb00a30516" name="Default Changelist" comment="" />
-      <created>1569930862879</created>
+      <changelist id="c10789bf-efff-4737-8ba7-343012b8843c" name="Default Changelist" comment="" />
+      <created>1570789158213</created>
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
-      <updated>1569930862879</updated>
-      <workItem from="1569930869067" duration="15476000" />
-      <workItem from="1569957368363" duration="6837000" />
-      <workItem from="1570018911673" duration="18066000" />
-      <workItem from="1570179179860" duration="24587000" />
+      <updated>1570789158213</updated>
+      <workItem from="1570789159539" duration="3667000" />
+      <workItem from="1571148903706" duration="54512000" />
     </task>
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
     <option name="version" value="1" />
+  </component>
+  <component name="Vcs.Log.Tabs.Properties">
+    <option name="TAB_STATES">
+      <map>
+        <entry key="MAIN">
+          <value>
+            <State>
+              <option name="COLUMN_ORDER" />
+            </State>
+          </value>
+        </entry>
+      </map>
+    </option>
   </component>
 </project>

@@ -1,48 +1,73 @@
 package com.jamesdpeters.bodies;
 
+import com.jamesdpeters.Utils;
 import com.jamesdpeters.universes.Universe;
+import com.sun.javafx.scene.CameraHelper;
+import com.sun.javafx.scene.NodeHelper;
+import com.sun.javafx.scene.SceneHelper;
+import com.sun.javafx.scene.SceneUtils;
+import com.sun.prism.paint.Paint;
+import javafx.geometry.Point2D;
 import javafx.geometry.Point3D;
+import javafx.scene.Camera;
 import javafx.scene.Group;
+import javafx.scene.SubScene;
+import javafx.scene.control.Label;
+import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
 import javafx.scene.paint.PhongMaterial;
 import javafx.scene.shape.Cylinder;
+import javafx.scene.shape.Line;
+import javafx.scene.shape.Polyline;
 import javafx.scene.shape.Sphere;
 import javafx.scene.transform.Rotate;
 import javafx.scene.transform.Translate;
 
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.List;
 import java.util.concurrent.Callable;
 
-public class Body extends Sphere implements Callable<Object> {
+public abstract class Body extends Sphere implements Callable<Boolean> {
 
-    private String name;
-    private List<Cylinder> paths;
-    private Group group;
-    private static final int trailAmount = 1000; // Number of events to show in trail.
-    private static PhongMaterial lineMaterial;
+    // 3D UI OBJECTS
+    private transient List<Cylinder> paths;
+    public transient List<Point3D> points;
+    public transient Polyline line;
+    private transient Group group;
+    private transient static final int trailAmount = 2500; // Number of events to show in trail.
+    private transient static PhongMaterial lineMaterial;
+    private transient Label bodyLabel;
+    private transient Pane pane;
+    private transient Camera camera;
 
-    private double mass; //Mass in Kilograms (Kg)
-    private Point3D velocity; //Velocity in Metres per second (m/s)
-    private volatile Point3D position; //Position in Kilometers (Km)
+    // BODIES PROPERTIES
+    private transient Point3D velocity; //Velocity in Metres per second (m/s)
+    private transient Point3D position; //Position in Kilometers (Km)
 
-    private List<Body> bodies; //List of bodies to interact with.
-    private Universe universe; //Universe this Body belongs too.
+    private transient List<Body> bodies; //List of bodies to interact with.
+    private transient Universe universe; //Universe this Body belongs too.
 
-    public Body(String name, double radius, double mass, double x, double y, double z){
-        super(radius);
-        this.name = name;
+    public Body(){
+        super();
+        setRadius(getBodyRadius());
         this.paths = new ArrayList<>();
-        this.mass = mass;
-        this.velocity = new Point3D(0,0,0); //Initial velocity
+        this.points = new ArrayList<>();
+        this.line = new Polyline();
 
         lineMaterial = new PhongMaterial();
         lineMaterial.setDiffuseColor(new Color(1,1,1,0.5));
         lineMaterial.diffuseMapProperty();
+        line.setStroke(Color.WHITE);
+        line.setStrokeWidth(1);
+        //line.setFill(Color.WHITE);
+        //line.minWidth(100000);
 
-        position = new Point3D(x,y,z);
+        position = getInitialPosition();
+        velocity = getInitialVelocity();
         clearPaths();
+
+        bodyLabel = Utils.createUILabel();
+        bodyLabel.setText(getName());
     }
 
     public void setVelocity(Point3D velocity){
@@ -50,30 +75,32 @@ public class Body extends Sphere implements Callable<Object> {
     }
 
     public void drawPosition(){
-        addTrail(position);
+        camera = SceneHelper.getEffectiveCamera(getScene());
         setTranslateX(position.getX());
         setTranslateY(position.getY());
         setTranslateZ(position.getZ());
+        addTrail();
+
+        Point3D pos2D = localToScene(Point3D.ZERO,true);
+        bodyLabel.setTranslateX(pos2D.getX());
+        bodyLabel.setTranslateY(pos2D.getY());
     }
 
     public Point3D forceFromBody(Body body, Universe universe){
         Point3D delta = body.getPos().subtract(position);
         double distance = delta.magnitude()*1000;
-        double forceMagnitude = (universe.G() * mass * body.mass)/(distance*distance);
+        double forceMagnitude = (universe.G() * getMass() * body.getMass())/(distance*distance);
         return delta.normalize().multiply(forceMagnitude);
     }
 
     public void moveWithForce(Point3D force, double dt){
-        Point3D acceleration = force.multiply(1/mass); //F = ma
+        Point3D acceleration = force.multiply(1/getMass()); //F = ma
+        //System.out.println("Acceleration of "+getName()+": "+acceleration.magnitude());
         velocity = velocity.add(acceleration.multiply(dt)); //V = V0 + at
+        //System.out.println("Velocity of "+getName()+": "+velocity.magnitude());
         Point3D displacement = velocity.multiply(dt).multiply(0.001); //d = vt (Converts from Meters to KM!)
+        //System.out.println("Moving "+getName()+" by "+displacement);
         position = position.add(displacement);
-        //System.out.println(getName()+" new pos: "+position+" km");
-    }
-
-    public void moveWithForceFromBody(Body body, Universe universe){
-        Point3D force = forceFromBody(body,universe);
-        moveWithForce(force,universe.dt());
     }
 
     public Point3D getPos(){
@@ -86,35 +113,62 @@ public class Body extends Sphere implements Callable<Object> {
         group.getChildren().addAll(this);
     }
 
+    public void addLabelToPane(Pane pane){
+        this.pane = pane;
+        pane.getChildren().addAll(bodyLabel);
+        pane.getChildren().addAll(line);
+    }
+
     /**
      * Updates this body using all the surrounding bodies!
      */
     public void update(){
+        //System.out.println("----------------");
+        //System.out.println("UPDATING "+getName());
+        Point3D force = new Point3D(0,0,0);
         for(Body body : bodies){
             if(body != this){
-                moveWithForceFromBody(body,universe);
+                Point3D f = forceFromBody(body,universe);
+                //System.out.println("Force from "+body.getName()+" = "+f);
+                force = force.add(f);
+                //moveWithForceFromBody(body,universe);
             }
         }
+        //System.out.println("TOTAL FORCE: "+force.magnitude());
+        moveWithForce(force,universe.dt());
     }
 
     public void setBodies(List<Body> bodies){
         this.bodies = bodies;
     }
-
     public void setUniverse(Universe universe){
         this.universe = universe;
     }
 
+    /**
+     * IMPLEMENTATIONS
+     */
+    public abstract Point3D getInitialPosition();
+    public abstract Point3D getInitialVelocity();
+    public abstract String getName();
+    public abstract double getMass();
+    public abstract double getBodyRadius();
 
     /**
      * TRAIL CODE - SHOULD PROBABLY MOVE THIS.
      */
 
-    //Call before moving the object! These coordinates should be the new coordinates.
-    private void addTrail(Point3D newPoint){
-        Point3D oldPoint = new Point3D(getTranslateX(),getTranslateY(),getTranslateZ());
-        Cylinder line = createConnection(oldPoint,newPoint);
-        addPath(line);
+    private void addTrail(){
+        Point3D point = localToScene(Point3D.ZERO);
+        points.add(point);
+        if(points.size() > trailAmount){
+            points.remove(0);
+        }
+        updateTrail();
+
+//        Point3D oldPoint = new Point3D(getTranslateX(),getTranslateY(),getTranslateZ());
+////        Cylinder line = createConnection(oldPoint,newPoint);
+////        addPath(line);
     }
 
     public Cylinder createConnection(Point3D origin, Point3D target) {
@@ -129,7 +183,7 @@ public class Body extends Sphere implements Callable<Object> {
         double angle = Math.acos(diff.normalize().dotProduct(yAxis));
         Rotate rotateAroundCenter = new Rotate(-Math.toDegrees(angle), axisOfRotation);
 
-        Cylinder line = new Cylinder(getRadius()/6, height);
+        Cylinder line = new Cylinder(getRadius(), height);
         lineMaterial = new PhongMaterial();
         lineMaterial.setDiffuseColor(new Color(1,1,1,0.5));
         lineMaterial.diffuseMapProperty();
@@ -141,11 +195,22 @@ public class Body extends Sphere implements Callable<Object> {
     }
 
     private void addPath(Cylinder cylinder){
-        if(paths.size() > trailAmount){
-            group.getChildren().remove(paths.remove(0));
+//        if(paths.size() > trailAmount){
+//            group.getChildren().remove(paths.remove(0));
+//        }
+        //paths.add(cylinder);
+        //group.getChildren().addAll(cylinder);
+    }
+
+    private void updateTrail(){
+        line.getPoints().clear();
+
+        for(Point3D point3D : points){
+            SubScene subScene = NodeHelper.getSubScene(this);
+            Point3D point = SceneUtils.subSceneToScene(subScene,point3D);
+            Point2D pos2D = CameraHelper.project(camera,point);
+            line.getPoints().addAll(pos2D.getX(),pos2D.getY());
         }
-        paths.add(cylinder);
-        group.getChildren().addAll(cylinder);
     }
 
     private void clearPaths(){
@@ -157,15 +222,13 @@ public class Body extends Sphere implements Callable<Object> {
 
     @Override
     public String toString() {
-        return "["+name+"] - ("+getTranslateX()+","+getTranslateY()+","+getTranslateZ()+")";
-    }
-
-    public String getName() {
-        return name;
+        return "["+getName()+"] " +
+                "\n Pos:"+getInitialPosition()+
+                "\n Velocity:"+velocity;
     }
 
     @Override
-    public Object call() {
+    public Boolean call() {
         update();
         return true;
     }

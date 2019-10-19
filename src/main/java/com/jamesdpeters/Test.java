@@ -65,7 +65,7 @@ public class Test extends Application {
         polyLine3D = new PolyLine3D(points,8f, Color.STEELBLUE, PolyLine3D.LineType.RIBBON);
         traject.getChildren().addAll(polyLine3D);
 
-        objects.getChildren().addAll(new Earth("Test",10,0,0,0));
+        objects.getChildren().addAll(new Earth());
 
         sceneRoot.getChildren().addAll(objects,traject);
 

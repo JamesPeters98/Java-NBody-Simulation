@@ -14,7 +14,7 @@ public class Main extends Application {
 
     public void start(Stage primaryStage) throws Exception {
         primaryStage.setOnCloseRequest(onCloseListener());
-        universe = new NormalUniverse(0.1, primaryStage);
+        universe = new NormalUniverse(primaryStage);
     }
 
     public static void main(String[] args) {

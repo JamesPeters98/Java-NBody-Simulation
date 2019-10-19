@@ -1,10 +1,17 @@
 com\jamesdpeters\Main.class
 com\jamesdpeters\universes\Universe$2.class
 com\jamesdpeters\bodies\Body.class
+com\jamesdpeters\Utils.class
 com\jamesdpeters\bodies\Earth.class
 com\jamesdpeters\universes\Universe.class
 com\jamesdpeters\MouseControl.class
 com\jamesdpeters\bodies\Moon.class
+com\jamesdpeters\builders\BodyBuilder.class
 com\jamesdpeters\Test.class
 com\jamesdpeters\universes\NormalUniverse.class
+com\jamesdpeters\builders\BodyBuilder$1.class
+com\jamesdpeters\bodies\Sun.class
+com\jamesdpeters\JsonConverter.class
+com\jamesdpeters\builders\UniverseBuilder.class
 com\jamesdpeters\universes\Universe$1.class
+com\jamesdpeters\bodies\Mars.class
