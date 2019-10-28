@@ -194,7 +194,7 @@ public class MouseControl {
                 double direction = delta / Math.abs(delta);
                 //Add it to the Z-axis location.
                 double currentZoom = camera.translateZProperty().get();
-                //camera.translateZProperty().set(currentZoom + (direction * 0.1 * currentZoom));
+                camera.translateZProperty().set(currentZoom + (direction * 0.1 * currentZoom));
             }
         });
     }
