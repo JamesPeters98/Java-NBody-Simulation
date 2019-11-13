@@ -34,7 +34,7 @@ public abstract class Body extends Sphere implements Callable<Boolean> {
     public transient List<Point3D> points;
     public transient Polyline line;
     private transient Group group;
-    private transient static final int trailAmount = 2500; // Number of events to show in trail.
+    private transient static final int trailAmount = 25000; // Number of events to show in trail.
     private transient static PhongMaterial lineMaterial;
     private transient Label bodyLabel;
     private transient Pane pane;
@@ -95,11 +95,8 @@ public abstract class Body extends Sphere implements Callable<Boolean> {
 
     public void moveWithForce(Point3D force, double dt){
         Point3D acceleration = force.multiply(1/getMass()); //F = ma
-        //System.out.println("Acceleration of "+getName()+": "+acceleration.magnitude());
         velocity = velocity.add(acceleration.multiply(dt)); //V = V0 + at
-        //System.out.println("Velocity of "+getName()+": "+velocity.magnitude());
         Point3D displacement = velocity.multiply(dt).multiply(0.001); //d = vt (Converts from Meters to KM!)
-        //System.out.println("Moving "+getName()+" by "+displacement);
         position = position.add(displacement);
     }
 

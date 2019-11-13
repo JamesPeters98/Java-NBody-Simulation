@@ -45,6 +45,11 @@ public class MouseControl {
         camera.getTransforms().addAll(rotatePhi,rotateTheta);
 
         stage.addEventHandler(KeyEvent.KEY_PRESSED, event -> {
+            if(event.getCode() == KeyCode.P){
+                bodies.forEach(body -> System.out.println(body.getName()+" Distance: "+body.getPos().magnitude()));
+            }
+
+
             double angleRate = Math.PI/360;
             if(event.getCode() == KeyCode.A){
                 theta = MathUtils.reduce(theta+angleRate,Math.PI*2,0);

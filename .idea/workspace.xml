@@ -2,9 +2,15 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="c10789bf-efff-4737-8ba7-343012b8843c" name="Default Changelist" comment="">
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/jamesdpeters/interfaces/EulerIntegrator.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/jamesdpeters/interfaces/Integrator.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/jamesdpeters/MouseControl.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/jamesdpeters/MouseControl.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/jamesdpeters/bodies/Body.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/jamesdpeters/bodies/Body.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/Body.json" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/Body.json" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/target/classes/com/jamesdpeters/MouseControl.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/jamesdpeters/MouseControl.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/jamesdpeters/bodies/Body.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/jamesdpeters/bodies/Body.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/maven-status/maven-compiler-plugin/compile/null/createdFiles.lst" beforeDir="false" afterPath="$PROJECT_DIR$/target/maven-status/maven-compiler-plugin/compile/null/createdFiles.lst" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -15,6 +21,7 @@
   <component name="FileTemplateManagerImpl">
     <option name="RECENT_TEMPLATES">
       <list>
+        <option value="Interface" />
         <option value="Class" />
       </list>
     </option>
@@ -28,9 +35,15 @@
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="aspect.path.notification.shown" value="true" />
     <property name="last_opened_file_path" value="$PROJECT_DIR$/src/main/resources" />
+    <property name="project.structure.last.edited" value="Modules" />
+    <property name="project.structure.proportion" value="0.0" />
+    <property name="project.structure.side.proportion" value="0.0" />
     <property name="settings.editor.selected.configurable" value="preferences.pluginManager" />
   </component>
   <component name="RecentsManager">
+    <key name="CreateClassDialog.RecentsKey">
+      <recent name="com.jamesdpeters.interfaces" />
+    </key>
     <key name="CopyClassDialog.RECENTS_KEY">
       <recent name="com.jamesdpeters.bodies" />
     </key>
@@ -145,6 +158,12 @@
       <workItem from="1571148903706" duration="54512000" />
       <workItem from="1572213842837" duration="82000" />
       <workItem from="1572302845454" duration="961000" />
+      <workItem from="1572353301566" duration="2649000" />
+      <workItem from="1572454724302" duration="3741000" />
+      <workItem from="1572698034838" duration="672000" />
+      <workItem from="1573041833010" duration="3854000" />
+      <workItem from="1573246415195" duration="765000" />
+      <workItem from="1573658129455" duration="5149000" />
     </task>
     <servers />
   </component>
