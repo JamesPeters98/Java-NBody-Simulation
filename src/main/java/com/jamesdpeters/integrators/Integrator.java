@@ -1,6 +1,9 @@
-package com.jamesdpeters.interfaces;
+package com.jamesdpeters.integrators;
 
+import com.jamesdpeters.bodies.Body;
 import javafx.geometry.Point3D;
+
+import java.util.List;
 
 public abstract class Integrator {
 
@@ -8,6 +11,7 @@ public abstract class Integrator {
     Point3D position;
     double mass;
     double dt;
+    double time; // Keep track of time.
 
     public Integrator(Point3D initialVelocity, Point3D initialPosition, double mass, double dt){
         this.velocity = initialVelocity;
@@ -16,11 +20,13 @@ public abstract class Integrator {
         this.dt = dt;
     }
 
-    Point3D f(double dt, Point3D force){
-        Point3D acceleration = force.multiply(1/mass); //F = ma
-        return velocity.add(acceleration.multiply(dt)); //V = V0 + at
+    public abstract void step(Body body);
+
+    public Point3D getVelocity() {
+        return velocity;
     }
 
-    abstract void step(Point3D force);
-
+    public Point3D getPosition() {
+        return position;
+    }
 }

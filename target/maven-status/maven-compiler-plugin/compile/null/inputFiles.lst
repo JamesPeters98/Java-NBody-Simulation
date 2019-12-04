@@ -6,9 +6,13 @@ C:\Users\James\Documents\GitHub\Java-NBody-Simulation\src\main\java\com\jamesdpe
 C:\Users\James\Documents\GitHub\Java-NBody-Simulation\src\main\java\com\jamesdpeters\bodies\Mars.java
 C:\Users\James\Documents\GitHub\Java-NBody-Simulation\src\main\java\com\jamesdpeters\universes\Universe.java
 C:\Users\James\Documents\GitHub\Java-NBody-Simulation\src\main\java\com\jamesdpeters\builders\UniverseBuilder.java
+C:\Users\James\Documents\GitHub\Java-NBody-Simulation\src\main\java\com\jamesdpeters\integrators\IntegratorFactory.java
 C:\Users\James\Documents\GitHub\Java-NBody-Simulation\src\main\java\com\jamesdpeters\MouseControl.java
+C:\Users\James\Documents\GitHub\Java-NBody-Simulation\src\main\java\com\jamesdpeters\integrators\EulerIntegrator.java
 C:\Users\James\Documents\GitHub\Java-NBody-Simulation\src\main\java\com\jamesdpeters\JsonConverter.java
 C:\Users\James\Documents\GitHub\Java-NBody-Simulation\src\main\java\com\jamesdpeters\bodies\Body.java
+C:\Users\James\Documents\GitHub\Java-NBody-Simulation\src\main\java\com\jamesdpeters\integrators\Integrator.java
 C:\Users\James\Documents\GitHub\Java-NBody-Simulation\src\main\java\com\jamesdpeters\universes\NormalUniverse.java
 C:\Users\James\Documents\GitHub\Java-NBody-Simulation\src\main\java\com\jamesdpeters\Test.java
+C:\Users\James\Documents\GitHub\Java-NBody-Simulation\src\main\java\com\jamesdpeters\integrators\RK4Integrator.java
 C:\Users\James\Documents\GitHub\Java-NBody-Simulation\src\main\java\com\jamesdpeters\bodies\Sun.java

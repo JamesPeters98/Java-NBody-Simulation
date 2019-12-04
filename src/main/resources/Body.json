@@ -1,6 +1,6 @@
 {
   "name": "Universe",
-  "dt": 100,
+  "dt": 25,
   "G": 6.67E-11,
   "bodies": [
     {

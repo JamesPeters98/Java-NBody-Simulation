@@ -1,12 +1,13 @@
 package com.jamesdpeters.bodies;
 
 import com.jamesdpeters.Utils;
+import com.jamesdpeters.integrators.Integrator;
+import com.jamesdpeters.integrators.IntegratorFactory;
 import com.jamesdpeters.universes.Universe;
 import com.sun.javafx.scene.CameraHelper;
 import com.sun.javafx.scene.NodeHelper;
 import com.sun.javafx.scene.SceneHelper;
 import com.sun.javafx.scene.SceneUtils;
-import com.sun.prism.paint.Paint;
 import javafx.geometry.Point2D;
 import javafx.geometry.Point3D;
 import javafx.scene.Camera;
@@ -17,7 +18,6 @@ import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
 import javafx.scene.paint.PhongMaterial;
 import javafx.scene.shape.Cylinder;
-import javafx.scene.shape.Line;
 import javafx.scene.shape.Polyline;
 import javafx.scene.shape.Sphere;
 import javafx.scene.transform.Rotate;
@@ -46,6 +46,9 @@ public abstract class Body extends Sphere implements Callable<Boolean> {
 
     private transient List<Body> bodies; //List of bodies to interact with.
     private transient Universe universe; //Universe this Body belongs too.
+
+    // INTEGRATOR
+    private Integrator integrator;
 
     public Body(){
         super();
@@ -93,11 +96,14 @@ public abstract class Body extends Sphere implements Callable<Boolean> {
         return delta.normalize().multiply(forceMagnitude);
     }
 
-    public void moveWithForce(Point3D force, double dt){
-        Point3D acceleration = force.multiply(1/getMass()); //F = ma
-        velocity = velocity.add(acceleration.multiply(dt)); //V = V0 + at
-        Point3D displacement = velocity.multiply(dt).multiply(0.001); //d = vt (Converts from Meters to KM!)
-        position = position.add(displacement);
+    public void moveWithForce(){
+//        Point3D acceleration = force.multiply(1/getMass());             //F = ma
+//        velocity = velocity.add(acceleration.multiply(dt));             //V = V0 + at
+//        Point3D displacement = velocity.multiply(dt).multiply(0.001);   //d = vt (Converts from Meters to KM!)
+//        position = position.add(displacement);
+        integrator.step(this);
+        position = integrator.getPosition();
+        velocity = integrator.getVelocity();
     }
 
     public Point3D getPos(){
@@ -122,17 +128,40 @@ public abstract class Body extends Sphere implements Callable<Boolean> {
     public void update(){
         //System.out.println("----------------");
         //System.out.println("UPDATING "+getName());
-        Point3D force = new Point3D(0,0,0);
+//        Point3D force = new Point3D(0,0,0);
+//        for(Body body : bodies){
+//            if(body != this){
+//                Point3D f = forceFromBody(body,universe);
+//                //System.out.println("Force from "+body.getName()+" = "+f);
+//                force = force.add(f);
+//                //moveWithForceFromBody(body,universe);
+//            }
+//        }
+        //System.out.println("TOTAL FORCE: "+force.magnitude());
+        moveWithForce();
+    }
+
+    public Point3D acceleration(double dt, Point3D posStep){
+        // a(t) - Acceleration right now.
+        Point3D accel = new Point3D(0,0,0);
+        // adot(t)
+        Point3D accelDot = new Point3D(0,0,0);
+
         for(Body body : bodies){
             if(body != this){
-                Point3D f = forceFromBody(body,universe);
-                //System.out.println("Force from "+body.getName()+" = "+f);
-                force = force.add(f);
-                //moveWithForceFromBody(body,universe);
+                Point3D delta = body.getPos().subtract(position).add(posStep);
+                double distance = delta.magnitude()*1000;
+                // a(t)
+                double forceMagnitude = (universe.G() * getMass() * body.getMass())/(distance*distance);
+                accel = accel.add(delta.normalize().multiply(forceMagnitude).multiply(1/getMass()));
+                // adot(t)
+                double forceMagnitudeDot = (-2*universe.G() * getMass() * body.getMass())/(distance*distance*distance);
+                accelDot = accelDot.add(delta.normalize().multiply(forceMagnitudeDot).multiply(1/getMass()));
             }
         }
-        //System.out.println("TOTAL FORCE: "+force.magnitude());
-        moveWithForce(force,universe.dt());
+        // a(t+dt) = a(t) + adot(t)*dt
+        Point3D a = accel.add(accelDot.multiply(dt));
+        return a;
     }
 
     public void setBodies(List<Body> bodies){
@@ -140,7 +169,9 @@ public abstract class Body extends Sphere implements Callable<Boolean> {
     }
     public void setUniverse(Universe universe){
         this.universe = universe;
+        integrator = IntegratorFactory.getIntegrator(velocity,position,getMass(),universe.dt());
     }
+
 
     /**
      * IMPLEMENTATIONS
