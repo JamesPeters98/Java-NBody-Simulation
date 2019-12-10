@@ -1,12 +1,25 @@
 package com.jamesdpeters.integrators;
 
-import javafx.geometry.Point3D;
+import com.jamesdpeters.integrators.types.EulerIntegratorType;
+import com.jamesdpeters.integrators.types.RK4IntegratorType;
+import com.jamesdpeters.integrators.types.SecondOrderIntegratorType;
 
 public class IntegratorFactory {
 
-    public static Integrator getIntegrator(Point3D initialVelocity, Point3D initialDisplacement, double mass, double dt){
-//        return new RK4Integrator(initialVelocity, initialDisplacement, mass, dt);
-        return new EulerIntegrator(initialVelocity, initialDisplacement, mass, dt);
+    public static Integrator getDefaultIntegrator(){
+        return getRK4Integrator();
+    }
+
+    public static Integrator getEulerIntegrator(){
+        return new Integrator(new EulerIntegratorType());
+    }
+
+    public static Integrator getSecondOrderIntegrator(){
+        return new Integrator(new SecondOrderIntegratorType());
+    }
+
+    public static Integrator getRK4Integrator(){
+        return new Integrator(new RK4IntegratorType());
     }
 
 }

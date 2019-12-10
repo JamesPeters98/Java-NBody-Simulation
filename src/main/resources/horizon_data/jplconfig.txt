@@ -1,0 +1,6 @@
+Ephemeris Type      : 	VECTORS
+Target Body         : 	Earth [Geocenter] [399]
+Coordinate Origin   : 	Sun (body center) [500@10]
+Time Span           : 	Start=2019-10-15, Stop=2022-07-11, Step=1 d
+Table Settings      : 	quantities code=2; output units=KM-S; CSV format=YES; object page=NO
+Display/Output      : 	download/save (plain text file)

@@ -1,6 +1,5 @@
 package com.jamesdpeters;
 
-import com.jamesdpeters.bodies.Earth;
 import javafx.application.Application;
 import javafx.scene.*;
 import javafx.scene.input.KeyCode;
@@ -65,7 +64,7 @@ public class Test extends Application {
         polyLine3D = new PolyLine3D(points,8f, Color.STEELBLUE, PolyLine3D.LineType.RIBBON);
         traject.getChildren().addAll(polyLine3D);
 
-        objects.getChildren().addAll(new Earth());
+        //objects.getChildren().addAll(new Earth());
 
         sceneRoot.getChildren().addAll(objects,traject);
 

@@ -1,4 +1,4 @@
-package com.jamesdpeters;
+package com.jamesdpeters.helpers;
 
 import com.jamesdpeters.bodies.Body;
 import javafx.animation.KeyFrame;
@@ -46,7 +46,7 @@ public class MouseControl {
 
         stage.addEventHandler(KeyEvent.KEY_PRESSED, event -> {
             if(event.getCode() == KeyCode.P){
-                bodies.forEach(body -> System.out.println(body.getName()+" Distance: "+body.getPos().magnitude()));
+                bodies.forEach(body -> System.out.println(body.getName()+" Distance: "+body.getPosition().magnitude()));
             }
 
 

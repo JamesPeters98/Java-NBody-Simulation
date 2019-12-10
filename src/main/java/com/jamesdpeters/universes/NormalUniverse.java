@@ -4,10 +4,8 @@ import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.jamesdpeters.Main;
 import com.jamesdpeters.bodies.Body;
-import com.jamesdpeters.bodies.Earth;
-import com.jamesdpeters.bodies.Mars;
-import com.jamesdpeters.bodies.Sun;
 import com.jamesdpeters.builders.UniverseBuilder;
+import com.jamesdpeters.builders.UniverseBuilderJPL;
 import javafx.stage.Stage;
 
 import java.io.File;
@@ -17,12 +15,13 @@ import java.util.List;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.concurrent.Future;
+import java.util.concurrent.TimeUnit;
 
 public class NormalUniverse extends Universe {
 
     Collection<Body> callables;
     List<Future> futures;
-    UniverseBuilder builder;
+    UniverseBuilderJPL builder;
 
     public NormalUniverse(Stage stage) {
         super(stage);
@@ -31,7 +30,7 @@ public class NormalUniverse extends Universe {
         Gson gson = new GsonBuilder().setPrettyPrinting().create();
         try {
             String jsonFile = Main.class.getResource("/Body.json").getFile();
-            builder = UniverseBuilder.getInstance().fromFile(gson, new File(jsonFile));
+            builder = UniverseBuilderJPL.getInstance().fromFile(gson, new File(jsonFile));
         } catch (Exception e){e.printStackTrace();}
 
         init();
@@ -40,30 +39,6 @@ public class NormalUniverse extends Universe {
     @Override
     protected void loop() {
         bodies.forEach(Body::update);
-//        try {
-//            if (service != null) service.invokeAll(bodies);
-//        } catch (Exception e){ e.printStackTrace();}
-//        System.out.println("Adding to service!");
-//        for(Body body : bodies){
-//            System.out.println(body.getName());
-//        }
-//        try {
-//            for (Body body : bodies) {
-//                if(body != null) futures
-//                        .add(
-//                                service.
-//                                        submit(
-//                                                body));
-//            }
-//        } catch (Exception e){ e.printStackTrace();}
-//        System.out.println("Added Sims!");
-//        boolean finished = false;
-//        while(!finished){
-//            for(Future future : futures){
-//                if(!future.isDone()) continue;
-//            }
-//            finished = true;
-//        }
     }
 
     @Override
@@ -73,7 +48,9 @@ public class NormalUniverse extends Universe {
 //        bodies.add(new Earth());
 //        bodies.add(new Mars());
 //        return bodies;
-        return builder.createBodies();
+        List<Body> bodies = builder.createBodies();
+        //bodies.forEach(body -> System.out.println(body.getJPLPositions().toString()));
+        return bodies;
     }
 
     @Override
@@ -89,5 +66,10 @@ public class NormalUniverse extends Universe {
     @Override
     public double dt() {
         return builder.getDt();
+    }
+
+    @Override
+    public long runningTime() {
+        return TimeUnit.DAYS.toSeconds(3000); // Run for 500 Simulated Days
     }
 }

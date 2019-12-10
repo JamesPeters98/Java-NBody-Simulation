@@ -1,8 +1,11 @@
 package com.jamesdpeters.universes;
 
-import com.jamesdpeters.MouseControl;
-import com.jamesdpeters.Utils;
+import com.jamesdpeters.helpers.DelayTimer;
+import com.jamesdpeters.helpers.MouseControl;
+import com.jamesdpeters.helpers.Utils;
 import com.jamesdpeters.bodies.Body;
+import com.jamesdpeters.json.CSVWriter;
+import com.jamesdpeters.json.Graph;
 import com.sun.javafx.perf.PerformanceTracker;
 import javafx.animation.AnimationTimer;
 import javafx.concurrent.Task;
@@ -22,6 +25,7 @@ import java.util.concurrent.TimeUnit;
 public abstract class Universe {
 
     List<Body> bodies;
+    Body originBody;
     private Stage stage;
     private double events = 0;
     private long cpuTime = 0;
@@ -34,10 +38,11 @@ public abstract class Universe {
     private boolean running = true;
     private PerformanceTracker performanceTracker;
 
-    private Label FPS, EPS, UniverseTime;
+    private Label FPS, EPS, UniverseTime, USPS;
     private double instantEPS;
 
     ExecutorService service;
+    Universe universe;
 
     public Universe(Stage stage){
         this.stage = stage;
@@ -47,6 +52,7 @@ public abstract class Universe {
      *  MUST BE CALLED BEFORE SIMULATION STARTS
      */
     public void init(){
+        universe = this;
         pane = new AnchorPane();
         Group group = new Group();
         Camera camera = new PerspectiveCamera(false);
@@ -70,16 +76,19 @@ public abstract class Universe {
 
         bodies = createBodies();
         for(Body body : bodies){
+            if(body.isOrigin()) originBody = body;
             body.addToGroup(group);
             body.setUniverse(this);
             body.setBodies(bodies);
             body.addLabelToPane(pane);
         }
+        MomentumCorrector.correct(this);
+
         this.service = Executors.newFixedThreadPool(bodies.size());
 
         stage.setTitle(getName());
         stage.setScene(mainScene);
-        stage.show();
+        //stage.show();
         timeline();
         new MouseControl(stage,group,mainScene,bodies,camera);
     }
@@ -110,10 +119,27 @@ public abstract class Universe {
 
                     if(cpuTime > TimeUnit.SECONDS.toNanos(1)){
                         double t = events*dt();
-                        //System.out.println("EPS: "+events+" = "+t+"x");
+                        System.out.println("Universe Time: "+TimeUnit.SECONDS.toDays((long) universeTime)+" Days");
                         instantEPS = events;
                         events = 0;
                         cpuTime = 0;
+                    }
+
+                    if(universeTime >= runningTime()){
+                        running = false;
+                        System.out.println("------------------------");
+                        System.out.println("--Finished Simulation!--");
+                        System.out.println("------------------------");
+                        //Graph.plotTrajectory(universe,1000);
+                        for(Body body : bodies){
+                            Graph.plotBody(body);
+                            try {
+                                CSVWriter.writeBody(body, 1000);
+                            } catch (Exception e){
+                                e.printStackTrace();
+                            }
+                        }
+                        return 0;
                     }
                 }
                 return 0;
@@ -131,7 +157,8 @@ public abstract class Universe {
 
         FPS = Utils.createUILabel(grid,0);
         EPS = Utils.createUILabel(grid, 1);
-        UniverseTime = Utils.createUILabel(grid,2);
+        USPS = Utils.createUILabel(grid, 2);
+        UniverseTime = Utils.createUILabel(grid,3);
 
         pane.getChildren().addAll(grid);
     }
@@ -141,7 +168,9 @@ public abstract class Universe {
     }
     private void setEPS(double eps){
         EPS.setText("EPS: "+Math.round(eps));
+        USPS.setText("USPS: "+Math.round(eps*dt()));
     }
+
     private void setUniverseTime(long seconds){
         UniverseTime.setText("Universe Time: "+TimeUnit.SECONDS.toDays(seconds)+" Days");
     }
@@ -158,8 +187,22 @@ public abstract class Universe {
     public abstract String getName();
     public abstract double G();
     public abstract double dt();
+    public abstract long runningTime();
 
     public void stop(){
         running = false;
+    }
+
+
+    public double getUniverseTime() {
+        return universeTime;
+    }
+
+    public List<Body> getBodies() {
+        return bodies;
+    }
+
+    public Body getOriginBody() {
+        return originBody;
     }
 }

@@ -2,17 +2,65 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="c10789bf-efff-4737-8ba7-343012b8843c" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/jamesdpeters/integrators/IntegratorFactory.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/jamesdpeters/integrators/RK4Integrator.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/jamesdpeters/builders/JPLInfo.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/jamesdpeters/builders/UniverseBuilderJPL.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/jamesdpeters/helpers/DelayTimer.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/jamesdpeters/helpers/LimitedCopyOnWriteArrayList.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/jamesdpeters/helpers/MultiScatter.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/jamesdpeters/integrators/abstracts/AbstractIntegrator.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/jamesdpeters/integrators/abstracts/IntegratorType.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/jamesdpeters/integrators/physics/AccelerationIntegrator.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/jamesdpeters/integrators/physics/PositionIntegrator.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/jamesdpeters/integrators/physics/VelocityIntegrator.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/jamesdpeters/integrators/types/EulerIntegratorType.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/jamesdpeters/integrators/types/RK4IntegratorType.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/jamesdpeters/integrators/types/SecondOrderIntegratorType.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/jamesdpeters/json/CSVWriter.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/jamesdpeters/json/Graph.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/jamesdpeters/json/JPLHorizonsParser.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/jamesdpeters/universes/MomentumCorrector.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/BodyOld.json" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/horizon_data/jplconfig.txt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/log4j.properties" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/compiler.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/compiler.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/pom.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/jamesdpeters/JsonConverter.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/jamesdpeters/json/JsonConverter.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/jamesdpeters/MouseControl.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/jamesdpeters/helpers/MouseControl.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/jamesdpeters/Test.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/jamesdpeters/Test.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/jamesdpeters/Utils.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/jamesdpeters/helpers/Utils.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/jamesdpeters/bodies/Body.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/jamesdpeters/bodies/Body.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/jamesdpeters/interfaces/EulerIntegrator.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/jamesdpeters/integrators/EulerIntegrator.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/jamesdpeters/interfaces/Integrator.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/jamesdpeters/integrators/Integrator.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/jamesdpeters/bodies/Earth.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/jamesdpeters/bodies/Earth.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/jamesdpeters/bodies/Mars.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/jamesdpeters/bodies/Mars.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/jamesdpeters/bodies/Moon.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/jamesdpeters/bodies/Moon.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/jamesdpeters/bodies/Sun.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/jamesdpeters/bodies/Sun.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/jamesdpeters/builders/BodyBuilder.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/jamesdpeters/builders/BodyBuilder.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/jamesdpeters/integrators/EulerIntegrator.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/jamesdpeters/integrators/Integrator.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/jamesdpeters/integrators/Integrator.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/jamesdpeters/integrators/IntegratorFactory.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/jamesdpeters/integrators/IntegratorFactory.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/jamesdpeters/integrators/RK4Integrator.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/jamesdpeters/universes/NormalUniverse.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/jamesdpeters/universes/NormalUniverse.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/jamesdpeters/universes/Universe.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/jamesdpeters/universes/Universe.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/resources/Body.json" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/Body.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/jamesdpeters/MouseControl.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/jamesdpeters/MouseControl.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/jamesdpeters/bodies/Body.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/jamesdpeters/bodies/Body.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/maven-status/maven-compiler-plugin/compile/null/createdFiles.lst" beforeDir="false" afterPath="$PROJECT_DIR$/target/maven-status/maven-compiler-plugin/compile/null/createdFiles.lst" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/maven-status/maven-compiler-plugin/compile/null/inputFiles.lst" beforeDir="false" afterPath="$PROJECT_DIR$/target/maven-status/maven-compiler-plugin/compile/null/inputFiles.lst" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/horizon_data/MARS.csv" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/horizon_data/eart.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/horizon_data/earth.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/horizon_data/moon.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/jamesdpeters/Main.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/jamesdpeters/MouseControl.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/jamesdpeters/Test.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/jamesdpeters/bodies/Body.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/jamesdpeters/bodies/Earth.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/jamesdpeters/bodies/Moon.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/jamesdpeters/universes/NormalUniverse.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/jamesdpeters/universes/Universe$1.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/jamesdpeters/universes/Universe$2.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/jamesdpeters/universes/Universe.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/earth/earth_gebco8_texture_8192x4096.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/earth/earth_normalmap_flat_8192x4096.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/earth/earth_specularmap_flat_8192x4096.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/maven-status/maven-compiler-plugin/compile/null/createdFiles.lst" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/maven-status/maven-compiler-plugin/compile/null/inputFiles.lst" beforeDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -40,13 +88,15 @@
     <property name="project.structure.last.edited" value="Modules" />
     <property name="project.structure.proportion" value="0.0" />
     <property name="project.structure.side.proportion" value="0.0" />
-    <property name="settings.editor.selected.configurable" value="preferences.pluginManager" />
+    <property name="settings.editor.selected.configurable" value="reference.projectsettings.compiler.javacompiler" />
   </component>
   <component name="RecentsManager">
     <key name="CreateClassDialog.RecentsKey">
       <recent name="com.jamesdpeters.interfaces" />
     </key>
     <key name="CopyClassDialog.RECENTS_KEY">
+      <recent name="com.jamesdpeters.builders" />
+      <recent name="com.jamesdpeters.integrators.types" />
       <recent name="com.jamesdpeters.integrators" />
       <recent name="com.jamesdpeters.bodies" />
     </key>
@@ -67,12 +117,38 @@
     </option>
   </component>
   <component name="RunManager" selected="Maven.Run">
-    <configuration name="Json" type="Application" factoryName="Application">
-      <option name="MAIN_CLASS_NAME" value="com.jamesdpeters.JsonConverter" />
+    <configuration name="Graph" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="com.jamesdpeters.json.Graph" />
       <module name="3DTests" />
       <extension name="coverage">
         <pattern>
-          <option name="PATTERN" value="com.jamesdpeters.*" />
+          <option name="PATTERN" value="com.jamesdpeters.json.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="JPLHorizonsParser" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="com.jamesdpeters.json.JPLHorizonsParser" />
+      <module name="3DTests" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="com.jamesdpeters.json.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="Json" type="Application" factoryName="Application">
+      <option name="MAIN_CLASS_NAME" value="com.jamesdpeters.json.JsonConverter" />
+      <module name="3DTests" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="com.jamesdpeters.json.*" />
           <option name="ENABLED" value="true" />
         </pattern>
       </extension>
@@ -82,11 +158,11 @@
       </method>
     </configuration>
     <configuration name="JsonConverter" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
-      <option name="MAIN_CLASS_NAME" value="com.jamesdpeters.JsonConverter" />
+      <option name="MAIN_CLASS_NAME" value="com.jamesdpeters.json.JsonConverter" />
       <module name="3DTests" />
       <extension name="coverage">
         <pattern>
-          <option name="PATTERN" value="com.jamesdpeters.*" />
+          <option name="PATTERN" value="com.jamesdpeters.json.*" />
           <option name="ENABLED" value="true" />
         </pattern>
       </extension>
@@ -99,13 +175,26 @@
       <module name="3DTests" />
       <extension name="coverage">
         <pattern>
-          <option name="PATTERN" value="com.jamesdpeters.*" />
+          <option name="PATTERN" value="com.jamesdpeters.json.*" />
           <option name="ENABLED" value="true" />
         </pattern>
       </extension>
       <method v="2">
         <option name="Maven.BeforeRunTask" enabled="true" file="$PROJECT_DIR$/pom.xml" goal="clean:clean" />
         <option name="Maven.BeforeRunTask" enabled="true" file="$PROJECT_DIR$/pom.xml" goal="javafx:compile" />
+      </method>
+    </configuration>
+    <configuration name="Test2" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="com.jamesdpeters.Test2" />
+      <module name="3DTests" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="com.jamesdpeters.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <method v="2">
+        <option name="Make" enabled="true" />
       </method>
     </configuration>
     <configuration name="Run" type="MavenRunConfiguration" factoryName="Maven">
@@ -138,12 +227,18 @@
       <item itemvalue="Application.Json" />
       <item itemvalue="Application.Main" />
       <item itemvalue="Application.JsonConverter" />
+      <item itemvalue="Application.Test2" />
       <item itemvalue="Maven.Run" />
+      <item itemvalue="Application.JPLHorizonsParser" />
+      <item itemvalue="Application.Graph" />
     </list>
     <recent_temporary>
       <list>
-        <item itemvalue="Application.JsonConverter" />
+        <item itemvalue="Application.Graph" />
         <item itemvalue="Application.Main" />
+        <item itemvalue="Application.JsonConverter" />
+        <item itemvalue="Application.JPLHorizonsParser" />
+        <item itemvalue="Application.Test2" />
       </list>
     </recent_temporary>
   </component>
@@ -167,7 +262,12 @@
       <workItem from="1573041833010" duration="3854000" />
       <workItem from="1573246415195" duration="765000" />
       <workItem from="1573658129455" duration="8618000" />
-      <workItem from="1575200270958" duration="21238000" />
+      <workItem from="1575200270958" duration="27207000" />
+      <workItem from="1575572629597" duration="25860000" />
+      <workItem from="1575634171241" duration="23018000" />
+      <workItem from="1575729656308" duration="8005000" />
+      <workItem from="1575849727366" duration="8277000" />
+      <workItem from="1575905733242" duration="33437000" />
     </task>
     <servers />
   </component>

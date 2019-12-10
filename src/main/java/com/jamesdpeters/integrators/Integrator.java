@@ -1,32 +1,29 @@
 package com.jamesdpeters.integrators;
 
 import com.jamesdpeters.bodies.Body;
+import com.jamesdpeters.integrators.abstracts.IntegratorType;
+import com.jamesdpeters.integrators.physics.PositionIntegrator;
+import com.jamesdpeters.integrators.physics.VelocityIntegrator;
 import javafx.geometry.Point3D;
 
-import java.util.List;
+public class Integrator {
 
-public abstract class Integrator {
+    private PositionIntegrator positionIntegrator;
+    private VelocityIntegrator velocityIntegrator;
+    private IntegratorType integratorType;
 
-    Point3D velocity;
-    Point3D position;
-    double mass;
-    double dt;
-    double time; // Keep track of time.
-
-    public Integrator(Point3D initialVelocity, Point3D initialPosition, double mass, double dt){
-        this.velocity = initialVelocity;
-        this.position = initialPosition;
-        this.mass = mass;
-        this.dt = dt;
+    public Integrator(IntegratorType integratorType){
+        this.integratorType = integratorType;
+        positionIntegrator = new PositionIntegrator(integratorType);
+        velocityIntegrator = new VelocityIntegrator(integratorType);
     }
 
-    public abstract void step(Body body);
-
-    public Point3D getVelocity() {
-        return velocity;
+    public void step(Body body){
+        body.setPosition(positionIntegrator.step(body,body.getUniverse().dt()).multiply(0.001));
+        body.setVelocity(velocityIntegrator.step(body,body.getUniverse().dt()));
     }
 
-    public Point3D getPosition() {
-        return position;
+    public IntegratorType getIntegratorType() {
+        return integratorType;
     }
 }
