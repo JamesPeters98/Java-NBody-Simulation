@@ -1,6 +1,7 @@
 package com.jamesdpeters.json;
 
 import com.jamesdpeters.bodies.Body;
+import com.jamesdpeters.universes.Universe;
 import javafx.geometry.Point3D;
 
 import java.io.FileWriter;
@@ -25,7 +26,7 @@ public class CSVWriter {
         // first some general information about the histogram
         outputFile.println("dt, " + body.getUniverse().dt());
         outputFile.println("universe, " + body.getUniverse().getName());
-        outputFile.println("G, " + body.getUniverse().G());
+        outputFile.println("GM, " + body.getGM());
         outputFile.println("Body Name, " + body.getName());
         outputFile.println("Initial Pos X, " + body.getInitialPosition().getX());
         outputFile.println("Initial Pos Y, " + body.getInitialPosition().getY());
@@ -54,5 +55,30 @@ public class CSVWriter {
 
         outputFile.close(); // close the output file
         System.out.println("Written CSV Data for: "+body.getName());
+    }
+
+    public static void writeEnergyShift(Universe universe) throws IOException {
+        Path path = Paths.get("outputs/"+universe.getName()+"-"+universe.dt()+".csv");
+        Files.createDirectories(path.getParent());
+        FileWriter file = new FileWriter(String.valueOf(path));     // this creates the file with the given name
+        PrintWriter outputFile = new PrintWriter(file); // this sends the output to file1
+
+        double initEnergy = universe.energyShift.get(0.0);
+
+        // Write the file as a comma seperated file (.csv) so it can be read it into EXCEL
+        // first some general information about the histogram
+        outputFile.println("dt, " + universe.dt());
+        outputFile.println("universe, " + universe.getName());
+        outputFile.println("initial Energy (J), "+ initEnergy);
+
+        outputFile.println(",");
+        outputFile.println("time, energy change (J)");
+
+        universe.energyShift.forEach((time, energy) -> {
+            outputFile.println(time+","+(initEnergy-energy));
+        });
+
+        outputFile.close(); // close the output file
+        System.out.println("Written CSV Data for: Energy Shift");
     }
 }

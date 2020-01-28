@@ -51,7 +51,7 @@ public class JsonConverter {
                 String Universe = UniverseBuilderJPL.getInstance()
                 .setName("Universe")
                 .setDt(0.1)
-                .setG(6.67e-11)
+                //.setG(6.67e-11)
                         .addBodyInfo(info)
                         .addBodyInfo(info)
                 .serialise(gson);

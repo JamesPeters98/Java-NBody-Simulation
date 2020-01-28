@@ -100,6 +100,7 @@ public class Graph {
         List<Number> x = new ArrayList<>();
         List<Number> y = new ArrayList<>();
         List<Number> z = new ArrayList<>();
+        List<Number> mag = new ArrayList<>();
 
         int res = 1000;
         final int[] point = {res};
@@ -107,10 +108,12 @@ public class Graph {
             if(point[0] >= res) {
                 Point3D originPoint = origin.positions.get(t);
                 point3D = point3D.subtract(originPoint);
+
                 time.add(t);
                 x.add(point3D.getX());
                 y.add(point3D.getY());
                 z.add(point3D.getZ());
+                mag.add(point3D.magnitude());
                 point[0] = 0;
             }
             point[0]++;
@@ -121,12 +124,18 @@ public class Graph {
         List<Number> xJPL = new ArrayList<>();
         List<Number> yJPL = new ArrayList<>();
         List<Number> zJPL = new ArrayList<>();
+        List<Number> magJPL = new ArrayList<>();
 
         body.getJPLPositions().forEach((t, point3D) -> {
+                Double simKey = body.positions.floorKey(Double.valueOf(t));
+                Point3D simPoint = body.positions.get(simKey);
+                //System.out.println(simPoint);
                 timeJPL.add(TimeUnit.DAYS.toSeconds(t));
+                //point3D = point3D.subtract(simPoint);
                 xJPL.add(point3D.getX());
                 yJPL.add(point3D.getY());
                 zJPL.add(point3D.getZ());
+                magJPL.add(point3D.magnitude());
         });
 
         Plot plt = getPlot();
@@ -141,6 +150,10 @@ public class Graph {
         plt.subplot(2,2,3);
         plotData(plt,time,z,"Z Simulated","blue");
         plotData(plt,timeJPL,zJPL,"Z JPL","red");
+
+        plt.subplot(2,2,4);
+        plotData(plt,time,z,"R Simulated","blue");
+        plotData(plt,timeJPL,zJPL,"R JPL","red");
 
         plt.title(body.getName());
 

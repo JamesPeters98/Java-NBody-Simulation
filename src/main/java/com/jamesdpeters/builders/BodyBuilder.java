@@ -10,7 +10,7 @@ public class BodyBuilder {
 
     private String name;
     private Point3D initPos, initVelocity;
-    private double mass, radius;
+    private double mass, radius, GM;
     private HashMap<Long,Point3D> JPLpositions, JPLvelocities;
     private boolean isOrigin = false;
 
@@ -60,6 +60,11 @@ public class BodyBuilder {
         return this;
     }
 
+    public BodyBuilder setGM(double GM) {
+        this.GM = GM;
+        return this;
+    }
+
     public Body create(){
         return new Body() {
             @Override
@@ -80,6 +85,11 @@ public class BodyBuilder {
             @Override
             public double getMass() {
                 return mass;
+            }
+
+            @Override
+            public double getGM() {
+                return GM;
             }
 
             @Override

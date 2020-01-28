@@ -30,7 +30,7 @@
  
  
 *******************************************************************************
-Ephemeris / WWW_USER Tue Dec 10 08:26:26 2019 Pasadena, USA      / Horizons    
+Ephemeris / WWW_USER Tue Dec 10 06:46:21 2019 Pasadena, USA      / Horizons    
 *******************************************************************************
 Target body name: Earth (399)                     {source: DE431mx}
 Center body name: Sun (10)                        {source: DE431mx}

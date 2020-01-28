@@ -9,6 +9,7 @@ import com.jamesdpeters.json.Graph;
 import com.sun.javafx.perf.PerformanceTracker;
 import javafx.animation.AnimationTimer;
 import javafx.concurrent.Task;
+import javafx.geometry.Point3D;
 import javafx.geometry.Pos;
 import javafx.scene.*;
 import javafx.scene.control.Label;
@@ -17,7 +18,9 @@ import javafx.scene.layout.GridPane;
 import javafx.scene.paint.Color;
 import javafx.stage.Stage;
 
+import java.io.IOException;
 import java.util.List;
+import java.util.TreeMap;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.concurrent.TimeUnit;
@@ -31,6 +34,7 @@ public abstract class Universe {
     private long cpuTime = 0;
     private long lastTime = 0;
     private double universeTime = 0;
+    public transient TreeMap<Double, Double> energyShift;
 
     private static final int WIDTH = 1800;
     private static final int HEIGHT = 900;
@@ -46,6 +50,7 @@ public abstract class Universe {
 
     public Universe(Stage stage){
         this.stage = stage;
+        energyShift = new TreeMap<>();
     }
 
     /**
@@ -83,6 +88,7 @@ public abstract class Universe {
             body.addLabelToPane(pane);
         }
         MomentumCorrector.correct(this);
+        energyShift.put(0.0,getTotalEnergy());
 
         this.service = Executors.newFixedThreadPool(bodies.size());
 
@@ -120,9 +126,15 @@ public abstract class Universe {
                     if(cpuTime > TimeUnit.SECONDS.toNanos(1)){
                         double t = events*dt();
                         System.out.println("Universe Time: "+TimeUnit.SECONDS.toDays((long) universeTime)+" Days");
+                        //System.out.println("Universe Total Energy: "+getTotalEnergy()+" (J)");
                         instantEPS = events;
                         events = 0;
                         cpuTime = 0;
+                    }
+
+                    // Every 1000 timesteps
+                    if(universeTime % (5000*dt()) == 0){
+                        energyShift.put(universeTime,getTotalEnergy());
                     }
 
                     if(universeTime >= runningTime()){
@@ -130,14 +142,19 @@ public abstract class Universe {
                         System.out.println("------------------------");
                         System.out.println("--Finished Simulation!--");
                         System.out.println("------------------------");
-                        //Graph.plotTrajectory(universe,1000);
+                        Graph.plotTrajectory(universe,500);
                         for(Body body : bodies){
                             Graph.plotBody(body);
                             try {
-                                CSVWriter.writeBody(body, 1000);
+                                CSVWriter.writeBody(body, 500);
                             } catch (Exception e){
                                 e.printStackTrace();
                             }
+                        }
+                        try {
+                            CSVWriter.writeEnergyShift(universe);
+                        }  catch (IOException e){
+                            e.printStackTrace();
                         }
                         return 0;
                     }
@@ -175,6 +192,10 @@ public abstract class Universe {
         UniverseTime.setText("Universe Time: "+TimeUnit.SECONDS.toDays(seconds)+" Days");
     }
 
+    private double getTotalEnergy(){
+        return bodies.stream().mapToDouble(Body::getEnergy).sum();
+    }
+
     /**
      * Called every tick!
      */
@@ -185,7 +206,7 @@ public abstract class Universe {
      */
     public abstract List<Body> createBodies();
     public abstract String getName();
-    public abstract double G();
+    //public abstract double G();
     public abstract double dt();
     public abstract long runningTime();
 

@@ -1,17 +1,12 @@
 package com.jamesdpeters.bodies;
 
-import com.jamesdpeters.builders.JPLInfo;
-import com.jamesdpeters.helpers.DelayTimer;
 import com.jamesdpeters.helpers.LimitedCopyOnWriteArrayList;
 import com.jamesdpeters.helpers.Utils;
 import com.jamesdpeters.integrators.Integrator;
 import com.jamesdpeters.integrators.IntegratorFactory;
-import com.jamesdpeters.json.CSVWriter;
-import com.jamesdpeters.json.Graph;
 import com.jamesdpeters.universes.Universe;
 import com.sun.javafx.scene.CameraHelper;
 import com.sun.javafx.scene.NodeHelper;
-import com.sun.javafx.scene.SceneHelper;
 import com.sun.javafx.scene.SceneUtils;
 import javafx.geometry.Point2D;
 import javafx.geometry.Point3D;
@@ -26,10 +21,9 @@ import javafx.scene.shape.Cylinder;
 import javafx.scene.shape.Polyline;
 import javafx.scene.shape.Sphere;
 
-import java.io.IOException;
 import java.util.*;
 import java.util.concurrent.Callable;
-import java.util.concurrent.TimeUnit;
+import java.util.concurrent.atomic.AtomicReference;
 
 public abstract class Body extends Sphere implements Callable<Boolean> {
 
@@ -45,10 +39,10 @@ public abstract class Body extends Sphere implements Callable<Boolean> {
 
 
     // BODIES PROPERTIES
-    private transient Point3D velocity; //Velocity in Metres per second (m/s)
-    private transient Point3D position; //Position in Kilometers (Km)
+    private transient Point3D velocity, nextVelocity; //Velocity in Metres per second (m/s)
+    private transient Point3D position, nextPos; //Position in Kilometers (Km)
 
-    public transient LinkedHashMap<Double,Point3D>  positions;   // Store history of positions. Key - time.
+    public transient TreeMap<Double,Point3D>  positions;   // Store history of positions. Key - time.
 
     private transient List<Body> bodies;    //List of bodies to interact with.
     private transient Universe universe;    //Universe this Body belongs too.
@@ -81,38 +75,38 @@ public abstract class Body extends Sphere implements Callable<Boolean> {
         position = getInitialPosition();
         velocity = getInitialVelocity();
 
-        positions = new LinkedHashMap<>();
+        positions = new TreeMap<>();
         clearPaths();
 
         bodyLabel = Utils.createUILabel();
         bodyLabel.setText(getName());
 
         //Timer to poll body position and add point to trail!
-        DelayTimer delayTimer = new DelayTimer(500) {
-            @Override
-            public void torun() {
-                addTrail();
-            }
-        };
-        delayTimer.getThread().start();
+//        DelayTimer delayTimer = new DelayTimer(500) {
+//            @Override
+//            public void torun() {
+//                addTrail();
+//            }
+//        };
+//        delayTimer.getThread().start();
     }
 
 
     public void drawPosition(){
-        camera = SceneHelper.getEffectiveCamera(getScene());
-        setTranslateX(position.getX());
-        setTranslateY(position.getY());
-        setTranslateZ(position.getZ());
-
-        updateTrail();
-
-        try {
-            Point3D pos2D = localToScene(Point3D.ZERO, true);
-            bodyLabel.setTranslateX(pos2D.getX());
-            bodyLabel.setTranslateY(pos2D.getY());
-        } catch (InternalError e){
-            // Internal error? JavaFX 12 bug likely...
-        }
+//        camera = SceneHelper.getEffectiveCamera(getScene());
+//        setTranslateX(position.getX());
+//        setTranslateY(position.getY());
+//        setTranslateZ(position.getZ());
+//
+//        updateTrail();
+//
+//        try {
+//            Point3D pos2D = localToScene(Point3D.ZERO, true);
+//            bodyLabel.setTranslateX(pos2D.getX());
+//            bodyLabel.setTranslateY(pos2D.getY());
+//        } catch (InternalError e){
+//            // Internal error? JavaFX 12 bug likely...
+//        }
     }
 
     public void addToGroup(Group group){
@@ -124,6 +118,22 @@ public abstract class Body extends Sphere implements Callable<Boolean> {
         this.pane = pane;
         pane.getChildren().addAll(bodyLabel);
         pane.getChildren().addAll(line);
+    }
+
+    public double getEnergy(){
+        return kinteticEnergy()+potentialEnergy();
+    }
+
+    private double kinteticEnergy(){
+        return 0.5*getMass()*getVelocity().magnitude();
+    }
+
+    private double potentialEnergy(){
+        return bodies.stream().filter(body -> body != this).mapToDouble(body -> -getGM() * (body.getMass() / distTo(body).magnitude())).sum();
+    }
+
+    public Point3D distTo(Body body){
+        return body.position.subtract(position);
     }
 
     /**
@@ -146,6 +156,14 @@ public abstract class Body extends Sphere implements Callable<Boolean> {
             }
     }
 
+    /**
+     * Call this after all bodies have been updated.
+     */
+    public void postUpdate(){
+       velocity = nextVelocity;
+       position = nextPos;
+    }
+
     public void setBodies(List<Body> bodies){
         this.bodies = bodies;
     }
@@ -163,6 +181,7 @@ public abstract class Body extends Sphere implements Callable<Boolean> {
     public abstract Point3D getInitialVelocity();
     public abstract String getName();
     public abstract double getMass();
+    public abstract double getGM();
     public abstract double getBodyRadius();
     public abstract HashMap<Long,Point3D> getJPLPositions();
     public abstract HashMap<Long,Point3D> getJPLVelocities();
@@ -240,6 +259,15 @@ public abstract class Body extends Sphere implements Callable<Boolean> {
 
     public void addVelocity(Point3D velocity){
         this.velocity.add(velocity);
+    }
+
+    // Set velocity to be updated after the integrator has made all steps.
+    public void setNextPosition(Point3D position){
+        this.nextPos = position;
+    }
+
+    public void setNextVelocity(Point3D velo){
+        this.nextVelocity = velo;
     }
 
 }

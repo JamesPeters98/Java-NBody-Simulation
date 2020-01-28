@@ -19,8 +19,8 @@ public class Integrator {
     }
 
     public void step(Body body){
-        body.setPosition(positionIntegrator.step(body,body.getUniverse().dt()).multiply(0.001));
-        body.setVelocity(velocityIntegrator.step(body,body.getUniverse().dt()));
+        body.setNextPosition(positionIntegrator.step(body,body.getUniverse().dt()).multiply(0.001));
+        body.setNextVelocity(velocityIntegrator.step(body,body.getUniverse().dt()));
     }
 
     public IntegratorType getIntegratorType() {

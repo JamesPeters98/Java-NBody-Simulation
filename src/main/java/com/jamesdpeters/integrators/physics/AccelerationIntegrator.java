@@ -19,7 +19,7 @@ public class AccelerationIntegrator extends AbstractIntegrator {
                     Point3D delta = body2.getPosition().subtract(body.getPosition()).add(dx);
                     double distance = delta.magnitude() * 1000;
                     // a(t)
-                    double forceMagnitude = (body2.getUniverse().G() * body.getMass() * body2.getMass()) / (distance * distance);
+                    double forceMagnitude = ((body.getGM()*1000000000) * body2.getMass()) / (distance * distance);
                     accel = accel.add(delta.normalize().multiply(forceMagnitude).multiply(1 / body.getMass()));
                 }
             }
@@ -34,7 +34,7 @@ public class AccelerationIntegrator extends AbstractIntegrator {
                 Point3D delta = body2.getPosition().subtract(body.getPosition()).add(dx);
                 double distance = delta.magnitude() * 1000;
                 // a(t)
-                double forceMagnitudeDot = (-2*body.getUniverse().G() * body2.getMass() * body.getMass())/(distance*distance*distance);
+                double forceMagnitudeDot = (-2* body2.getMass() * (body.getGM()*1000000000))/(distance*distance*distance);
                 accelDot = accelDot.add(delta.normalize().multiply(forceMagnitudeDot).multiply(1 / body.getMass()));
             }
         }

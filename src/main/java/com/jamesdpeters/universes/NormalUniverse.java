@@ -38,7 +38,8 @@ public class NormalUniverse extends Universe {
 
     @Override
     protected void loop() {
-        bodies.forEach(Body::update);
+        bodies.forEach(Body::update); // Step each body doesn't update their actual positions.
+        bodies.forEach(Body::postUpdate); // Updates all bodies to new position using the step.
     }
 
     @Override
@@ -58,10 +59,10 @@ public class NormalUniverse extends Universe {
         return builder.getName();
     }
 
-    @Override
-    public double G() {
-        return builder.getG();
-    }
+//    @Override
+//    public double G() {
+//        return builder.getG();
+//    }
 
     @Override
     public double dt() {
@@ -70,6 +71,6 @@ public class NormalUniverse extends Universe {
 
     @Override
     public long runningTime() {
-        return TimeUnit.DAYS.toSeconds(3000); // Run for 500 Simulated Days
+        return TimeUnit.DAYS.toSeconds(365*5); // Run for 500 Simulated Days
     }
 }

@@ -1,0 +1,63 @@
+{
+  "name": "Universe",
+  "dt": 5000,
+  "JPLInfo": [
+    {
+      "name": "Earth",
+      "filename": "horizon_data/earth.txt",
+      "mass": 5.97219E24,
+      "radius": 6371.01,
+      "GM": 398600.435436
+    },
+    {
+      "name": "Moon",
+      "filename": "horizon_data/moon.txt",
+      "mass": 7.349E22,
+      "radius": 1737.53,
+      "GM": 4902.800066
+    },
+    {
+      "name": "Mars",
+      "filename": "horizon_data/mars.txt",
+      "mass": 6.4171E23,
+      "radius": 3389.92,
+      "GM": 42828.375214
+    },
+    {
+      "name": "Venus",
+      "filename": "horizon_data/venus.txt",
+      "mass": 48.685E23,
+      "radius": 6051.84,
+      "GM": 324858.592
+    },
+    {
+      "name": "Jupiter",
+      "filename": "horizon_data/jupiter.txt",
+      "mass": 1898.13E24,
+      "radius": 69911,
+      "GM": 126686534.911
+    },
+    {
+      "name": "Saturn",
+      "filename": "horizon_data/saturn.txt",
+      "mass": 5.6834E26,
+      "radius": 58232,
+      "GM": 37931206.159
+    },
+    {
+      "name": "Mercury",
+      "filename": "horizon_data/mercury.txt",
+      "mass": 3.302E23,
+      "radius": 2440,
+      "GM": 22031.78
+    },
+    {
+      "name": "Sun",
+      "filename": "horizon_data/sun.txt",
+      "mass": 1988500E24,
+      "radius": 695700.0,
+      "GM": 132712440041.93938,
+      "originBody": true
+    }
+  ]
+}

@@ -121,6 +121,14 @@ public class MultiScatter extends AbstractDrawable implements ISingleColorable {
                 bbox.add(c);
             }
         }
+        bbox.setXmax(Math.max(bbox.getXmax(),bbox.getYmax()));
+        bbox.setXmin(Math.min(bbox.getXmin(),bbox.getYmin()));
+
+        bbox.setYmax(Math.max(bbox.getXmax(),bbox.getYmax()));
+        bbox.setYmin(Math.min(bbox.getXmin(),bbox.getYmin()));
+
+        bbox.setZmax(bbox.getXmax());
+        bbox.setZmin(bbox.getXmin());
     }
 
     public List<List<Coord3d>> getData() {

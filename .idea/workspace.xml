@@ -2,65 +2,59 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="c10789bf-efff-4737-8ba7-343012b8843c" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/jamesdpeters/builders/JPLInfo.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/jamesdpeters/builders/UniverseBuilderJPL.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/jamesdpeters/helpers/DelayTimer.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/jamesdpeters/helpers/LimitedCopyOnWriteArrayList.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/jamesdpeters/helpers/MultiScatter.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/jamesdpeters/integrators/abstracts/AbstractIntegrator.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/jamesdpeters/integrators/abstracts/IntegratorType.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/jamesdpeters/integrators/physics/AccelerationIntegrator.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/jamesdpeters/integrators/physics/PositionIntegrator.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/jamesdpeters/integrators/physics/VelocityIntegrator.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/jamesdpeters/integrators/types/EulerIntegratorType.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/jamesdpeters/integrators/types/RK4IntegratorType.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/jamesdpeters/integrators/types/SecondOrderIntegratorType.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/jamesdpeters/json/CSVWriter.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/jamesdpeters/json/Graph.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/jamesdpeters/json/JPLHorizonsParser.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/jamesdpeters/universes/MomentumCorrector.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/BodyOld.json" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/horizon_data/jplconfig.txt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/log4j.properties" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/compiler.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/compiler.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.mvn/jvm.config" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/BodyAll.json" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/pom.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/jamesdpeters/JsonConverter.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/jamesdpeters/json/JsonConverter.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/jamesdpeters/MouseControl.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/jamesdpeters/helpers/MouseControl.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/jamesdpeters/Test.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/jamesdpeters/Test.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/jamesdpeters/Utils.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/jamesdpeters/helpers/Utils.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/outputs/Euler/Earth/Earth_data_10.0.csv" beforeDir="false" afterPath="$PROJECT_DIR$/outputs/Euler/Earth/Earth_data_10.0.csv" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/outputs/Euler/Earth/Earth_data_100.0.csv" beforeDir="false" afterPath="$PROJECT_DIR$/outputs/Euler/Earth/Earth_data_100.0.csv" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/outputs/Euler/Mars/Mars_data_10.0.csv" beforeDir="false" afterPath="$PROJECT_DIR$/outputs/Euler/Mars/Mars_data_10.0.csv" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/outputs/Euler/Mars/Mars_data_100.0.csv" beforeDir="false" afterPath="$PROJECT_DIR$/outputs/Euler/Mars/Mars_data_100.0.csv" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/outputs/Euler/Moon/Moon_data_10.0.csv" beforeDir="false" afterPath="$PROJECT_DIR$/outputs/Euler/Moon/Moon_data_10.0.csv" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/outputs/Euler/Moon/Moon_data_100.0.csv" beforeDir="false" afterPath="$PROJECT_DIR$/outputs/Euler/Moon/Moon_data_100.0.csv" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/outputs/Euler/Sun/Sun_data_10.0.csv" beforeDir="false" afterPath="$PROJECT_DIR$/outputs/Euler/Sun/Sun_data_10.0.csv" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/outputs/Euler/Sun/Sun_data_100.0.csv" beforeDir="false" afterPath="$PROJECT_DIR$/outputs/Euler/Sun/Sun_data_100.0.csv" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/outputs/RK4/Earth/Earth_data_10.0.csv" beforeDir="false" afterPath="$PROJECT_DIR$/outputs/RK4/Earth/Earth_data_10.0.csv" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/outputs/RK4/Earth/Earth_data_100.0.csv" beforeDir="false" afterPath="$PROJECT_DIR$/outputs/RK4/Earth/Earth_data_100.0.csv" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/outputs/RK4/Earth/Earth_data_25.0.csv" beforeDir="false" afterPath="$PROJECT_DIR$/outputs/RK4/Earth/Earth_data_25.0.csv" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/outputs/RK4/Earth/Earth_data_50.0.csv" beforeDir="false" afterPath="$PROJECT_DIR$/outputs/RK4/Earth/Earth_data_50.0.csv" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/outputs/RK4/Mars/Mars_data_10.0.csv" beforeDir="false" afterPath="$PROJECT_DIR$/outputs/RK4/Mars/Mars_data_10.0.csv" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/outputs/RK4/Mars/Mars_data_100.0.csv" beforeDir="false" afterPath="$PROJECT_DIR$/outputs/RK4/Mars/Mars_data_100.0.csv" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/outputs/RK4/Mars/Mars_data_25.0.csv" beforeDir="false" afterPath="$PROJECT_DIR$/outputs/RK4/Mars/Mars_data_25.0.csv" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/outputs/RK4/Mars/Mars_data_50.0.csv" beforeDir="false" afterPath="$PROJECT_DIR$/outputs/RK4/Mars/Mars_data_50.0.csv" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/outputs/RK4/Moon/Moon_data_10.0.csv" beforeDir="false" afterPath="$PROJECT_DIR$/outputs/RK4/Moon/Moon_data_10.0.csv" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/outputs/RK4/Moon/Moon_data_100.0.csv" beforeDir="false" afterPath="$PROJECT_DIR$/outputs/RK4/Moon/Moon_data_100.0.csv" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/outputs/RK4/Moon/Moon_data_25.0.csv" beforeDir="false" afterPath="$PROJECT_DIR$/outputs/RK4/Moon/Moon_data_25.0.csv" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/outputs/RK4/Moon/Moon_data_50.0.csv" beforeDir="false" afterPath="$PROJECT_DIR$/outputs/RK4/Moon/Moon_data_50.0.csv" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/outputs/RK4/Sun/Sun_data_10.0.csv" beforeDir="false" afterPath="$PROJECT_DIR$/outputs/RK4/Sun/Sun_data_10.0.csv" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/outputs/RK4/Sun/Sun_data_100.0.csv" beforeDir="false" afterPath="$PROJECT_DIR$/outputs/RK4/Sun/Sun_data_100.0.csv" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/outputs/RK4/Sun/Sun_data_25.0.csv" beforeDir="false" afterPath="$PROJECT_DIR$/outputs/RK4/Sun/Sun_data_25.0.csv" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/outputs/RK4/Sun/Sun_data_50.0.csv" beforeDir="false" afterPath="$PROJECT_DIR$/outputs/RK4/Sun/Sun_data_50.0.csv" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/jamesdpeters/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/jamesdpeters/Main.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/jamesdpeters/bodies/Body.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/jamesdpeters/bodies/Body.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/jamesdpeters/bodies/Earth.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/jamesdpeters/bodies/Earth.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/jamesdpeters/bodies/Mars.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/jamesdpeters/bodies/Mars.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/jamesdpeters/bodies/Moon.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/jamesdpeters/bodies/Moon.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/jamesdpeters/bodies/Sun.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/jamesdpeters/bodies/Sun.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/jamesdpeters/builders/BodyBuilder.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/jamesdpeters/builders/BodyBuilder.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/jamesdpeters/integrators/EulerIntegrator.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/jamesdpeters/builders/JPLInfo.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/jamesdpeters/builders/JPLInfo.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/jamesdpeters/builders/UniverseBuilderJPL.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/jamesdpeters/builders/UniverseBuilderJPL.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/jamesdpeters/helpers/MultiScatter.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/jamesdpeters/helpers/MultiScatter.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/jamesdpeters/integrators/Integrator.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/jamesdpeters/integrators/Integrator.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/jamesdpeters/integrators/IntegratorFactory.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/jamesdpeters/integrators/IntegratorFactory.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/jamesdpeters/integrators/RK4Integrator.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/jamesdpeters/integrators/physics/AccelerationIntegrator.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/jamesdpeters/integrators/physics/AccelerationIntegrator.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/jamesdpeters/json/CSVWriter.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/jamesdpeters/json/CSVWriter.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/jamesdpeters/json/Graph.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/jamesdpeters/json/Graph.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/jamesdpeters/json/JsonConverter.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/jamesdpeters/json/JsonConverter.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/jamesdpeters/universes/NormalUniverse.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/jamesdpeters/universes/NormalUniverse.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/jamesdpeters/universes/Universe.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/jamesdpeters/universes/Universe.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/resources/Body.json" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/Body.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/horizon_data/MARS.csv" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/horizon_data/eart.txt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/horizon_data/earth.txt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/horizon_data/moon.txt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/jamesdpeters/Main.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/jamesdpeters/MouseControl.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/jamesdpeters/Test.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/jamesdpeters/bodies/Body.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/jamesdpeters/bodies/Earth.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/jamesdpeters/bodies/Moon.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/jamesdpeters/universes/NormalUniverse.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/jamesdpeters/universes/Universe$1.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/jamesdpeters/universes/Universe$2.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/jamesdpeters/universes/Universe.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/earth/earth_gebco8_texture_8192x4096.jpg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/earth/earth_normalmap_flat_8192x4096.jpg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/earth/earth_specularmap_flat_8192x4096.jpg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/maven-status/maven-compiler-plugin/compile/null/createdFiles.lst" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/maven-status/maven-compiler-plugin/compile/null/inputFiles.lst" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/horizon_data/earth.txt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/horizon_data/earth.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/horizon_data/mars.txt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/horizon_data/mars.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/horizon_data/moon.txt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/horizon_data/moon.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/horizon_data/sun.txt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/horizon_data/sun.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/jamesdpeters/Main.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/jamesdpeters/Main.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/jamesdpeters/bodies/Body.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/jamesdpeters/bodies/Body.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/jamesdpeters/universes/NormalUniverse.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/jamesdpeters/universes/NormalUniverse.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/jamesdpeters/universes/Universe$1.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/jamesdpeters/universes/Universe$1.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/jamesdpeters/universes/Universe$2.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/jamesdpeters/universes/Universe$2.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/jamesdpeters/universes/Universe.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/jamesdpeters/universes/Universe.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/maven-status/maven-compiler-plugin/compile/null/createdFiles.lst" beforeDir="false" afterPath="$PROJECT_DIR$/target/maven-status/maven-compiler-plugin/compile/null/createdFiles.lst" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -88,11 +82,11 @@
     <property name="project.structure.last.edited" value="Modules" />
     <property name="project.structure.proportion" value="0.0" />
     <property name="project.structure.side.proportion" value="0.0" />
-    <property name="settings.editor.selected.configurable" value="reference.projectsettings.compiler.javacompiler" />
+    <property name="settings.editor.selected.configurable" value="preferences.pluginManager" />
   </component>
   <component name="RecentsManager">
-    <key name="CreateClassDialog.RecentsKey">
-      <recent name="com.jamesdpeters.interfaces" />
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="C:\Users\James\Documents\GitHub\Java-NBody-Simulation\src\main\resources" />
     </key>
     <key name="CopyClassDialog.RECENTS_KEY">
       <recent name="com.jamesdpeters.builders" />
@@ -100,8 +94,8 @@
       <recent name="com.jamesdpeters.integrators" />
       <recent name="com.jamesdpeters.bodies" />
     </key>
-    <key name="CopyFile.RECENT_KEYS">
-      <recent name="C:\Users\James\Documents\GitHub\Java-NBody-Simulation\src\main\resources" />
+    <key name="CreateClassDialog.RecentsKey">
+      <recent name="com.jamesdpeters.interfaces" />
     </key>
   </component>
   <component name="RunDashboard">
@@ -116,7 +110,7 @@
       </list>
     </option>
   </component>
-  <component name="RunManager" selected="Maven.Run">
+  <component name="RunManager" selected="Maven.3DTests [javafx:run]">
     <configuration name="Graph" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
       <option name="MAIN_CLASS_NAME" value="com.jamesdpeters.json.Graph" />
       <module name="3DTests" />
@@ -184,23 +178,50 @@
         <option name="Maven.BeforeRunTask" enabled="true" file="$PROJECT_DIR$/pom.xml" goal="javafx:compile" />
       </method>
     </configuration>
-    <configuration name="Test2" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
-      <option name="MAIN_CLASS_NAME" value="com.jamesdpeters.Test2" />
-      <module name="3DTests" />
-      <extension name="coverage">
-        <pattern>
-          <option name="PATTERN" value="com.jamesdpeters.*" />
-          <option name="ENABLED" value="true" />
-        </pattern>
-      </extension>
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
+    <configuration name="3DTests [javafx:run]" type="MavenRunConfiguration" factoryName="Maven" temporary="true">
+      <MavenSettings>
+        <option name="myGeneralSettings" />
+        <option name="myRunnerSettings" />
+        <option name="myRunnerParameters">
+          <MavenRunnerParameters>
+            <option name="profiles">
+              <set />
+            </option>
+            <option name="goals">
+              <list>
+                <option value="javafx:run" />
+              </list>
+            </option>
+            <option name="pomFileName" value="pom.xml" />
+            <option name="profilesMap">
+              <map />
+            </option>
+            <option name="resolveToWorkspace" value="false" />
+            <option name="workingDirPath" value="$PROJECT_DIR$" />
+          </MavenRunnerParameters>
+        </option>
+      </MavenSettings>
+      <method v="2" />
     </configuration>
     <configuration name="Run" type="MavenRunConfiguration" factoryName="Maven">
       <MavenSettings>
         <option name="myGeneralSettings" />
-        <option name="myRunnerSettings" />
+        <option name="myRunnerSettings">
+          <MavenRunnerSettings>
+            <option name="delegateBuildToMaven" value="false" />
+            <option name="environmentProperties">
+              <map />
+            </option>
+            <option name="jreName" value="#USE_PROJECT_JDK" />
+            <option name="mavenProperties">
+              <map />
+            </option>
+            <option name="passParentEnv" value="true" />
+            <option name="runMavenInBackground" value="true" />
+            <option name="skipTests" value="false" />
+            <option name="vmOptions" value="-Xmx8g" />
+          </MavenRunnerSettings>
+        </option>
         <option name="myRunnerParameters">
           <MavenRunnerParameters>
             <option name="profiles">
@@ -220,25 +241,25 @@
       </MavenSettings>
       <method v="2">
         <option name="Maven.BeforeRunTask" enabled="true" file="$PROJECT_DIR$/pom.xml" goal="clean:clean" />
-        <option name="Maven.BeforeRunTask" enabled="true" file="$PROJECT_DIR$/pom.xml" goal="javafx:run" />
+        <option name="Maven.BeforeRunTask" enabled="true" file="$PROJECT_DIR$/pom.xml" goal="javafx:run -DargLine=&quot;-Xmx8g -Xms8g&quot;" />
       </method>
     </configuration>
     <list>
       <item itemvalue="Application.Json" />
       <item itemvalue="Application.Main" />
       <item itemvalue="Application.JsonConverter" />
-      <item itemvalue="Application.Test2" />
-      <item itemvalue="Maven.Run" />
       <item itemvalue="Application.JPLHorizonsParser" />
       <item itemvalue="Application.Graph" />
+      <item itemvalue="Maven.Run" />
+      <item itemvalue="Maven.3DTests [javafx:run]" />
     </list>
     <recent_temporary>
       <list>
+        <item itemvalue="Maven.3DTests [javafx:run]" />
         <item itemvalue="Application.Graph" />
         <item itemvalue="Application.Main" />
         <item itemvalue="Application.JsonConverter" />
         <item itemvalue="Application.JPLHorizonsParser" />
-        <item itemvalue="Application.Test2" />
       </list>
     </recent_temporary>
   </component>
@@ -267,7 +288,14 @@
       <workItem from="1575634171241" duration="23018000" />
       <workItem from="1575729656308" duration="8005000" />
       <workItem from="1575849727366" duration="8277000" />
-      <workItem from="1575905733242" duration="33437000" />
+      <workItem from="1575905733242" duration="41953000" />
+      <workItem from="1575995419409" duration="1495000" />
+      <workItem from="1576090228826" duration="6176000" />
+      <workItem from="1576165936930" duration="2628000" />
+      <workItem from="1576796893786" duration="3497000" />
+      <workItem from="1578504787277" duration="1601000" />
+      <workItem from="1580145492756" duration="19368000" />
+      <workItem from="1580226610216" duration="1179000" />
     </task>
     <servers />
   </component>
@@ -286,5 +314,21 @@
         </entry>
       </map>
     </option>
+  </component>
+  <component name="XDebuggerManager">
+    <breakpoint-manager>
+      <breakpoints>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/main/java/com/jamesdpeters/universes/Universe.java</url>
+          <line>140</line>
+          <option name="timeStamp" value="12" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" suspend="THREAD" type="java-line">
+          <url>file://$PROJECT_DIR$/src/main/java/com/jamesdpeters/universes/NormalUniverse.java</url>
+          <line>40</line>
+          <option name="timeStamp" value="13" />
+        </line-breakpoint>
+      </breakpoints>
+    </breakpoint-manager>
   </component>
 </project>

@@ -11,7 +11,7 @@ public class JPLInfo {
 
     private String name;
     private String filename;
-    private double mass, radius;
+    private double mass, radius, GM;
     private boolean originBody = false;
 
 
@@ -31,6 +31,7 @@ public class JPLInfo {
         return JPLHorizonsParser.parse(filename,name)
                 .setMass(mass)
                 .setRadius(radius)
+                .setGM(GM)
                 .setOrigin(originBody);
     }
 
@@ -67,6 +68,11 @@ public class JPLInfo {
 
     public JPLInfo setRadius(double radius) {
         this.radius = radius;
+        return this;
+    }
+
+    public JPLInfo setGM(double GM) {
+        this.GM = GM;
         return this;
     }
 }

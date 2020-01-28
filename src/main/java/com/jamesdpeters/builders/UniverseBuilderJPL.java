@@ -13,7 +13,7 @@ import java.util.List;
 public class UniverseBuilderJPL {
 
     private String name;
-    private double dt, G;
+    private double dt;
     private List<JPLInfo> JPLInfo;
 
     private UniverseBuilderJPL(){
@@ -34,10 +34,10 @@ public class UniverseBuilderJPL {
         return this;
     }
 
-    public UniverseBuilderJPL setG(double g) {
-        G = g;
-        return this;
-    }
+//    public UniverseBuilderJPL setG(double g) {
+//        G = g;
+//        return this;
+//    }
 
     public UniverseBuilderJPL addBodyInfo(JPLInfo jplInfo){
         JPLInfo.add(jplInfo);
@@ -62,9 +62,9 @@ public class UniverseBuilderJPL {
     public double getDt() {
         return dt;
     }
-    public double getG() {
-        return G;
-    }
+//    //public double getG() {
+//        return G;
+//    }
     public List<JPLInfo> getJPLInfo() { return JPLInfo; }
 
     /**
