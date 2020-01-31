@@ -1,9 +1,8 @@
 package com.jamesdpeters.json;
 
-import com.jamesdpeters.bodies.Body;
 import com.jamesdpeters.builders.BodyBuilder;
 import com.jamesdpeters.helpers.Utils;
-import javafx.geometry.Point3D;
+import com.jamesdpeters.vectors.Vector3D;
 import org.apache.commons.csv.CSVFormat;
 import org.apache.commons.csv.CSVParser;
 import org.apache.commons.csv.CSVRecord;
@@ -44,18 +43,18 @@ public class JPLHorizonsParser {
 
             // Initial values.
             CSVRecord initial = records.get(0);
-            Point3D initialPos = new Point3D(toDouble(initial,JPLHeader.X),toDouble(initial,JPLHeader.Y),toDouble(initial,JPLHeader.Z));
-            Point3D initialVelocity = new Point3D(toDouble(initial,JPLHeader.VX),toDouble(initial,JPLHeader.VY),toDouble(initial,JPLHeader.VZ));
+            Vector3D initialPos = new Vector3D(toDouble(initial,JPLHeader.X),toDouble(initial,JPLHeader.Y),toDouble(initial,JPLHeader.Z));
+            Vector3D initialVelocity = new Vector3D(toDouble(initial,JPLHeader.VX),toDouble(initial,JPLHeader.VY),toDouble(initial,JPLHeader.VZ));
             LocalDate initDate = LocalDate.parse(initial.get(JPLHeader.DATE.index).replace(" A.D. ", ""), formatter);
 
-            HashMap<Long, Point3D> positions = new HashMap<>();
-            HashMap<Long, Point3D> velocities = new HashMap<>();
+            HashMap<Long, Vector3D> positions = new HashMap<>();
+            HashMap<Long, Vector3D> velocities = new HashMap<>();
 
             for (CSVRecord record : records) {
                 LocalDate date = LocalDate.parse(record.get(JPLHeader.DATE.index).replace(" A.D. ", ""), formatter);
                 long day = DAYS.between(initDate,date);
-                Point3D Pos = new Point3D(toDouble(record,JPLHeader.X),toDouble(record,JPLHeader.Y),toDouble(record,JPLHeader.Z));
-                Point3D Velocity = new Point3D(toDouble(record,JPLHeader.VX),toDouble(record,JPLHeader.VY),toDouble(record,JPLHeader.VZ));
+                Vector3D Pos = new Vector3D(toDouble(record,JPLHeader.X),toDouble(record,JPLHeader.Y),toDouble(record,JPLHeader.Z));
+                Vector3D Velocity = new Vector3D(toDouble(record,JPLHeader.VX),toDouble(record,JPLHeader.VY),toDouble(record,JPLHeader.VZ));
                 positions.put(day,Pos);
                 velocities.put(day,Velocity);
             }

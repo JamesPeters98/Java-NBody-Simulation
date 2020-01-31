@@ -1,10 +1,7 @@
 package com.jamesdpeters.integrators.abstracts;
 
 import com.jamesdpeters.bodies.Body;
-import com.jamesdpeters.integrators.Integrator;
-import javafx.geometry.Point3D;
-
-import java.util.List;
+import com.jamesdpeters.vectors.Vector3D;
 
 public abstract class AbstractIntegrator {
 
@@ -16,13 +13,13 @@ public abstract class AbstractIntegrator {
     }
 
     //Function Integrator is implementing.
-    public abstract Point3D f(Body body, double dt, Point3D dx);
+    public abstract Vector3D f(Body body, double dt, Vector3D dx);
 
     //Gradient of function Integrator is implementing.
-    public abstract Point3D df(Body body, double dt, Point3D dx);
+    public abstract Vector3D df(Body body, double dt, Vector3D dx);
 
     //Performs a step dependant on the integrator being used e.g Euler, 2nd Order, 4th etc.
-    public Point3D step(Body body, double dt){
+    public Vector3D step(Body body, double dt){
         return integratorType.step(this,body,dt);
     }
 }

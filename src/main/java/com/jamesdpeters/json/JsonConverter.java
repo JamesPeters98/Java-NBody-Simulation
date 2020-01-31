@@ -2,19 +2,14 @@ package com.jamesdpeters.json;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
-import com.jamesdpeters.Main;
-import com.jamesdpeters.bodies.Body;
-import com.jamesdpeters.builders.BodyBuilder;
+import com.jamesdpeters.StartUniverse;
 import com.jamesdpeters.builders.JPLInfo;
-import com.jamesdpeters.builders.UniverseBuilder;
 import com.jamesdpeters.builders.UniverseBuilderJPL;
-import javafx.geometry.Point3D;
 import org.apache.commons.io.FileUtils;
 
 import java.io.File;
 import java.io.IOException;
 import java.nio.charset.Charset;
-import java.util.List;
 
 public class JsonConverter {
 
@@ -58,7 +53,7 @@ public class JsonConverter {
 
                 System.out.println(Universe);
 
-        String file = Main.class.getResource("").getFile();    // Resource Folder
+        String file = StartUniverse.class.getResource("").getFile();    // Resource Folder
         File f = new File(file+"/BodyTest.json");
         System.out.println(f.getPath());
         FileUtils.writeStringToFile(f,Universe, Charset.defaultCharset());

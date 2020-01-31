@@ -1,23 +1,23 @@
 package com.jamesdpeters.helpers;
 
 import com.jamesdpeters.bodies.Body;
-import javafx.animation.KeyFrame;
-import javafx.animation.KeyValue;
-import javafx.animation.Timeline;
-import javafx.beans.property.DoubleProperty;
-import javafx.beans.property.SimpleDoubleProperty;
-import javafx.geometry.Point3D;
-import javafx.scene.Camera;
-import javafx.scene.Group;
-import javafx.scene.Scene;
-import javafx.scene.input.KeyCode;
-import javafx.scene.input.KeyEvent;
-import javafx.scene.input.MouseEvent;
-import javafx.scene.input.ScrollEvent;
-import javafx.scene.transform.Rotate;
-import javafx.scene.transform.Translate;
-import javafx.stage.Stage;
-import javafx.util.Duration;
+//import javafx.animation.KeyFrame;
+//import javafx.animation.KeyValue;
+//import javafx.animation.Timeline;
+//import javafx.beans.property.DoubleProperty;
+//import javafx.beans.property.SimpleDoubleProperty;
+//import javafx.geometry.Point3D;
+//import javafx.scene.Camera;
+//import javafx.scene.Group;
+//import javafx.scene.Scene;
+//import javafx.scene.input.KeyCode;
+//import javafx.scene.input.KeyEvent;
+//import javafx.scene.input.MouseEvent;
+//import javafx.scene.input.ScrollEvent;
+//import javafx.scene.transform.Rotate;
+//import javafx.scene.transform.Translate;
+//import javafx.stage.Stage;
+//import javafx.util.Duration;
 import org.apache.commons.math3.util.MathUtils;
 
 import java.util.List;
@@ -25,53 +25,53 @@ import java.util.Optional;
 
 public class MouseControl {
 
-    public MouseControl(Stage stage, Group group, Scene scene, List<Body> bodies, Camera camera){
-        initMouseControl(stage,group,scene,bodies,camera);
-    }
-
-    private Translate translate;
-    private double r, theta, phi;
-    private Camera camera;
-    private Rotate rotateTheta, rotatePhi;
-
-    private void initMouseControl(Stage stage, Group group, Scene scene, List<Body> bodies, Camera camera) {
-        r = 100000000;
-        theta = Math.PI;
-        phi = 0;
-        this.camera = camera;
-
-        rotateTheta = new Rotate(theta,Rotate.X_AXIS);
-        rotatePhi = new Rotate(phi,Rotate.Z_AXIS);
-        camera.getTransforms().addAll(rotatePhi,rotateTheta);
-
-        stage.addEventHandler(KeyEvent.KEY_PRESSED, event -> {
-            if(event.getCode() == KeyCode.P){
-                bodies.forEach(body -> System.out.println(body.getName()+" Distance: "+body.getPosition().magnitude()));
-            }
-
-
-            double angleRate = Math.PI/360;
-            if(event.getCode() == KeyCode.A){
-                theta = MathUtils.reduce(theta+angleRate,Math.PI*2,0);
-            }
-            if(event.getCode() == KeyCode.D){
-                theta = MathUtils.reduce(theta-angleRate,Math.PI*2,0);
-            }
-            if(event.getCode() == KeyCode.W){
-                phi = MathUtils.reduce(phi+angleRate, Math.PI*2, 0);
-            }
-            if(event.getCode() == KeyCode.S){
-                phi = MathUtils.reduce(phi-angleRate, Math.PI*2, 0);
-            }
-            rotateTheta.angleProperty().set(theta);
-            rotatePhi.angleProperty().set(phi);
-
-            adjustCamera();
-
-            System.out.println("Theta: "+theta);
-            System.out.println("Phi: "+phi);
-            System.out.println("Camera: x:"+camera.getTranslateX()+" y:"+camera.getTranslateY()+" z:"+camera.getTranslateZ());
-        });
+//    public MouseControl(Stage stage, Group group, Scene scene, List<Body> bodies, Camera camera){
+//        initMouseControl(stage,group,scene,bodies,camera);
+//    }
+//
+//    private Translate translate;
+//    private double r, theta, phi;
+//    private Camera camera;
+//    private Rotate rotateTheta, rotatePhi;
+//
+//    private void initMouseControl(Stage stage, Group group, Scene scene, List<Body> bodies, Camera camera) {
+//        r = 100000000;
+//        theta = Math.PI;
+//        phi = 0;
+//        this.camera = camera;
+//
+//        rotateTheta = new Rotate(theta,Rotate.X_AXIS);
+//        rotatePhi = new Rotate(phi,Rotate.Z_AXIS);
+//        camera.getTransforms().addAll(rotatePhi,rotateTheta);
+//
+//        stage.addEventHandler(KeyEvent.KEY_PRESSED, event -> {
+//            if(event.getCode() == KeyCode.P){
+//                bodies.forEach(body -> System.out.println(body.getName()+" Distance: "+body.getPosition().magnitude()));
+//            }
+//
+//
+//            double angleRate = Math.PI/360;
+//            if(event.getCode() == KeyCode.A){
+//                theta = MathUtils.reduce(theta+angleRate,Math.PI*2,0);
+//            }
+//            if(event.getCode() == KeyCode.D){
+//                theta = MathUtils.reduce(theta-angleRate,Math.PI*2,0);
+//            }
+//            if(event.getCode() == KeyCode.W){
+//                phi = MathUtils.reduce(phi+angleRate, Math.PI*2, 0);
+//            }
+//            if(event.getCode() == KeyCode.S){
+//                phi = MathUtils.reduce(phi-angleRate, Math.PI*2, 0);
+//            }
+//            rotateTheta.angleProperty().set(theta);
+//            rotatePhi.angleProperty().set(phi);
+//
+//            adjustCamera();
+//
+//            System.out.println("Theta: "+theta);
+//            System.out.println("Phi: "+phi);
+//            System.out.println("Camera: x:"+camera.getTranslateX()+" y:"+camera.getTranslateY()+" z:"+camera.getTranslateZ());
+//        });
 //        Translate pivot = new Translate(0,0,0);
 //        Rotate xRotate = new Rotate(0, Rotate.X_AXIS);
 //        Rotate yRotate = new Rotate(0, Rotate.Y_AXIS);
@@ -191,22 +191,22 @@ public class MouseControl {
 //        timeline.setCycleCount(Timeline.INDEFINITE);
 //        timeline.play();
 
-        //Attach a scroll listener
-        stage.addEventHandler(ScrollEvent.SCROLL, event -> {
-            if(event.getDeltaY() != 0) {
-                //Get how much scroll was done in Y axis.
-                double delta = event.getDeltaY();
-                double direction = delta / Math.abs(delta);
-                //Add it to the Z-axis location.
-                double currentZoom = camera.translateZProperty().get();
-                camera.translateZProperty().set(currentZoom + (direction * 0.1 * currentZoom));
-            }
-        });
-    }
-
-    public void adjustCamera(){
-        camera.translateXProperty().set(r*Math.sin(theta)*Math.cos(phi));
-        camera.translateYProperty().set(r*Math.sin(theta)*Math.sin(phi));
-        camera.translateZProperty().set(r*Math.cos(theta));
-    }
+//        //Attach a scroll listener
+//        stage.addEventHandler(ScrollEvent.SCROLL, event -> {
+//            if(event.getDeltaY() != 0) {
+//                //Get how much scroll was done in Y axis.
+//                double delta = event.getDeltaY();
+//                double direction = delta / Math.abs(delta);
+//                //Add it to the Z-axis location.
+//                double currentZoom = camera.translateZProperty().get();
+//                camera.translateZProperty().set(currentZoom + (direction * 0.1 * currentZoom));
+//            }
+//        });
+//    }
+//
+//    public void adjustCamera(){
+//        camera.translateXProperty().set(r*Math.sin(theta)*Math.cos(phi));
+//        camera.translateYProperty().set(r*Math.sin(theta)*Math.sin(phi));
+//        camera.translateZProperty().set(r*Math.cos(theta));
+//    }
 }

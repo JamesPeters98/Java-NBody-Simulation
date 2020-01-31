@@ -2,16 +2,16 @@ package com.jamesdpeters.builders;
 
 import com.google.gson.Gson;
 import com.jamesdpeters.bodies.Body;
-import javafx.geometry.Point3D;
+import com.jamesdpeters.vectors.Vector3D;
 
 import java.util.HashMap;
 
 public class BodyBuilder {
 
     private String name;
-    private Point3D initPos, initVelocity;
+    private Vector3D initPos, initVelocity;
     private double mass, radius, GM;
-    private HashMap<Long,Point3D> JPLpositions, JPLvelocities;
+    private HashMap<Long, Vector3D> JPLpositions, JPLvelocities;
     private boolean isOrigin = false;
 
     public static BodyBuilder getInstance(){
@@ -25,12 +25,12 @@ public class BodyBuilder {
         return this;
     }
 
-    public BodyBuilder setInitPos(Point3D initPos) {
+    public BodyBuilder setInitPos(Vector3D initPos) {
         this.initPos = initPos;
         return this;
     }
 
-    public BodyBuilder setInitVelocity(Point3D initVelocity) {
+    public BodyBuilder setInitVelocity(Vector3D initVelocity) {
         this.initVelocity = initVelocity;
         return this;
     }
@@ -45,12 +45,12 @@ public class BodyBuilder {
         return this;
     }
 
-    public BodyBuilder setPositions(HashMap<Long, Point3D> positions) {
+    public BodyBuilder setPositions(HashMap<Long, Vector3D> positions) {
         this.JPLpositions = positions;
         return this;
     }
 
-    public BodyBuilder setVelocities(HashMap<Long, Point3D> velocities) {
+    public BodyBuilder setVelocities(HashMap<Long, Vector3D> velocities) {
         this.JPLvelocities = velocities;
         return this;
     }
@@ -68,13 +68,13 @@ public class BodyBuilder {
     public Body create(){
         return new Body() {
             @Override
-            public Point3D getInitialPosition() {
+            public Vector3D getInitialPosition() {
                 return initPos;
             }
 
             @Override
-            public Point3D getInitialVelocity() {
-                return initVelocity.multiply(1000);
+            public Vector3D getInitialVelocity() {
+                return initVelocity;
             }
 
             @Override
@@ -98,12 +98,12 @@ public class BodyBuilder {
             }
 
             @Override
-            public HashMap<Long, Point3D> getJPLPositions() {
+            public HashMap<Long, Vector3D> getJPLPositions() {
                 return JPLpositions;
             }
 
             @Override
-            public HashMap<Long, Point3D> getJPLVelocities() {
+            public HashMap<Long, Vector3D> getJPLVelocities() {
                 return JPLvelocities;
             }
 

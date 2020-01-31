@@ -2,20 +2,18 @@ package com.jamesdpeters.universes;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
-import com.jamesdpeters.Main;
+import com.jamesdpeters.StartUniverse;
 import com.jamesdpeters.bodies.Body;
-import com.jamesdpeters.builders.UniverseBuilder;
 import com.jamesdpeters.builders.UniverseBuilderJPL;
-import javafx.stage.Stage;
+import com.jamesdpeters.helpers.Utils;
+import com.jamesdpeters.vectors.EclipseCalculator;
+import com.jamesdpeters.vectors.Vector3D;
 
 import java.io.File;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
-import java.util.concurrent.ExecutorService;
-import java.util.concurrent.Executors;
 import java.util.concurrent.Future;
-import java.util.concurrent.TimeUnit;
 
 public class NormalUniverse extends Universe {
 
@@ -23,13 +21,12 @@ public class NormalUniverse extends Universe {
     List<Future> futures;
     UniverseBuilderJPL builder;
 
-    public NormalUniverse(Stage stage) {
-        super(stage);
+    public NormalUniverse() {
         futures = new ArrayList<>();
 
         Gson gson = new GsonBuilder().setPrettyPrinting().create();
         try {
-            String jsonFile = Main.class.getResource("/Body.json").getFile();
+            String jsonFile = StartUniverse.class.getResource("/Body.json").getFile();
             builder = UniverseBuilderJPL.getInstance().fromFile(gson, new File(jsonFile));
         } catch (Exception e){e.printStackTrace();}
 
@@ -39,6 +36,7 @@ public class NormalUniverse extends Universe {
     @Override
     protected void loop() {
         bodies.forEach(Body::update); // Step each body doesn't update their actual positions.
+        //while(!Utils.haveBodiesStoppedRunning(bodies));
         bodies.forEach(Body::postUpdate); // Updates all bodies to new position using the step.
     }
 
@@ -71,6 +69,11 @@ public class NormalUniverse extends Universe {
 
     @Override
     public long runningTime() {
-        return TimeUnit.DAYS.toSeconds(365*5); // Run for 500 Simulated Days
+        return 260; // Run for 500 Simulated Days
+    }
+
+    @Override
+    public int resolution() {
+        return (int) ((1)/(100*dt()));
     }
 }

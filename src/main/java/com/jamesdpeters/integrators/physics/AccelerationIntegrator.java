@@ -1,9 +1,10 @@
 package com.jamesdpeters.integrators.physics;
 
 import com.jamesdpeters.bodies.Body;
+import com.jamesdpeters.helpers.CONSTANTS;
 import com.jamesdpeters.integrators.abstracts.AbstractIntegrator;
 import com.jamesdpeters.integrators.abstracts.IntegratorType;
-import javafx.geometry.Point3D;
+import com.jamesdpeters.vectors.Vector3D;
 
 public class AccelerationIntegrator extends AbstractIntegrator {
 
@@ -12,14 +13,14 @@ public class AccelerationIntegrator extends AbstractIntegrator {
     }
 
     @Override
-    public Point3D f(Body body, double dt, Point3D dx) {
-            Point3D accel = new Point3D(0,0,0);
+    public Vector3D f(Body body, double dt, Vector3D dx) {
+            Vector3D accel = new Vector3D(0,0,0);
             for(Body body2 : body.getBodies()) {
                 if (body2 != body) {
-                    Point3D delta = body2.getPosition().subtract(body.getPosition()).add(dx);
-                    double distance = delta.magnitude() * 1000;
+                    Vector3D delta = body2.getPosition().subtract(body.getPosition()).add(dx);
+                    double distance = delta.magnitude();
                     // a(t)
-                    double forceMagnitude = ((body.getGM()*1000000000) * body2.getMass()) / (distance * distance);
+                    double forceMagnitude = ((body.getGM()* CONSTANTS.CONVERSIONS.GM_to_AU) * body2.getMass()) / (distance * distance);
                     accel = accel.add(delta.normalize().multiply(forceMagnitude).multiply(1 / body.getMass()));
                 }
             }
@@ -27,14 +28,14 @@ public class AccelerationIntegrator extends AbstractIntegrator {
     }
 
     @Override
-    public Point3D df(Body body, double dt, Point3D dx) {
-        Point3D accelDot = new Point3D(0,0,0);
+    public Vector3D df(Body body, double dt, Vector3D dx) {
+        Vector3D accelDot = new Vector3D(0,0,0);
         for(Body body2 : body.getBodies()) {
             if (body2 != body) {
-                Point3D delta = body2.getPosition().subtract(body.getPosition()).add(dx);
-                double distance = delta.magnitude() * 1000;
+                Vector3D delta = body2.getPosition().subtract(body.getPosition()).add(dx);
+                double distance = delta.magnitude();
                 // a(t)
-                double forceMagnitudeDot = (-2* body2.getMass() * (body.getGM()*1000000000))/(distance*distance*distance);
+                double forceMagnitudeDot = (-2* body2.getMass() * (body.getGM()* CONSTANTS.CONVERSIONS.GM_to_AU))/(distance*distance*distance);
                 accelDot = accelDot.add(delta.normalize().multiply(forceMagnitudeDot).multiply(1 / body.getMass()));
             }
         }

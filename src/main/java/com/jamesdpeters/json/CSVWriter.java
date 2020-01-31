@@ -2,7 +2,7 @@ package com.jamesdpeters.json;
 
 import com.jamesdpeters.bodies.Body;
 import com.jamesdpeters.universes.Universe;
-import javafx.geometry.Point3D;
+import com.jamesdpeters.vectors.Vector3D;
 
 import java.io.FileWriter;
 import java.io.IOException;
@@ -10,6 +10,7 @@ import java.io.PrintWriter;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.util.TreeMap;
 import java.util.concurrent.TimeUnit;
 import java.util.concurrent.atomic.AtomicInteger;
 
@@ -42,8 +43,8 @@ public class CSVWriter {
             points.getAndIncrement();
             if(points.get() >= resolution) {
                 // comma separated values
-                Point3D origin = body.getUniverse().getOriginBody().positions.get(time);
-                point3D.subtract(origin);
+                Vector3D origin = body.getUniverse().getOriginBody().positions.get(time);
+                point3D = point3D.subtract(origin);
                 outputFile.println(time + "," + point3D.getX() + "," + point3D.getY() + "," + point3D.getZ()+","+point3D.magnitude());
                 points.set(0);
             }
@@ -80,5 +81,19 @@ public class CSVWriter {
 
         outputFile.close(); // close the output file
         System.out.println("Written CSV Data for: Energy Shift");
+    }
+
+    public static void writeEclipseData(TreeMap<Double,Double> coneRadius, TreeMap<Double,Double> edgeOfMoonDist,TreeMap<Double,Double> lambda) throws IOException {
+        Path path = Paths.get("outputs/eclipse/"+"data.csv");
+        Files.createDirectories(path.getParent());
+        FileWriter file = new FileWriter(String.valueOf(path));     // this creates the file with the given name
+        PrintWriter outputFile = new PrintWriter(file); // this sends the output to file1
+
+        outputFile.println("time, Cone Radius, Edge Of Moon Distance, Lambda");
+        for(Double time: coneRadius.keySet()){
+            outputFile.println(time+","+coneRadius.get(time)+","+edgeOfMoonDist.get(time)+","+lambda.get(time));
+        }
+        outputFile.close(); // close the output file
+        System.out.println("Written CSV Data for: Eclipse");
     }
 }
