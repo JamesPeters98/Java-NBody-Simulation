@@ -7,9 +7,7 @@ import com.jamesdpeters.bodies.Body;
 import com.jamesdpeters.helpers.MultiScatter;
 import com.jamesdpeters.helpers.Utils;
 import com.jamesdpeters.universes.Universe;
-import javafx.geometry.Point3D;
-import org.jzy3d.analysis.AbstractAnalysis;
-import org.jzy3d.analysis.AnalysisLauncher;
+import com.jamesdpeters.vectors.Vector3D;
 import org.jzy3d.chart.Chart;
 import org.jzy3d.chart.ChartLauncher;
 import org.jzy3d.chart.Settings;
@@ -19,14 +17,11 @@ import org.jzy3d.maths.Coord3d;
 import org.jzy3d.maths.Rectangle;
 import org.jzy3d.plot3d.primitives.Scatter;
 import org.jzy3d.plot3d.rendering.canvas.Quality;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
-import java.util.concurrent.TimeUnit;
 
 public class Graph {
 
@@ -53,11 +48,27 @@ public class Graph {
         ChartLauncher.openChart(chart, new Rectangle(200, 200, 1280, 720), universe.getName());
     }
 
+    public static void plotStationaryPoints(List<Vector3D> points, Color[] colors){
+        Coord3d[] coords = new Coord3d[points.size()];
+        for(int i=0; i<points.size(); i++){
+            coords[i] = Utils.fromPoint3D(points.get(i));
+        }
+        Scatter scatter = new Scatter(coords);
+        scatter.setWidth(10f);
+        scatter.setColors(colors);
+
+        Chart chart = AWTChartComponentFactory.chart(Quality.Nicest, "newt");
+        chart.getScene().add(scatter);
+
+        Settings.getInstance().setHardwareAccelerated(true);
+        ChartLauncher.openChart(chart, new Rectangle(200, 200, 1280, 720), "Points Plot");
+    }
+
     private static Scatter getScatter(Body body, Color color){
         Coord3d[] coords = new Coord3d[body.positions.size()];
         int i=0;
-        for(Point3D point3D : body.positions.values()) {
-            coords[i] = Utils.fromPoint3D(point3D);
+        for(Vector3D vector3D : body.positions.values()) {
+            coords[i] = Utils.fromPoint3D(vector3D);
             i++;
         }
         return new Scatter(coords);
@@ -71,10 +82,10 @@ public class Graph {
             List<Coord3d> coords = new ArrayList<>();
             int point=resolution;
 
-            for(Point3D point3D : body.positions.values()) {
+            for(Vector3D vector3D : body.positions.values()) {
                 point++;
                 if(point >= resolution) { // Ignore points between the resolution being used.
-                    coords.add(Utils.fromPoint3D(point3D));
+                    coords.add(Utils.fromPoint3D(vector3D));
                     point = 0;
                 }
             }
@@ -102,11 +113,11 @@ public class Graph {
         List<Number> z = new ArrayList<>();
         List<Number> mag = new ArrayList<>();
 
-        int res = 1000;
+        int res = 1;
         final int[] point = {res};
         body.positions.forEach((t, point3D) -> {
             if(point[0] >= res) {
-                Point3D originPoint = origin.positions.get(t);
+                Vector3D originPoint = origin.positions.get(t);
                 point3D = point3D.subtract(originPoint);
 
                 time.add(t);
@@ -128,9 +139,9 @@ public class Graph {
 
         body.getJPLPositions().forEach((t, point3D) -> {
                 Double simKey = body.positions.floorKey(Double.valueOf(t));
-                Point3D simPoint = body.positions.get(simKey);
+                Vector3D simPoint = body.positions.get(simKey);
                 //System.out.println(simPoint);
-                timeJPL.add(TimeUnit.DAYS.toSeconds(t));
+                timeJPL.add(t);
                 //point3D = point3D.subtract(simPoint);
                 xJPL.add(point3D.getX());
                 yJPL.add(point3D.getY());
@@ -139,6 +150,7 @@ public class Graph {
         });
 
         Plot plt = getPlot();
+        plt.figure(body.getName());
         plt.subplot(2,2,1);
         plotData(plt,time,x,"X Simulated","blue");
         plotData(plt,timeJPL,xJPL,"X JPL","red");
@@ -152,10 +164,10 @@ public class Graph {
         plotData(plt,timeJPL,zJPL,"Z JPL","red");
 
         plt.subplot(2,2,4);
-        plotData(plt,time,z,"R Simulated","blue");
-        plotData(plt,timeJPL,zJPL,"R JPL","red");
+        plotData(plt,time,mag,"R Simulated","blue");
+        plotData(plt,timeJPL,magJPL,"R JPL","red");
 
-        plt.title(body.getName());
+        //plt.title(body.getName());
 
 
         Runnable run = new Runnable() {
@@ -184,8 +196,8 @@ public class Graph {
                 .label(label)
                 .linestyle("solid")
                 .color(color);
-        plt.xlabel("time");
-        plt.ylabel("coord");
+        plt.xlabel("Day");
+        plt.ylabel("Position (AU)");
         plt.legend().loc("upper right");
 
         return plotBuilder;

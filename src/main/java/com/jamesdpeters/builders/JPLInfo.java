@@ -3,9 +3,6 @@ package com.jamesdpeters.builders;
 import com.google.gson.Gson;
 import com.jamesdpeters.bodies.Body;
 import com.jamesdpeters.json.JPLHorizonsParser;
-import javafx.geometry.Point3D;
-
-import java.util.HashMap;
 
 public class JPLInfo {
 

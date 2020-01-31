@@ -1,12 +1,12 @@
 package com.jamesdpeters.universes;
 
 import com.jamesdpeters.bodies.Body;
-import javafx.geometry.Point3D;
+import com.jamesdpeters.vectors.Vector3D;
 
 public class MomentumCorrector {
 
     public static void correct(Universe universe){
-        Point3D momentum = Point3D.ZERO;
+        Vector3D momentum = Vector3D.ZERO;
         double totalMass = 0;
 
         for(Body body : universe.bodies){
@@ -14,7 +14,7 @@ public class MomentumCorrector {
             totalMass += body.getMass();
         }
 
-        Point3D velocity = momentum.multiply(1/totalMass);
+        Vector3D velocity = momentum.multiply(1/totalMass);
 
         for(Body body : universe.bodies){
             body.setVelocity(body.getVelocity().subtract(velocity));
