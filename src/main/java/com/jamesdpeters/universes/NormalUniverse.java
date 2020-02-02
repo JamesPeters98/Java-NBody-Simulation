@@ -5,17 +5,10 @@ import com.google.gson.GsonBuilder;
 import com.jamesdpeters.StartUniverse;
 import com.jamesdpeters.bodies.Body;
 import com.jamesdpeters.builders.UniverseBuilderJPL;
-import com.jamesdpeters.helpers.Utils;
-import com.jamesdpeters.integrators.Integrator;
 import com.jamesdpeters.integrators.IntegratorFactory;
-import com.jamesdpeters.vectors.EclipseCalculator;
-import com.jamesdpeters.vectors.Vector3D;
 
 import java.io.File;
-import java.util.ArrayList;
-import java.util.Collection;
 import java.util.List;
-import java.util.concurrent.Future;
 
 public class NormalUniverse extends Universe {
 
@@ -55,7 +48,7 @@ public class NormalUniverse extends Universe {
 
     @Override
     public long runningTime() {
-        return (long) (365*20); // Run for 500 Simulated Days
+        return (long) (365*6); // Run for 500 Simulated Days
     }
 
     @Override

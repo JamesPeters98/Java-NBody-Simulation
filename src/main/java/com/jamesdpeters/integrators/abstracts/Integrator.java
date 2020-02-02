@@ -1,4 +1,4 @@
-package com.jamesdpeters.integrators;
+package com.jamesdpeters.integrators.abstracts;
 
 import com.jamesdpeters.bodies.Body;
 import com.jamesdpeters.universes.Universe;

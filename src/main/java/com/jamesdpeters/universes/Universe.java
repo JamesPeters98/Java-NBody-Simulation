@@ -3,7 +3,7 @@ package com.jamesdpeters.universes;
 import com.jamesdpeters.bodies.Body;
 import com.jamesdpeters.helpers.MemoryCalculator;
 import com.jamesdpeters.helpers.SimulationPerformanceTracker;
-import com.jamesdpeters.integrators.Integrator;
+import com.jamesdpeters.integrators.abstracts.Integrator;
 import com.jamesdpeters.json.CSVWriter;
 import com.jamesdpeters.json.Graph;
 import com.jamesdpeters.vectors.EclipseCalculator;
@@ -132,7 +132,7 @@ public abstract class Universe {
                     System.out.println("--Finished Simulation!--");
                     System.out.println("------------------------");
                     MemoryCalculator.printMemoryUsed();
-                    //performanceTracker.printStats();
+                    performanceTracker.printStats();
 
                     //Eclipse
                     EclipseCalculator.findEclipses(this);

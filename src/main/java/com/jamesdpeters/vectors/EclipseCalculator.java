@@ -4,12 +4,8 @@ import com.jamesdpeters.bodies.Body;
 import com.jamesdpeters.json.CSVWriter;
 import com.jamesdpeters.json.Graph;
 import com.jamesdpeters.universes.Universe;
-import org.apache.commons.math3.geometry.spherical.twod.Edge;
-import org.jzy3d.colors.Color;
 
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.List;
 import java.util.TreeMap;
 
 public class EclipseCalculator {
@@ -26,8 +22,6 @@ public class EclipseCalculator {
             if(body.getName().equals("Moon")) moon = body;
         }
         if(sun != null && earth != null && moon != null) {
-
-            //double time = sun.positions.higherKey(249.0);
             TreeMap<Double,Double> ConeRadius = new TreeMap<>();
             TreeMap<Double,Double> EdgeOfMoonDist = new TreeMap<>();
             TreeMap<Double,Double> Lambda = new TreeMap<>();
@@ -49,30 +43,12 @@ public class EclipseCalculator {
                 calc(time, EarthPos, SunPos, MoonPos, sun, earth, moon, null, null, null, JPLArea);
             }
 
-            System.out.println(JPLArea);
             Graph.plotEclipse(Area,JPLArea);
             try {
                 CSVWriter.writeEclipseData(ConeRadius,EdgeOfMoonDist,Lambda,Area);
             } catch (IOException e) {
                 e.printStackTrace();
             }
-//            System.out.println("RE: "+RE);
-//            System.out.println("Edge of Moon: "+EdgeOfMoon);
-//
-//            System.out.println("SUN POS: "+SunPos);
-//            System.out.println("Earth POS: "+EarthPos);
-//            System.out.println("Moon POS: "+MoonPos);
-//            System.out.println("PERPENDICULAR POINT: "+P);
-//
-//            List<Vector3D> vectors = new ArrayList<>();
-//            vectors.add(MoonPos);
-//            //vectors.add(SunPos);
-//            vectors.add(EarthPos);
-//            vectors.add(P);
-//
-//            Color[] colors = new Color[]{Color.GRAY,Color.GREEN,Color.RED};
-//
-//            Graph.plotStationaryPoints(vectors,colors);
         }
     }
 

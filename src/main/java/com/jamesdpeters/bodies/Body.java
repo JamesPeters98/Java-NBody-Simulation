@@ -1,8 +1,6 @@
 package com.jamesdpeters.bodies;
 
 import com.jamesdpeters.helpers.CONSTANTS;
-import com.jamesdpeters.integrators.Integrator;
-import com.jamesdpeters.integrators.IntegratorFactory;
 import com.jamesdpeters.universes.Universe;
 import com.jamesdpeters.vectors.Vector3D;
 
