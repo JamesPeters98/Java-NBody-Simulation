@@ -1,28 +1,37 @@
 package com.jamesdpeters.integrators;
 
 import com.jamesdpeters.bodies.Body;
-import com.jamesdpeters.integrators.abstracts.IntegratorType;
-import com.jamesdpeters.integrators.physics.PositionIntegrator;
-import com.jamesdpeters.integrators.physics.VelocityIntegrator;
+import com.jamesdpeters.universes.Universe;
+import com.jamesdpeters.vectors.Vector3D;
 
-public class Integrator {
+public abstract class Integrator {
 
-    private PositionIntegrator positionIntegrator;
-    private VelocityIntegrator velocityIntegrator;
-    private IntegratorType integratorType;
+    //Integrator can decide to evolve each
+    public abstract void step(Universe universe);
+    public abstract String getIntegratorName();
 
-    public Integrator(IntegratorType integratorType){
-        this.integratorType = integratorType;
-        positionIntegrator = new PositionIntegrator(integratorType);
-        velocityIntegrator = new VelocityIntegrator(integratorType);
+    //Calculates Acceleration of given body using the temp pos parameter.
+    public Vector3D accel(Body body){
+        Vector3D accel = Vector3D.ZERO;
+        for(Body body2 : body.getExclusiveBodies()) {
+            Vector3D delta = body2.getTempPos().subtract(body.getTempPos());
+            double distance = delta.magnitude();
+            // a(t)
+            double accelMagnitude = (body2.getGMAU()) / (distance * distance);
+            accel = accel.add(delta.normalize().multiply(accelMagnitude));
+        }
+        return accel;
     }
 
-    public void step(Body body){
-        body.setNextPosition(positionIntegrator.step(body,body.getUniverse().dt()));
-        body.setNextVelocity(velocityIntegrator.step(body,body.getUniverse().dt()));
-    }
-
-    public IntegratorType getIntegratorType() {
-        return integratorType;
+    public Vector3D accelDerivative(Body body){
+        Vector3D accelDot = new Vector3D(0,0,0);
+        for(Body body2 : body.getExclusiveBodies()) {
+            Vector3D delta = body2.getTempPos().subtract(body.getTempPos());
+            double distance = delta.magnitude();
+            // a(t)
+            double accelMagnitudeDot = (-body2.getGMAU())/(distance*distance*distance);
+            accelDot = accelDot.add(delta.normalize().multiply(accelMagnitudeDot));
+        }
+        return accelDot;
     }
 }

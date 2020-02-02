@@ -1,6 +1,7 @@
 package com.jamesdpeters.json;
 
 import com.jamesdpeters.bodies.Body;
+import com.jamesdpeters.helpers.CONSTANTS;
 import com.jamesdpeters.universes.Universe;
 import com.jamesdpeters.vectors.Vector3D;
 
@@ -18,7 +19,7 @@ public class CSVWriter {
 
     // Resolution = Number of points to discard between each CSV record.
     public static void writeBody(Body body, int resolution) throws IOException {
-        Path path = Paths.get("outputs/"+body.integrator.getIntegratorType().getIntegratorName()+"/"+body.getName()+"/"+body.getName()+"_data_"+body.getUniverse().dt()+".csv");
+        Path path = Paths.get("outputs/"+body.getUniverse().getIntegrator().getIntegratorName()+"/"+body.getName()+"/"+body.getName()+"_data_"+body.getUniverse().dt()+".csv");
         Files.createDirectories(path.getParent());
         FileWriter file = new FileWriter(String.valueOf(path));     // this creates the file with the given name
         PrintWriter outputFile = new PrintWriter(file); // this sends the output to file1
@@ -51,7 +52,7 @@ public class CSVWriter {
         });
         outputFile.println("***************************");
         body.getJPLPositions().forEach((day, point3D) -> {
-            outputFile.println(TimeUnit.DAYS.toSeconds(day) + "," + point3D.getX() + "," + point3D.getY() + "," + point3D.getZ()+","+point3D.magnitude());
+            outputFile.println(CONSTANTS.SECONDS.DAY*day + "," + point3D.getX() + "," + point3D.getY() + "," + point3D.getZ()+","+point3D.magnitude());
         });
 
         outputFile.close(); // close the output file
@@ -59,7 +60,7 @@ public class CSVWriter {
     }
 
     public static void writeEnergyShift(Universe universe) throws IOException {
-        Path path = Paths.get("outputs/"+universe.getName()+"-"+universe.dt()+".csv");
+        Path path = Paths.get("outputs/"+universe.getIntegrator().getIntegratorName()+"/"+universe.getName()+"-"+universe.dt()+".csv");
         Files.createDirectories(path.getParent());
         FileWriter file = new FileWriter(String.valueOf(path));     // this creates the file with the given name
         PrintWriter outputFile = new PrintWriter(file); // this sends the output to file1
@@ -83,15 +84,15 @@ public class CSVWriter {
         System.out.println("Written CSV Data for: Energy Shift");
     }
 
-    public static void writeEclipseData(TreeMap<Double,Double> coneRadius, TreeMap<Double,Double> edgeOfMoonDist,TreeMap<Double,Double> lambda) throws IOException {
+    public static void writeEclipseData(TreeMap<Double,Double> coneRadius, TreeMap<Double,Double> edgeOfMoonDist,TreeMap<Double,Double> lambda,TreeMap<Double,Double> area) throws IOException {
         Path path = Paths.get("outputs/eclipse/"+"data.csv");
         Files.createDirectories(path.getParent());
         FileWriter file = new FileWriter(String.valueOf(path));     // this creates the file with the given name
         PrintWriter outputFile = new PrintWriter(file); // this sends the output to file1
 
-        outputFile.println("time, Cone Radius, Edge Of Moon Distance, Lambda");
+        outputFile.println("time, Cone Radius, Edge Of Moon Distance, Lambda, Area");
         for(Double time: coneRadius.keySet()){
-            outputFile.println(time+","+coneRadius.get(time)+","+edgeOfMoonDist.get(time)+","+lambda.get(time));
+            outputFile.println(time+","+coneRadius.get(time)+","+edgeOfMoonDist.get(time)+","+lambda.get(time)+","+area.get(time));
         }
         outputFile.close(); // close the output file
         System.out.println("Written CSV Data for: Eclipse");

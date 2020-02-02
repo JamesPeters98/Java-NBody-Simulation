@@ -8,6 +8,7 @@ import com.jamesdpeters.helpers.MultiScatter;
 import com.jamesdpeters.helpers.Utils;
 import com.jamesdpeters.universes.Universe;
 import com.jamesdpeters.vectors.Vector3D;
+import com.sun.source.tree.Tree;
 import org.jzy3d.chart.Chart;
 import org.jzy3d.chart.ChartLauncher;
 import org.jzy3d.chart.Settings;
@@ -22,6 +23,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.TreeMap;
 
 public class Graph {
 
@@ -102,8 +104,8 @@ public class Graph {
         return new MultiScatter(coordList,colors,1.0f);
     }
 
-    public static void plotBody(Body body){
-        System.out.println("Plotting 2D for "+body.getName());
+    public static void plotBody(Body body) {
+        System.out.println("Plotting 2D for " + body.getName());
         Body origin = body.getUniverse().getOriginBody();
 
         // SIM DATA
@@ -113,10 +115,10 @@ public class Graph {
         List<Number> z = new ArrayList<>();
         List<Number> mag = new ArrayList<>();
 
-        int res = 1;
+        int res = 10;
         final int[] point = {res};
         body.positions.forEach((t, point3D) -> {
-            if(point[0] >= res) {
+            if (point[0] >= res) {
                 Vector3D originPoint = origin.positions.get(t);
                 point3D = point3D.subtract(originPoint);
 
@@ -138,47 +140,65 @@ public class Graph {
         List<Number> magJPL = new ArrayList<>();
 
         body.getJPLPositions().forEach((t, point3D) -> {
-                Double simKey = body.positions.floorKey(Double.valueOf(t));
-                Vector3D simPoint = body.positions.get(simKey);
-                //System.out.println(simPoint);
-                timeJPL.add(t);
-                //point3D = point3D.subtract(simPoint);
-                xJPL.add(point3D.getX());
-                yJPL.add(point3D.getY());
-                zJPL.add(point3D.getZ());
-                magJPL.add(point3D.magnitude());
+            timeJPL.add(t);
+            xJPL.add(point3D.getX());
+            yJPL.add(point3D.getY());
+            zJPL.add(point3D.getZ());
+            magJPL.add(point3D.magnitude());
         });
 
         Plot plt = getPlot();
         plt.figure(body.getName());
-        plt.subplot(2,2,1);
-        plotData(plt,time,x,"X Simulated","blue");
-        plotData(plt,timeJPL,xJPL,"X JPL","red");
+        plt.subplot(2, 2, 1);
+        plotData(plt, time, x, "X Simulated", "blue");
+        plotData(plt, timeJPL, xJPL, "X JPL", "red");
 
-        plt.subplot(2,2,2);
-        plotData(plt,time,y,"Y Simulated","blue");
-        plotData(plt,timeJPL,yJPL,"Y JPL","red");
+        plt.subplot(2, 2, 2);
+        plotData(plt, time, y, "Y Simulated", "blue");
+        plotData(plt, timeJPL, yJPL, "Y JPL", "red");
 
-        plt.subplot(2,2,3);
-        plotData(plt,time,z,"Z Simulated","blue");
-        plotData(plt,timeJPL,zJPL,"Z JPL","red");
+        plt.subplot(2, 2, 3);
+        plotData(plt, time, z, "Z Simulated", "blue");
+        plotData(plt, timeJPL, zJPL, "Z JPL", "red");
 
-        plt.subplot(2,2,4);
-        plotData(plt,time,mag,"R Simulated","blue");
-        plotData(plt,timeJPL,magJPL,"R JPL","red");
+        plt.subplot(2, 2, 4);
+        plotData(plt, time, mag, "R Simulated", "blue");
+        plotData(plt, timeJPL, magJPL, "R JPL", "red");
 
         //plt.title(body.getName());
 
+        openPlot(plt);
+    }
 
-        Runnable run = new Runnable() {
-                @Override
-                public void run() {
-                    try {
-                        plt.show();
-                    } catch (IOException | PythonExecutionException e) {
-                        e.printStackTrace();
-                    }
-                }
+    private static void plotEclipse(Plot plt, TreeMap<Double,Double> area, String color){
+        List<Number> time = new ArrayList<>();
+        List<Number> areas = new ArrayList<>();
+
+        area.forEach((t, a) -> {
+            time.add(t);
+            areas.add(Math.log(a));
+        });
+
+        plotData(plt,time,areas,"Luminosity Ratio",color);
+    }
+
+    public static void plotEclipse(TreeMap<Double,Double> area, TreeMap<Double, Double> JPLArea){
+        Plot plt = getPlot();
+        plt.figure("Eclipse Plot");
+        plt.subplot(1,1,1);
+        plotEclipse(plt,area, "blue");
+        plotEclipse(plt,JPLArea, "red");
+        plt.ylabel("Luminosity Ratio Log(L/L0)");
+        openPlot(plt);
+    }
+
+    private static void openPlot(Plot plt){
+        Runnable run = () -> {
+            try {
+                plt.show();
+            } catch (IOException | PythonExecutionException e) {
+                e.printStackTrace();
+            }
         };
 
         Thread thread = new Thread(run);

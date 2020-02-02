@@ -14,20 +14,18 @@ import java.util.concurrent.atomic.AtomicBoolean;
 public abstract class Body implements Callable<Boolean> {
 
     // BODIES PROPERTIES
-    private transient Vector3D velocity, nextVelocity; //Velocity in Metres per second (m/s)
-    private transient Vector3D position, nextPos; //Position in Kilometers (Km)
+    private transient Vector3D velocity, nextVelocity, tempVelocity; //Velocity in Metres per second (m/s)
+    private transient Vector3D position, nextPos, tempPos; //Position in Kilometers (Km)
     public transient TreeMap<Double, Vector3D>  positions;   // Store history of positions. Key - time.
     private transient List<Body> bodies;    //List of bodies to interact with.
+    private transient List<Body> exclusiveBodies; //List of bodies without this body.
     private transient Universe universe;    //Universe this Body belongs too.
+    private transient HashMap<Integer, Vector3D> tempAccelMap, tempVeloMap;
 
-    // TRAIL PROPERTIES
-    //private transient double trails; // Time since last point added to trail.
-    //private transient int trailLimit = 500; // Number of events to show in trail.
-    private transient double trailInterval = 5000; // interval in events between trail points.
     private int loop = -1;
 
     // INTEGRATOR
-    public Integrator integrator;
+    private double GMinAU;
 
     private Thread thread;
     private Body body;
@@ -39,8 +37,9 @@ public abstract class Body implements Callable<Boolean> {
         position = getInitialPosition();
         velocity = getInitialVelocity();
         positions = new TreeMap<>();
-//        thread = new Thread(updateTask());
-//        thread.start();
+        tempAccelMap = new HashMap<>();
+        tempVeloMap = new HashMap<>();
+        GMinAU = getGM()*CONSTANTS.CONVERSIONS.GM_to_AU;
     }
 
     public double getEnergy(){
@@ -63,58 +62,13 @@ public abstract class Body implements Callable<Boolean> {
         return 2*Math.PI/Math.sqrt(getGM()/(Math.pow(getBodyRadius(),3)));
     }
 
-    /**
-     * Updates this body using all the surrounding bodies!
-     */
-//    public void updateThreaded(){
-//        setToRun.set(true);
-//        synchronized (setToRun) {
-//            setToRun.notify();
-//        }
-//    }
-
     public void update(){
-        step();
-    }
-
-//    public boolean isRunning(){
-//        return setToRun.get();
-//    }
-
-
-    private void step(){
-        integrator.step(body);
         if(loop >= universe.resolution() || loop == -1) {
             positions.put(universe.getUniverseTime(), position);
             loop = 0;
         }
         loop++;
-        //setToRun.set(false);
     }
-
-//    private Runnable updateTask(){
-//        return () -> {
-//            while(!thread.isInterrupted()) {
-//                if (!saved) {
-//                    synchronized (setToRun) {
-//                        if (setToRun.get()) {
-//                            step();
-//                        } else {
-//                            try {
-//                                //System.out.println("WAITING FOR THREAD");
-//                                setToRun.wait();
-//                                //System.out.println("WAITED!");
-//                            } catch (InterruptedException e) {
-//                                e.printStackTrace();
-//                            }
-//                        }
-//                    }
-//                } else {
-//                    break;
-//                }
-//            }
-//        };
-//    }
 
     /**
      * Call this after all bodies have been updated.
@@ -126,11 +80,12 @@ public abstract class Body implements Callable<Boolean> {
 
     public void setBodies(List<Body> bodies){
         this.bodies = bodies;
+        this.exclusiveBodies = new ArrayList<>(bodies);
+        exclusiveBodies.remove(this);
     }
+
     public void setUniverse(Universe universe){
         this.universe = universe;
-        trailInterval = (trailInterval/universe.dt());
-        integrator = IntegratorFactory.getDefaultIntegrator();
     }
 
 
@@ -143,13 +98,14 @@ public abstract class Body implements Callable<Boolean> {
     public abstract double getMass();
     public abstract double getGM();
     public abstract double getBodyRadius();
-    public abstract HashMap<Long, Vector3D> getJPLPositions();
-    public abstract HashMap<Long, Vector3D> getJPLVelocities();
+    public abstract TreeMap<Double, Vector3D> getJPLPositions();
+    public abstract TreeMap<Double, Vector3D> getJPLVelocities();
     public abstract boolean isOrigin();
 
     public double getBodyRadiusAU(){
         return getBodyRadius()/CONSTANTS.KILOMETERS.AU;
     }
+    public double getGMAU() { return GMinAU;}
 
     @Override
     public String toString() {
@@ -181,6 +137,10 @@ public abstract class Body implements Callable<Boolean> {
         return bodies;
     }
 
+    public List<Body> getExclusiveBodies(){
+        return exclusiveBodies;
+    }
+
     public Body setPosition(Vector3D position) {
         this.position = position;
         return this;
@@ -202,9 +162,35 @@ public abstract class Body implements Callable<Boolean> {
     public void setNextPosition(Vector3D position){
         this.nextPos = position;
     }
-
     public void setNextVelocity(Vector3D velo){
         this.nextVelocity = velo;
     }
 
+    public Vector3D getTempPos() {
+        return tempPos;
+    }
+    public void setTempPos(Vector3D tempPos) {
+        this.tempPos = tempPos;
+    }
+
+    public Vector3D getTempVelocity() {
+        return tempVelocity;
+    }
+    public void setTempVelocity(Vector3D tempVelocity) {
+        this.tempVelocity = tempVelocity;
+    }
+
+    public void setTempAccel(int pos, Vector3D accel){
+        tempAccelMap.put(pos,accel);
+    }
+    public Vector3D getTempAccel(int pos){
+        return tempAccelMap.get(pos);
+    }
+
+    public void setTempVelocity(int pos, Vector3D velocity){
+        tempVeloMap.put(pos,velocity);
+    }
+    public Vector3D getTempVelocity(int pos){
+        return tempVeloMap.get(pos);
+    }
 }

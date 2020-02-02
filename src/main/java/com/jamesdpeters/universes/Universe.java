@@ -3,10 +3,10 @@ package com.jamesdpeters.universes;
 import com.jamesdpeters.bodies.Body;
 import com.jamesdpeters.helpers.MemoryCalculator;
 import com.jamesdpeters.helpers.SimulationPerformanceTracker;
+import com.jamesdpeters.integrators.Integrator;
 import com.jamesdpeters.json.CSVWriter;
 import com.jamesdpeters.json.Graph;
 import com.jamesdpeters.vectors.EclipseCalculator;
-import com.jamesdpeters.vectors.Vector3D;
 
 import java.io.IOException;
 import java.util.List;
@@ -34,6 +34,7 @@ public abstract class Universe {
     //private Label FPS, EPS, UniverseTime, USPS;
     private double instantEPS;
 
+    Integrator integrator;
     ExecutorService service;
     Universe universe;
     SimulationPerformanceTracker performanceTracker;
@@ -134,17 +135,16 @@ public abstract class Universe {
                     //performanceTracker.printStats();
 
                     //Eclipse
-                    Vector3D point = EclipseCalculator.calculatePoint(this);
-                    System.out.println("MOON PERPENDICULAR POINT: "+point);
+                    EclipseCalculator.findEclipses(this);
 
-                    Graph.plotTrajectory(universe,1);
+//                    Graph.plotTrajectory(universe,1);
                     for(Body body : bodies){
                         Graph.plotBody(body);
-                        try {
-                            CSVWriter.writeBody(body, 1);
-                        } catch (Exception e){
-                            e.printStackTrace();
-                        }
+//                        try {
+//                            CSVWriter.writeBody(body, 1);
+//                        } catch (Exception e){
+//                            e.printStackTrace();
+//                        }
                     }
                     try {
                         CSVWriter.writeEnergyShift(universe);
@@ -219,5 +219,9 @@ public abstract class Universe {
 
     public Body getOriginBody() {
         return originBody;
+    }
+
+    public Integrator getIntegrator() {
+        return integrator;
     }
 }

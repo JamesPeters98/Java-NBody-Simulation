@@ -22,7 +22,7 @@ public class CONSTANTS {
     }
 
     public static class SECONDS {
-        final static double DAY = 86400;
+        public final static double DAY = 86400;
     }
 
 }

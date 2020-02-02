@@ -5,13 +5,14 @@ import com.jamesdpeters.bodies.Body;
 import com.jamesdpeters.vectors.Vector3D;
 
 import java.util.HashMap;
+import java.util.TreeMap;
 
 public class BodyBuilder {
 
     private String name;
     private Vector3D initPos, initVelocity;
     private double mass, radius, GM;
-    private HashMap<Long, Vector3D> JPLpositions, JPLvelocities;
+    private TreeMap<Double, Vector3D> JPLpositions, JPLvelocities;
     private boolean isOrigin = false;
 
     public static BodyBuilder getInstance(){
@@ -45,12 +46,12 @@ public class BodyBuilder {
         return this;
     }
 
-    public BodyBuilder setPositions(HashMap<Long, Vector3D> positions) {
+    public BodyBuilder setPositions(TreeMap<Double, Vector3D> positions) {
         this.JPLpositions = positions;
         return this;
     }
 
-    public BodyBuilder setVelocities(HashMap<Long, Vector3D> velocities) {
+    public BodyBuilder setVelocities(TreeMap<Double, Vector3D> velocities) {
         this.JPLvelocities = velocities;
         return this;
     }
@@ -98,12 +99,12 @@ public class BodyBuilder {
             }
 
             @Override
-            public HashMap<Long, Vector3D> getJPLPositions() {
+            public TreeMap<Double, Vector3D> getJPLPositions() {
                 return JPLpositions;
             }
 
             @Override
-            public HashMap<Long, Vector3D> getJPLVelocities() {
+            public TreeMap<Double, Vector3D> getJPLVelocities() {
                 return JPLvelocities;
             }
 
