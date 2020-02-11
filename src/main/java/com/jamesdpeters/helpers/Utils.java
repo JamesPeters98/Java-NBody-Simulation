@@ -39,5 +39,10 @@ public class Utils {
 ////        return stoppedRunning;
 //    }
 
+    public static int getExponentForNumber(double number)
+    {
+        String numberAsString = String.valueOf(number);
+        return numberAsString.substring(numberAsString.indexOf('.') + 1).length() * -1;
+    }
 
 }

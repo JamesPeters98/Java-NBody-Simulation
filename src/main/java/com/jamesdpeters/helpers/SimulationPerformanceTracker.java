@@ -21,18 +21,19 @@ public class SimulationPerformanceTracker {
         endTime = System.currentTimeMillis();
     }
 
-    private long timeTaken(){
+    public double timeTaken(){
         return (endTime-startTime)/1000;
     }
 
     public void printStats(){
         long posSize = (long) (universe.getBodies().size()*(universe.runningTime()/universe.dt()));
-        long EPS = posSize/timeTaken();
+        double EPS = posSize/timeTaken();
         System.out.println("********************************");
         System.out.println("Stats for "+universe.getName());
         System.out.println("Step Time: "+universe.dt()+" (Days)");
         System.out.println("Time Taken: "+timeTaken()+" s");
         System.out.println("Events Per Second: "+EPS);
+        System.out.println("Resolution: "+universe.resolution());
         System.out.println("********************************");
     }
 

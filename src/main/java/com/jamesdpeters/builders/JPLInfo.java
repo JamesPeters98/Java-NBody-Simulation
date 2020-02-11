@@ -11,7 +11,6 @@ public class JPLInfo {
     private double mass, radius, GM;
     private boolean originBody = false;
 
-
     public String serialise(Gson gson){
         return gson.toJson(this);
     }

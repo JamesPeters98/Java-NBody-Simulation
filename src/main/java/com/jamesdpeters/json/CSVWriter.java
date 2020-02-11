@@ -1,7 +1,8 @@
 package com.jamesdpeters.json;
 
 import com.jamesdpeters.bodies.Body;
-import com.jamesdpeters.helpers.CONSTANTS;
+import com.jamesdpeters.eclipse.EclipseInfo;
+import com.jamesdpeters.helpers.Constants;
 import com.jamesdpeters.universes.Universe;
 import com.jamesdpeters.vectors.Vector3D;
 
@@ -11,8 +12,10 @@ import java.io.PrintWriter;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.time.format.DateTimeFormatter;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.TreeMap;
-import java.util.concurrent.TimeUnit;
 import java.util.concurrent.atomic.AtomicInteger;
 
 public class CSVWriter {
@@ -52,7 +55,7 @@ public class CSVWriter {
         });
         outputFile.println("***************************");
         body.getJPLPositions().forEach((day, point3D) -> {
-            outputFile.println(CONSTANTS.SECONDS.DAY*day + "," + point3D.getX() + "," + point3D.getY() + "," + point3D.getZ()+","+point3D.magnitude());
+            outputFile.println(Constants.SECONDS.DAY*day + "," + point3D.getX() + "," + point3D.getY() + "," + point3D.getZ()+","+point3D.magnitude());
         });
 
         outputFile.close(); // close the output file
@@ -60,7 +63,7 @@ public class CSVWriter {
     }
 
     public static void writeEnergyShift(Universe universe) throws IOException {
-        Path path = Paths.get("outputs/"+universe.getIntegrator().getIntegratorName()+"/"+universe.getName()+"-"+universe.dt()+".csv");
+        Path path = Paths.get("outputs/Energyshift/"+universe.dt()+"-dt/"+universe.getIntegrator().getIntegratorName()+"-"+universe.getName()+".csv");
         Files.createDirectories(path.getParent());
         FileWriter file = new FileWriter(String.valueOf(path));     // this creates the file with the given name
         PrintWriter outputFile = new PrintWriter(file); // this sends the output to file1
@@ -96,5 +99,20 @@ public class CSVWriter {
         }
         outputFile.close(); // close the output file
         System.out.println("Written CSV Data for: Eclipse");
+    }
+
+    public static void writeEclipseInfo(HashMap<Integer, EclipseInfo> eclipseInfo, Universe universe) throws IOException {
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("uuuu-MMM-dd");
+        Path path = Paths.get("outputs/eclipse/"+"eclipseInfo-"+universe.getOriginBody().getStartDate().format(formatter)+"-dt-"+universe.dt()+"-"+universe.getIntegrator().getIntegratorName()+".csv");
+        Files.createDirectories(path.getParent());
+        FileWriter file = new FileWriter(String.valueOf(path));     // this creates the file with the given name
+        PrintWriter outputFile = new PrintWriter(file); // this sends the output to file1
+
+        outputFile.println("Eclipse, Start Date, End Date");
+        for(Map.Entry<Integer,EclipseInfo> entry : eclipseInfo.entrySet()){
+            outputFile.println(entry.getKey()+","+entry.getValue().startDate+","+entry.getValue().endDate);
+        }
+        outputFile.close(); // close the output file
+        System.out.println("Written CSV Data for: Eclipse Info");
     }
 }

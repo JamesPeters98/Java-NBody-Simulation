@@ -115,14 +115,14 @@ public class Graph {
         List<Number> z = new ArrayList<>();
         List<Number> mag = new ArrayList<>();
 
-        int res = 10;
+        int res = 1;
         final int[] point = {res};
-        body.positions.forEach((t, point3D) -> {
+        body.positions.forEach((step, point3D) -> {
             if (point[0] >= res) {
-                Vector3D originPoint = origin.positions.get(t);
+                Vector3D originPoint = origin.positions.get(step);
                 point3D = point3D.subtract(originPoint);
 
-                time.add(t);
+                time.add(step*body.getUniverse().dt());
                 x.add(point3D.getX());
                 y.add(point3D.getY());
                 z.add(point3D.getZ());
@@ -170,7 +170,7 @@ public class Graph {
         openPlot(plt);
     }
 
-    private static void plotEclipse(Plot plt, TreeMap<Double,Double> area, String color){
+    private static void plotEclipse(Plot plt, TreeMap<Double,Double> area, String color, String datasetName){
         List<Number> time = new ArrayList<>();
         List<Number> areas = new ArrayList<>();
 
@@ -179,20 +179,20 @@ public class Graph {
             areas.add(Math.log(a));
         });
 
-        plotData(plt,time,areas,"Luminosity Ratio",color);
+        plotData(plt,time,areas,datasetName,color);
     }
 
     public static void plotEclipse(TreeMap<Double,Double> area, TreeMap<Double, Double> JPLArea){
         Plot plt = getPlot();
         plt.figure("Eclipse Plot");
         plt.subplot(1,1,1);
-        plotEclipse(plt,area, "blue");
-        plotEclipse(plt,JPLArea, "red");
+        plotEclipse(plt,area, "blue","Simulated Data");
+        plotEclipse(plt,JPLArea, "red", "JPL Data");
         plt.ylabel("Luminosity Ratio Log(L/L0)");
         openPlot(plt);
     }
 
-    private static void openPlot(Plot plt){
+    public static void openPlot(Plot plt){
         Runnable run = () -> {
             try {
                 plt.show();
@@ -205,12 +205,12 @@ public class Graph {
         thread.start();
     }
 
-    private static Plot getPlot(){
+    public static Plot getPlot(){
         PythonConfig config = PythonConfig.pythonBinPathConfig("C:\\Users\\James\\AppData\\Local\\Programs\\Python\\Python37\\python.exe");
         return Plot.create(config);
     }
 
-    private static PlotBuilder plotData(Plot plt, List<Number> x, List<Number> y, String label, String color){
+    public static PlotBuilder plotData(Plot plt, List<Number> x, List<Number> y, String label, String color){
         PlotBuilder plotBuilder = plt.plot()
                 .add(x,y)
                 .label(label)

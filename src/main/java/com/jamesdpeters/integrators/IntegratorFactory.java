@@ -1,11 +1,15 @@
 package com.jamesdpeters.integrators;
 
 import com.jamesdpeters.integrators.abstracts.Integrator;
+import com.jamesdpeters.integrators.types.EulerIntegrator;
+import com.jamesdpeters.integrators.types.LeapFrogIntegrator;
+import com.jamesdpeters.integrators.types.RK4Integrator;
+import com.jamesdpeters.integrators.types.YoshidaIntegrator;
 
 public class IntegratorFactory {
 
     public static Integrator getDefaultIntegrator(){
-        return getYoshidaIntegrator();
+        return getRK4Integrator();
     }
 
     public static Integrator getLeapFrogIntegrator(){
@@ -16,9 +20,9 @@ public class IntegratorFactory {
         return new YoshidaIntegrator();
     }
 
-//    public static Integrator getEulerIntegrator(){
-//        return new StandardIntegrator(new EulerIntegratorType());
-//    }
+    public static Integrator getEulerIntegrator(){
+        return new EulerIntegrator();
+    }
 //
 //    public static Integrator getSecondOrderIntegrator(){
 //        return new StandardIntegrator(new SecondOrderIntegratorType());

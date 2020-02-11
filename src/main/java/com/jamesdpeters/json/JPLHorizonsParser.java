@@ -1,7 +1,7 @@
 package com.jamesdpeters.json;
 
 import com.jamesdpeters.builders.BodyBuilder;
-import com.jamesdpeters.helpers.CONSTANTS;
+import com.jamesdpeters.helpers.Constants;
 import com.jamesdpeters.helpers.Utils;
 import com.jamesdpeters.vectors.Vector3D;
 import org.apache.commons.csv.CSVFormat;
@@ -17,15 +17,11 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.time.Duration;
-import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Locale;
 import java.util.TreeMap;
-
-import static java.time.temporal.ChronoUnit.DAYS;
 
 
 public class JPLHorizonsParser {
@@ -57,7 +53,7 @@ public class JPLHorizonsParser {
             for (CSVRecord record : records) {
                 LocalDateTime dateTime = LocalDateTime.parse(record.get(JPLHeader.DATE.index).replace(" A.D. ", ""), formatter);
                 Duration duration = Duration.between(initDateTime,dateTime);
-                double day = duration.getSeconds()/CONSTANTS.SECONDS.DAY;
+                double day = duration.getSeconds()/ Constants.SECONDS.DAY;
                 Vector3D Pos = new Vector3D(toDouble(record,JPLHeader.X),toDouble(record,JPLHeader.Y),toDouble(record,JPLHeader.Z));
                 Vector3D Velocity = new Vector3D(toDouble(record,JPLHeader.VX),toDouble(record,JPLHeader.VY),toDouble(record,JPLHeader.VZ));
                 positions.put(day,Pos);
@@ -69,7 +65,8 @@ public class JPLHorizonsParser {
                     .setInitVelocity(initialVelocity)
                     .setName(bodyName)
                     .setPositions(positions)
-                    .setVelocities(velocities);
+                    .setVelocities(velocities)
+                    .setStartDate(initDateTime);
         } catch (Exception e){
             e.printStackTrace();
         }

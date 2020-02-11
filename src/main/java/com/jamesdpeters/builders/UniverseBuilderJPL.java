@@ -34,11 +34,6 @@ public class UniverseBuilderJPL {
         return this;
     }
 
-//    public UniverseBuilderJPL setG(double g) {
-//        G = g;
-//        return this;
-//    }
-
     public UniverseBuilderJPL addBodyInfo(JPLInfo jplInfo){
         JPLInfo.add(jplInfo);
         return this;

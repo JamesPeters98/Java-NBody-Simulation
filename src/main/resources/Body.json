@@ -1,6 +1,6 @@
 {
   "name": "Universe",
-  "dt": 0.0005,
+  "dt": 0.01,
   "JPLInfo": [
     {
       "name": "Earth",
@@ -29,6 +29,13 @@
       "mass": 48.685E23,
       "radius": 6051.84,
       "GM": 324858.592
+    },
+    {
+      "name": "Saturn",
+      "filename": "horizon_data/saturn.txt",
+      "mass": 5.6834E26,
+      "radius": 58232,
+      "GM": 37931206.159
     },
     {
       "name": "Sun",

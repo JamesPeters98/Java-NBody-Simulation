@@ -1,8 +1,7 @@
 package com.jamesdpeters;
 
-import com.jamesdpeters.helpers.CONSTANTS;
+import com.jamesdpeters.integrators.IntegratorFactory;
 import com.jamesdpeters.universes.NormalUniverse;
-import com.jamesdpeters.universes.Universe;
 
 public class StartUniverse {
 
@@ -27,6 +26,9 @@ public class StartUniverse {
         System.out.println("********************************************");
 
 
-        Universe universe = new NormalUniverse();
+        NormalUniverse universe = new NormalUniverse();
+        universe.setOutput(true);
+        universe.start();
+
     }
 }

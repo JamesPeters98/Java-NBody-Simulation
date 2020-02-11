@@ -4,6 +4,7 @@ import com.google.gson.Gson;
 import com.jamesdpeters.bodies.Body;
 import com.jamesdpeters.vectors.Vector3D;
 
+import java.time.LocalDateTime;
 import java.util.HashMap;
 import java.util.TreeMap;
 
@@ -14,6 +15,7 @@ public class BodyBuilder {
     private double mass, radius, GM;
     private TreeMap<Double, Vector3D> JPLpositions, JPLvelocities;
     private boolean isOrigin = false;
+    private LocalDateTime startDate;
 
     public static BodyBuilder getInstance(){
         return new BodyBuilder();
@@ -66,6 +68,11 @@ public class BodyBuilder {
         return this;
     }
 
+    public BodyBuilder setStartDate(LocalDateTime startDate) {
+        this.startDate = startDate;
+        return this;
+    }
+
     public Body create(){
         return new Body() {
             @Override
@@ -111,6 +118,11 @@ public class BodyBuilder {
             @Override
             public boolean isOrigin() {
                 return isOrigin;
+            }
+
+            @Override
+            public LocalDateTime getStartDate() {
+                return startDate;
             }
         };
     }

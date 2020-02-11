@@ -1,0 +1,42 @@
+{
+  "name": "Trappist",
+  "dt": 0.1,
+  "JPLInfo": [
+    {
+      "name": "Earth",
+      "filename": "horizon_data/earth.txt",
+      "mass": 5.97219E24,
+      "radius": 6371.01,
+      "GM": 398600.435436
+    },
+    {
+      "name": "Moon",
+      "filename": "horizon_data/moon.txt",
+      "mass": 7.349E22,
+      "radius": 1737.53,
+      "GM": 4902.800066
+    },
+    {
+      "name": "Jupiter",
+      "filename": "horizon_data/jupiter.txt",
+      "mass": 1898.13E24,
+      "radius": 69911,
+      "GM": 126686534.911
+    },
+    {
+      "name": "Venus",
+      "filename": "horizon_data/venus.txt",
+      "mass": 48.685E23,
+      "radius": 6051.84,
+      "GM": 324858.592
+    },
+    {
+      "name": "1A",
+      "filename": "horizon_data/sun.txt",
+      "mass": 1988500E24,
+      "radius": 695700.0,
+      "GM": 132712440041.93938,
+      "originBody": true
+    }
+  ]
+}
