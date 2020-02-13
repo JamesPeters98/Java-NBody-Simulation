@@ -139,13 +139,15 @@ public class Graph {
         List<Number> zJPL = new ArrayList<>();
         List<Number> magJPL = new ArrayList<>();
 
-        body.getJPLPositions().forEach((t, point3D) -> {
-            timeJPL.add(t);
-            xJPL.add(point3D.getX());
-            yJPL.add(point3D.getY());
-            zJPL.add(point3D.getZ());
-            magJPL.add(point3D.magnitude());
-        });
+        if(body.getJPLPositions() != null) {
+            body.getJPLPositions().forEach((t, point3D) -> {
+                timeJPL.add(t);
+                xJPL.add(point3D.getX());
+                yJPL.add(point3D.getY());
+                zJPL.add(point3D.getZ());
+                magJPL.add(point3D.magnitude());
+            });
+        }
 
         Plot plt = getPlot();
         plt.figure(body.getName());
@@ -176,19 +178,19 @@ public class Graph {
 
         area.forEach((t, a) -> {
             time.add(t);
-            areas.add(Math.log(a));
+            areas.add(a);
         });
 
         plotData(plt,time,areas,datasetName,color);
     }
 
-    public static void plotEclipse(TreeMap<Double,Double> area, TreeMap<Double, Double> JPLArea){
+    public static void plotEclipse(String title, TreeMap<Double,Double> area, TreeMap<Double, Double> JPLArea){
         Plot plt = getPlot();
-        plt.figure("Eclipse Plot");
+        plt.figure(title);
         plt.subplot(1,1,1);
         plotEclipse(plt,area, "blue","Simulated Data");
-        plotEclipse(plt,JPLArea, "red", "JPL Data");
-        plt.ylabel("Luminosity Ratio Log(L/L0)");
+        if(JPLArea != null) plotEclipse(plt,JPLArea, "red", "JPL Data");
+        plt.ylabel("Luminosity Ratio (L/L0)");
         openPlot(plt);
     }
 

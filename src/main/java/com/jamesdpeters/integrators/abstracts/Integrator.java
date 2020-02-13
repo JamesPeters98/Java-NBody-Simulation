@@ -8,6 +8,7 @@ public abstract class Integrator {
 
     //Integrator can decide to evolve each
     public abstract void step(Universe universe);
+
     public abstract String getIntegratorName();
 
     //Calculates Acceleration of given body using the temp pos parameter, e.g index 1 = x1
@@ -23,15 +24,4 @@ public abstract class Integrator {
         return accel;
     }
 
-//    public Vector3D accelDerivative(Body body){
-//        Vector3D accelDot = new Vector3D(0,0,0);
-//        for(Body body2 : body.getExclusiveBodies()) {
-//            Vector3D delta = body.getTempPos().subtract(body2.getTempPos());
-//            double distance = delta.magnitude();
-//            // a(t)
-//            double accelMagnitudeDot = (-body2.getGMAU())/(distance*distance*distance);
-//            accelDot = accelDot.add(delta.multiply(accelMagnitudeDot));
-//        }
-//        return accelDot;
-//    }
 }

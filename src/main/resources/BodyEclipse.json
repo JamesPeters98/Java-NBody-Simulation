@@ -4,42 +4,42 @@
   "JPLInfo": [
     {
       "name": "Earth",
-      "filename": "horizon_data/earth.txt",
+      "filename": "horizon_data_timespan_0.1day/earth.txt",
       "mass": 5.97219E24,
       "radius": 6371.01,
       "GM": 398600.435436
     },
     {
       "name": "Moon",
-      "filename": "horizon_data/moon.txt",
+      "filename": "horizon_data_timespan_0.1day/moon.txt",
       "mass": 7.349E22,
       "radius": 1737.53,
       "GM": 4902.800066
     },
     {
       "name": "Jupiter",
-      "filename": "horizon_data/jupiter.txt",
+      "filename": "horizon_data_timespan_0.1day/jupiter.txt",
       "mass": 1898.13E24,
       "radius": 69911,
       "GM": 126686534.911
     },
     {
       "name": "Venus",
-      "filename": "horizon_data/venus.txt",
+      "filename": "horizon_data_timespan_0.1day/venus.txt",
       "mass": 48.685E23,
       "radius": 6051.84,
       "GM": 324858.592
     },
     {
       "name": "Saturn",
-      "filename": "horizon_data/saturn.txt",
+      "filename": "horizon_data_timespan_0.1day/saturn.txt",
       "mass": 5.6834E26,
       "radius": 58232,
       "GM": 37931206.159
     },
     {
       "name": "Sun",
-      "filename": "horizon_data/sun.txt",
+      "filename": "horizon_data_timespan_0.1day/sun.txt",
       "mass": 1988500E24,
       "radius": 695700.0,
       "GM": 132712440041.93938,

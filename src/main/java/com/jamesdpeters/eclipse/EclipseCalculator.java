@@ -16,10 +16,7 @@ import java.util.concurrent.atomic.AtomicReference;
 
 public class EclipseCalculator {
 
-    public EclipseCalculator(){
-
-    }
-
+    //This is just for Earth, Sun and Moon (Luna). Needs to be adapted for more general scenario.
     public static void findEclipses(Universe universe){
         Body sun = null, earth = null, moon = null;
         for(Body body : universe.getBodies()){
@@ -50,14 +47,14 @@ public class EclipseCalculator {
             }
 
             HashMap<Integer,EclipseInfo> eclipseInfoHashMap = calculateEclipseFeatures(sun.getStartDate(),Area);
-            Graph.plotEclipse(Area,JPLArea);
+            Graph.plotEclipse("Eclipse Plot",Area,JPLArea);
             try {
-                CSVWriter.writeEclipseData(ConeRadius,EdgeOfMoonDist,Lambda,Area);
+                CSVWriter.writeEclipseData("SolarSystem",ConeRadius,EdgeOfMoonDist,Lambda,Area);
             } catch (IOException e) {
                 e.printStackTrace();
             }
             try {
-                CSVWriter.writeEclipseInfo(eclipseInfoHashMap,universe);
+                CSVWriter.writeEclipseInfo("SolarSystem",eclipseInfoHashMap,universe);
             } catch (IOException e) {
                 e.printStackTrace();
             }

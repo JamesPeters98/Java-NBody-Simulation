@@ -3,8 +3,8 @@ package com.jamesdpeters.json;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.jamesdpeters.StartUniverse;
-import com.jamesdpeters.builders.JPLInfo;
-import com.jamesdpeters.builders.UniverseBuilderJPL;
+import com.jamesdpeters.builders.jpl.JPLInfo;
+import com.jamesdpeters.builders.jpl.UniverseBuilderJPL;
 import org.apache.commons.io.FileUtils;
 
 import java.io.File;
@@ -43,25 +43,25 @@ public class JsonConverter {
         info.setMass(123456);
         info.setRadius(54321);
 
-                String Universe = UniverseBuilderJPL.getInstance()
-                .setName("Universe")
-                .setDt(0.1)
-                //.setG(6.67e-11)
-                        .addBodyInfo(info)
-                        .addBodyInfo(info)
-                .serialise(gson);
+//                String Universe = UniverseBuilderJPL.getInstance()
+//                .setName("Universe")
+//                .setDt(0.1)
+//                //.setG(6.67e-11)
+//                        .addBodyInfo(info)
+//                        .addBodyInfo(info)
+//                .serialise(gson);
 
-                System.out.println(Universe);
-
-        String file = StartUniverse.class.getResource("").getFile();    // Resource Folder
-        File f = new File(file+"/BodyTest.json");
-        System.out.println(f.getPath());
-        FileUtils.writeStringToFile(f,Universe, Charset.defaultCharset());
-
-        UniverseBuilderJPL universeBuilderJPL = UniverseBuilderJPL.getInstance().fromFile(gson,f);
-        for(JPLInfo jplinfo : universeBuilderJPL.getJPLInfo()){
-            System.out.println(jplinfo.getBodyBuilder().serialise(gson));
-        }
+//                System.out.println(Universe);
+//
+//        String file = StartUniverse.class.getResource("").getFile();    // Resource Folder
+//        File f = new File(file+"/BodyTest.json");
+//        System.out.println(f.getPath());
+//        FileUtils.writeStringToFile(f,Universe, Charset.defaultCharset());
+//
+//        UniverseBuilderJPL universeBuilderJPL = UniverseBuilderJPL.getInstance().fromFile(gson,f);
+//        for(JPLInfo jplinfo : universeBuilderJPL.getJPLInfo()){
+//            System.out.println(jplinfo.getBodyBuilder().serialise(gson));
+//        }
 
 //
 //        UniverseBuilder universeBuilder = UniverseBuilder.getInstance().fromFile(gson,f);

@@ -4,30 +4,42 @@ import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.jamesdpeters.StartUniverse;
 import com.jamesdpeters.bodies.Body;
-import com.jamesdpeters.bodies.BodyErrorWorker;
-import com.jamesdpeters.builders.UniverseBuilderJPL;
+import com.jamesdpeters.builders.UniverseBuilder;
+import com.jamesdpeters.builders.jpl.UniverseBuilderJPL;
+import com.jamesdpeters.eclipse.EclipseCalculator;
 import com.jamesdpeters.integrators.IntegratorFactory;
-import com.jamesdpeters.json.Graph;
+import com.jamesdpeters.json.CSVWriter;
 
 import java.io.File;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
-public class NormalUniverse extends Universe {
+public class SolarSystem extends Universe {
 
-    private UniverseBuilderJPL builder;
+    private UniverseBuilder builder;
     private double dt = 0;
     private List<Runnable> onFinish;
 
-    public NormalUniverse() {
-        Gson gson = new GsonBuilder().setPrettyPrinting().create();
-        try {
-            String jsonFile = StartUniverse.class.getResource("/Body.json").getFile();
-            builder = UniverseBuilderJPL.getInstance().fromFile(gson, new File(jsonFile));
-        } catch (Exception e){e.printStackTrace();}
+    public SolarSystem() {
+        System.out.println("JSON File name: "+getJsonFilePath());
+        builder = getBuilder();
         integrator = IntegratorFactory.getDefaultIntegrator();
         onFinish = new ArrayList<>();
         init();
+    }
+
+    protected UniverseBuilder getBuilder(){
+        Gson gson = new GsonBuilder().setPrettyPrinting().create();
+        try {
+            String jsonFile = StartUniverse.class.getResource(getJsonFilePath()).getFile();
+            return UniverseBuilderJPL.getInstance().fromFile(gson, new File(jsonFile));
+        } catch (Exception e){e.printStackTrace();}
+        return null;
+    }
+
+    protected String getJsonFilePath(){
+        return "/BodyEclipse.json";
     }
 
     @Override
@@ -38,10 +50,14 @@ public class NormalUniverse extends Universe {
     }
 
     @Override
-    protected void onFinish() {
+    protected void onFinish() throws IOException {
 //        universe.getBodies().forEach(BodyErrorWorker::calculateError);
 //        universe.getBodies().forEach(Graph::plotBody);
+        for (Body body : getBodies()) {
+            CSVWriter.writeBody(body,1000);
+        }
         onFinish.forEach(Runnable::run);
+        EclipseCalculator.findEclipses(this);
     }
 
     @Override
@@ -63,8 +79,8 @@ public class NormalUniverse extends Universe {
     }
 
     @Override
-    public long runningTime() {
-        return (long) (365*30); // Run for 500 Simulated Days
+    public double runningTime() {
+        return (long) (365*5); // Run for 500 Simulated Days
     }
 
     @Override

@@ -1,42 +1,40 @@
-package com.jamesdpeters.builders;
+package com.jamesdpeters.builders.trappist;
 
 import com.google.gson.Gson;
 import com.google.gson.stream.JsonReader;
 import com.jamesdpeters.bodies.Body;
+import com.jamesdpeters.builders.BodyBuilder;
+import com.jamesdpeters.builders.UniverseBuilder;
 
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
-public class UniverseBuilderTrappist {
+public class UniverseBuilderTrappist extends UniverseBuilder {
 
-    private String name;
-    private double dt;
-    private List<TrappistInfo> trappistInfo;
+    private List<TrappistBody> trappistBodies;
+    private LocalDateTime startDate;
 
     private UniverseBuilderTrappist(){
-        trappistInfo = new ArrayList<>();
+        super();
+        trappistBodies = new ArrayList<>();
     }
 
     public static UniverseBuilderTrappist getInstance(){
         return new UniverseBuilderTrappist();
     }
 
-    public UniverseBuilderTrappist setName(String name) {
-        this.name = name;
+
+    public UniverseBuilderTrappist addBodyInfo(TrappistBody trappistBody){
+        this.trappistBodies.add(trappistBody);
         return this;
     }
 
-    public UniverseBuilderTrappist setDt(double dt) {
-        this.dt = dt;
-        return this;
-    }
-
-    public UniverseBuilderTrappist addBodyInfo(TrappistInfo trappistInfo){
-        this.trappistInfo.add(trappistInfo);
-        return this;
+    public List<TrappistBody> getTrappistBodies() {
+        return trappistBodies;
     }
 
     /**
@@ -44,25 +42,18 @@ public class UniverseBuilderTrappist {
      */
 
     public List<Body> createBodies() {
+        System.out.println("Start Date: "+startDate);
         List<Body> bodyList = new ArrayList<>();
-        trappistInfo.forEach(jplInfo -> {
-            bodyList.add(jplInfo.getBody());
+        trappistBodies.forEach(trappistBody -> {
+            BodyBuilder builder = trappistBody.getBodyBuilder().setStartDate(startDate);
+            bodyList.add(builder.create());
         });
         return bodyList;
     }
 
-    public String getName() {
-        return name;
-    }
-    public double getDt() {
-        return dt;
-    }
-    public List<TrappistInfo> getTrappistInfo() { return trappistInfo; }
-
     /**
      *  SERIALIZER
      */
-
     public String serialise(Gson gson){
         return gson.toJson(this);
     }
@@ -74,5 +65,11 @@ public class UniverseBuilderTrappist {
     public UniverseBuilderTrappist fromFile(Gson gson, File file) throws FileNotFoundException {
         JsonReader reader = new JsonReader(new FileReader(file));
         return gson.fromJson(reader, UniverseBuilderTrappist.class);
+    }
+
+
+    public UniverseBuilderTrappist setStartDate(LocalDateTime startDate) {
+        this.startDate = startDate;
+        return this;
     }
 }

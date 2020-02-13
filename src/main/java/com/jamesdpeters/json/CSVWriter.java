@@ -12,6 +12,7 @@ import java.io.PrintWriter;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.time.Duration;
 import java.time.format.DateTimeFormatter;
 import java.util.HashMap;
 import java.util.Map;
@@ -22,7 +23,7 @@ public class CSVWriter {
 
     // Resolution = Number of points to discard between each CSV record.
     public static void writeBody(Body body, int resolution) throws IOException {
-        Path path = Paths.get("outputs/"+body.getUniverse().getIntegrator().getIntegratorName()+"/"+body.getName()+"/"+body.getName()+"_data_"+body.getUniverse().dt()+".csv");
+        Path path = Paths.get("outputs/"+body.getUniverse().getName()+"/"+body.getUniverse().getIntegrator().getIntegratorName()+"/"+body.getName()+"/"+body.getName()+"_data_"+body.getUniverse().dt()+".csv");
         Files.createDirectories(path.getParent());
         FileWriter file = new FileWriter(String.valueOf(path));     // this creates the file with the given name
         PrintWriter outputFile = new PrintWriter(file); // this sends the output to file1
@@ -54,16 +55,18 @@ public class CSVWriter {
             }
         });
         outputFile.println("***************************");
-        body.getJPLPositions().forEach((day, point3D) -> {
-            outputFile.println(Constants.SECONDS.DAY*day + "," + point3D.getX() + "," + point3D.getY() + "," + point3D.getZ()+","+point3D.magnitude());
-        });
+        if(body.getJPLPositions() != null) {
+            body.getJPLPositions().forEach((day, point3D) -> {
+                outputFile.println(Constants.SECONDS.DAY * day + "," + point3D.getX() + "," + point3D.getY() + "," + point3D.getZ() + "," + point3D.magnitude());
+            });
+        }
 
         outputFile.close(); // close the output file
         System.out.println("Written CSV Data for: "+body.getName());
     }
 
     public static void writeEnergyShift(Universe universe) throws IOException {
-        Path path = Paths.get("outputs/Energyshift/"+universe.dt()+"-dt/"+universe.getIntegrator().getIntegratorName()+"-"+universe.getName()+".csv");
+        Path path = Paths.get("outputs/"+universe.getName()+"/Energyshift/"+universe.dt()+"-dt/"+universe.getIntegrator().getIntegratorName()+"-"+universe.getName()+".csv");
         Files.createDirectories(path.getParent());
         FileWriter file = new FileWriter(String.valueOf(path));     // this creates the file with the given name
         PrintWriter outputFile = new PrintWriter(file); // this sends the output to file1
@@ -87,8 +90,8 @@ public class CSVWriter {
         System.out.println("Written CSV Data for: Energy Shift");
     }
 
-    public static void writeEclipseData(TreeMap<Double,Double> coneRadius, TreeMap<Double,Double> edgeOfMoonDist,TreeMap<Double,Double> lambda,TreeMap<Double,Double> area) throws IOException {
-        Path path = Paths.get("outputs/eclipse/"+"data.csv");
+    public static void writeEclipseData(String folderPath, TreeMap<Double,Double> coneRadius, TreeMap<Double,Double> edgeOfMoonDist,TreeMap<Double,Double> lambda,TreeMap<Double,Double> area) throws IOException {
+        Path path = Paths.get("outputs/eclipse/"+folderPath+"/data.csv");
         Files.createDirectories(path.getParent());
         FileWriter file = new FileWriter(String.valueOf(path));     // this creates the file with the given name
         PrintWriter outputFile = new PrintWriter(file); // this sends the output to file1
@@ -98,21 +101,21 @@ public class CSVWriter {
             outputFile.println(time+","+coneRadius.get(time)+","+edgeOfMoonDist.get(time)+","+lambda.get(time)+","+area.get(time));
         }
         outputFile.close(); // close the output file
-        System.out.println("Written CSV Data for: Eclipse");
+        System.out.println("Saved CSV Data for: Eclipse - "+folderPath);
     }
 
-    public static void writeEclipseInfo(HashMap<Integer, EclipseInfo> eclipseInfo, Universe universe) throws IOException {
+    public static void writeEclipseInfo(String folderPath, HashMap<Integer, EclipseInfo> eclipseInfo, Universe universe) throws IOException {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("uuuu-MMM-dd");
-        Path path = Paths.get("outputs/eclipse/"+"eclipseInfo-"+universe.getOriginBody().getStartDate().format(formatter)+"-dt-"+universe.dt()+"-"+universe.getIntegrator().getIntegratorName()+".csv");
+        Path path = Paths.get("outputs/eclipse/"+folderPath +"/eclipseInfo-" +universe.getOriginBody().getStartDate().format(formatter) +"-dt-"+universe.dt() +"-"+universe.getIntegrator().getIntegratorName()+".csv");
         Files.createDirectories(path.getParent());
         FileWriter file = new FileWriter(String.valueOf(path));     // this creates the file with the given name
         PrintWriter outputFile = new PrintWriter(file); // this sends the output to file1
 
-        outputFile.println("Eclipse, Start Date, End Date");
+        outputFile.println("Eclipse, Start Date, End Date, Duration (Seconds)");
         for(Map.Entry<Integer,EclipseInfo> entry : eclipseInfo.entrySet()){
-            outputFile.println(entry.getKey()+","+entry.getValue().startDate+","+entry.getValue().endDate);
+            outputFile.println(entry.getKey()+","+entry.getValue().startDate+","+entry.getValue().endDate+","+entry.getValue().getDuration().toSeconds());
         }
         outputFile.close(); // close the output file
-        System.out.println("Written CSV Data for: Eclipse Info");
+        System.out.println("Saved CSV Data for: Eclipse Info - "+folderPath);
     }
 }

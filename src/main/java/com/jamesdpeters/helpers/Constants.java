@@ -35,6 +35,28 @@ public class Constants {
         public static double getEarthGM(double ratio){
             return ratio*GM;
         }
+
+        private final static double RADIUS = 6371.01;
+        public static double getEarthRadius(double ratio){
+            return ratio*RADIUS;
+        }
+    }
+
+    public static class SUN {
+        private final static double MASS = 1988500;
+        public static double getSunMass(double ratio){
+            return Math.pow(MASS*ratio,24);
+        }
+
+        private final static double GM = 132712440041.93938;
+        public static double getSunGM(double ratio){
+            return ratio*GM;
+        }
+
+        private final static double RADIUS = 695700;
+        public static double getSunRadius(double ratio){
+            return ratio*RADIUS;
+        }
     }
 
 }

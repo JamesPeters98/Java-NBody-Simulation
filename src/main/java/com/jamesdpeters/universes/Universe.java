@@ -95,7 +95,11 @@ public abstract class Universe {
                     MemoryCalculator.printMemoryUsed();
                     performanceTracker.printStats();
 
-                    onFinish();
+                    try {
+                        onFinish();
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
                     running = false;
 
                     if(output) {
@@ -135,7 +139,7 @@ public abstract class Universe {
      * Called every tick!
      */
     protected abstract void loop() throws InterruptedException;
-    protected abstract void onFinish();
+    protected abstract void onFinish() throws IOException;
 
     public void stop(){
         running = false;
@@ -180,6 +184,6 @@ public abstract class Universe {
     public abstract List<Body> createBodies();
     public abstract String getName();
     public abstract double dt();
-    public abstract long runningTime();
+    public abstract double runningTime();
     public abstract int resolution(); //Number of steps between each point saved.
 }

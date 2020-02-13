@@ -1,42 +1,75 @@
 {
-  "name": "Trappist",
-  "dt": 0.1,
-  "JPLInfo": [
+  "name": "Trappist System",
+  "dt": 0.001,
+  "trappistBodies": [
     {
-      "name": "Earth",
-      "filename": "horizon_data/earth.txt",
-      "mass": 5.97219E24,
-      "radius": 6371.01,
-      "GM": 398600.435436
-    },
-    {
-      "name": "Moon",
-      "filename": "horizon_data/moon.txt",
-      "mass": 7.349E22,
-      "radius": 1737.53,
-      "GM": 4902.800066
-    },
-    {
-      "name": "Jupiter",
-      "filename": "horizon_data/jupiter.txt",
-      "mass": 1898.13E24,
-      "radius": 69911,
-      "GM": 126686534.911
-    },
-    {
-      "name": "Venus",
-      "filename": "horizon_data/venus.txt",
-      "mass": 48.685E23,
-      "radius": 6051.84,
-      "GM": 324858.592
-    },
-    {
-      "name": "1A",
-      "filename": "horizon_data/sun.txt",
-      "mass": 1988500E24,
-      "radius": 695700.0,
-      "GM": 132712440041.93938,
+      "name": "Trappist 1a (Star)",
+      "sunMassRatio": 0.089,
+      "sunRadiusRatio": 0.121,
       "originBody": true
+    },
+    {
+      "name": "Trappist 1b",
+      "earthMassRatio": 1.017,
+      "inclination": 89.56,
+      "orbitalPeriod": 1.51087637,
+      "semiMajorAxis": 0.01154775,
+      "startPhase": -4.023678401,
+      "earthRadiusRatio": 1.121,
+      "originBody": false
+    },
+    {
+      "name": "Trappist 1c",
+      "earthMassRatio": 1.156,
+      "inclination": 89.70,
+      "orbitalPeriod": 2.42180746,
+      "semiMajorAxis": 0.01581512,
+      "startPhase": 0.0,
+      "earthRadiusRatio": 1.095,
+      "originBody": false
+    },
+    {
+      "name": "Trappist 1d",
+      "earthMassRatio": 0.297,
+      "inclination": 89.89,
+      "orbitalPeriod": 4.049959,
+      "semiMajorAxis": 0.02228038,
+      "startPhase": -4.691065209,
+      "earthRadiusRatio": 0.784,
+      "originBody": false
+    },
+    {
+      "name": "Trappist 1e",
+      "earthMassRatio": 0.772,
+      "inclination": 89.736,
+      "orbitalPeriod": 6.099043,
+      "semiMajorAxis": 0.02928285,
+      "startPhase": -3.465020917,
+      "earthRadiusRatio": 0.910,
+      "originBody": false
+    },
+    {
+      "name": "Trappist 1f",
+      "earthMassRatio": 0.934,
+      "inclination": 89.719,
+      "orbitalPeriod": 9.205585,
+      "semiMajorAxis": 0.03853361,
+      "startPhase": -1.400348028,
+      "earthRadiusRatio": 1.046,
+      "originBody": false
     }
-  ]
+  ],
+  "startDate": {
+  "date": {
+    "year": 2016,
+    "month": 9,
+    "day": 19
+  },
+  "time": {
+    "hour": 10,
+    "minute": 6,
+    "second": 14,
+    "nano": 0
+  }
+}
 }

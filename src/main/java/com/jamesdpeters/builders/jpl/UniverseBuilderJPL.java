@@ -1,8 +1,9 @@
-package com.jamesdpeters.builders;
+package com.jamesdpeters.builders.jpl;
 
 import com.google.gson.Gson;
 import com.google.gson.stream.JsonReader;
 import com.jamesdpeters.bodies.Body;
+import com.jamesdpeters.builders.UniverseBuilder;
 
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -10,10 +11,8 @@ import java.io.FileReader;
 import java.util.ArrayList;
 import java.util.List;
 
-public class UniverseBuilderJPL {
+public class UniverseBuilderJPL extends UniverseBuilder {
 
-    private String name;
-    private double dt;
     private List<JPLInfo> JPLInfo;
 
     private UniverseBuilderJPL(){
@@ -22,16 +21,6 @@ public class UniverseBuilderJPL {
 
     public static UniverseBuilderJPL getInstance(){
         return new UniverseBuilderJPL();
-    }
-
-    public UniverseBuilderJPL setName(String name) {
-        this.name = name;
-        return this;
-    }
-
-    public UniverseBuilderJPL setDt(double dt) {
-        this.dt = dt;
-        return this;
     }
 
     public UniverseBuilderJPL addBodyInfo(JPLInfo jplInfo){

@@ -6,6 +6,7 @@ import org.jzy3d.maths.Coord3d;
 
 import java.net.URI;
 import java.net.URISyntaxException;
+import java.util.TreeMap;
 
 public class Utils {
 
@@ -43,6 +44,15 @@ public class Utils {
     {
         String numberAsString = String.valueOf(number);
         return numberAsString.substring(numberAsString.indexOf('.') + 1).length() * -1;
+    }
+
+    public static void addToTreeMapValue(TreeMap<Double,Double> map, Double key, Double valueToAdd){
+        if(map.containsKey(key)){
+            double prev = map.get(key);
+            map.put(key,prev+valueToAdd);
+        } else {
+            map.put(key,valueToAdd);
+        }
     }
 
 }

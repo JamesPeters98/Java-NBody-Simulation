@@ -394,4 +394,24 @@ public class Vector3D {
     @Override public String toString() {
         return "Point3D [x = " + getX() + ", y = " + getY() + ", z = " + getZ() + "]";
     }
+
+
+    /**
+     * ADDED VECTOR CODE
+     */
+    public Vector3D rotateAroundZ(double radians){
+        double x = getX()*Math.cos(radians)-getY()*Math.sin(radians);
+        double y = getX()*Math.sin(radians)+getY()*Math.cos(radians);
+        double z = getZ();
+
+        return new Vector3D(x,y,z);
+    }
+
+    public Vector3D rotateAroundY(double radians){
+        double x = getX()*Math.cos(radians)+getZ()*Math.sin(radians);
+        double y = getY();
+        double z = -getX()*Math.sin(radians)+getZ()*Math.cos(radians);
+
+        return new Vector3D(x,y,z);
+    }
 }

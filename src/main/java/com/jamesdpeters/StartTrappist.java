@@ -1,8 +1,9 @@
 package com.jamesdpeters;
 
 import com.jamesdpeters.universes.SolarSystem;
+import com.jamesdpeters.universes.TrappistSystem;
 
-public class StartUniverse {
+public class StartTrappist {
 
     public static void main(String[] args) {
 
@@ -25,9 +26,9 @@ public class StartUniverse {
         System.out.println("********************************************");
 
 
-        SolarSystem universe = new SolarSystem();
+        TrappistSystem universe = new TrappistSystem();
         universe.setOutput(true);
-        universe.overrideTimeStep(0.1);
+        universe.overrideTimeStep(0.0001);
         universe.start();
 
     }

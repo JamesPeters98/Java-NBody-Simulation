@@ -1,16 +1,13 @@
 package com.jamesdpeters;
 
 import com.github.sh0nk.matplotlib4j.Plot;
-import com.github.sh0nk.matplotlib4j.builder.PlotBuilder;
 import com.jamesdpeters.bodies.BodyErrorWorker;
 import com.jamesdpeters.integrators.IntegratorFactory;
 import com.jamesdpeters.integrators.abstracts.Integrator;
 import com.jamesdpeters.json.Graph;
-import com.jamesdpeters.universes.NormalUniverse;
+import com.jamesdpeters.universes.SolarSystem;
 import com.jamesdpeters.universes.Universe;
-import org.jzy3d.colors.Color;
 
-import java.awt.*;
 import java.util.*;
 import java.util.List;
 
@@ -43,7 +40,7 @@ public class TimeStepMeasure {
         double[] timesteps = {2,1,0.5,0.25,0.2,0.1,0.05};
 
         for(double timestep : timesteps){
-            NormalUniverse universe = getUniverse(timestep,integrator);
+            SolarSystem universe = getUniverse(timestep,integrator);
             universe.start();
             universes.add(universe);
         }
@@ -66,8 +63,8 @@ public class TimeStepMeasure {
 
     }
 
-    private static NormalUniverse getUniverse(double timestep, Integrator integrator){
-        NormalUniverse universe = new NormalUniverse();
+    private static SolarSystem getUniverse(double timestep, Integrator integrator){
+        SolarSystem universe = new SolarSystem();
         universe.setOutput(false);
         universe.overrideTimeStep(timestep);
         universe.setIntegrator(integrator);

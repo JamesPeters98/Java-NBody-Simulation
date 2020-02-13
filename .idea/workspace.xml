@@ -2,44 +2,40 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="c10789bf-efff-4737-8ba7-343012b8843c" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/jamesdpeters/TimeStepMeasure.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/jamesdpeters/bodies/BodyErrorWorker.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/jamesdpeters/builders/TrappistInfo.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/jamesdpeters/builders/UniverseBuilderTrappist.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/jamesdpeters/eclipse/EclipseInfo.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/jamesdpeters/integrators/types/EulerIntegrator.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/jamesdpeters/universes/TrappistUniverse.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/Trappist.json" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/jamesdpeters/StartTrappist.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/jamesdpeters/builders/trappist/TrappistBody.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/jamesdpeters/eclipse/TransitCalculator.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/jamesdpeters/json/JsonConverterTrappist.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/BodyEclipse.json" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/jamesdpeters/Main.java" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/jamesdpeters/StartUniverse.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/jamesdpeters/StartUniverse.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/jamesdpeters/bodies/Body.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/jamesdpeters/bodies/Body.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/jamesdpeters/builders/BodyBuilder.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/jamesdpeters/builders/BodyBuilder.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/jamesdpeters/builders/JPLInfo.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/jamesdpeters/builders/JPLInfo.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/jamesdpeters/builders/UniverseBuilderJPL.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/jamesdpeters/builders/UniverseBuilderJPL.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/jamesdpeters/helpers/CONSTANTS.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/jamesdpeters/helpers/Constants.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/jamesdpeters/helpers/DelayTimer.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/jamesdpeters/helpers/SimulationPerformanceTracker.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/jamesdpeters/helpers/SimulationPerformanceTracker.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/jamesdpeters/Test.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/jamesdpeters/Test2.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/jamesdpeters/TimeStepMeasure.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/jamesdpeters/TimeStepMeasure.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/jamesdpeters/bodies/Earth.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/jamesdpeters/bodies/Mars.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/jamesdpeters/bodies/Moon.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/jamesdpeters/bodies/Sun.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/jamesdpeters/builders/JPLInfo.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/jamesdpeters/builders/jpl/JPLInfo.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/jamesdpeters/builders/TrappistInfo.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/jamesdpeters/builders/UniverseBuilder.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/jamesdpeters/builders/UniverseBuilder.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/jamesdpeters/builders/UniverseBuilderJPL.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/jamesdpeters/builders/jpl/UniverseBuilderJPL.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/jamesdpeters/builders/UniverseBuilderTrappist.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/jamesdpeters/builders/trappist/UniverseBuilderTrappist.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/jamesdpeters/eclipse/EclipseCalculator.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/jamesdpeters/eclipse/EclipseCalculator.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/jamesdpeters/eclipse/EclipseInfo.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/jamesdpeters/eclipse/EclipseInfo.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/jamesdpeters/helpers/Constants.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/jamesdpeters/helpers/Constants.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/jamesdpeters/helpers/Utils.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/jamesdpeters/helpers/Utils.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/jamesdpeters/integrators/IntegratorFactory.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/jamesdpeters/integrators/IntegratorFactory.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/jamesdpeters/integrators/LeapFrogIntegrator.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/jamesdpeters/integrators/types/LeapFrogIntegrator.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/jamesdpeters/integrators/RK4Integrator.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/jamesdpeters/integrators/types/RK4Integrator.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/jamesdpeters/integrators/YoshidaIntegrator.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/jamesdpeters/integrators/types/YoshidaIntegrator.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/jamesdpeters/integrators/abstracts/Integrator.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/jamesdpeters/integrators/abstracts/Integrator.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/jamesdpeters/integrators/types/EulerIntegratorType.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/jamesdpeters/integrators/types/RK4IntegratorType.java" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/jamesdpeters/json/CSVWriter.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/jamesdpeters/json/CSVWriter.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/jamesdpeters/json/Graph.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/jamesdpeters/json/Graph.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/jamesdpeters/json/JPLHorizonsParser.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/jamesdpeters/json/JPLHorizonsParser.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/jamesdpeters/universes/NormalUniverse.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/jamesdpeters/universes/NormalUniverse.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/jamesdpeters/json/JsonConverter.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/jamesdpeters/json/JsonConverter.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/jamesdpeters/universes/NormalUniverse.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/jamesdpeters/universes/SolarSystem.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/jamesdpeters/universes/TrappistUniverse.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/jamesdpeters/universes/TrappistSystem.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/jamesdpeters/universes/Universe.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/jamesdpeters/universes/Universe.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/jamesdpeters/vectors/EclipseCalculator.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/jamesdpeters/eclipse/EclipseCalculator.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/jamesdpeters/vectors/Vector3D.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/jamesdpeters/vectors/Vector3D.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/resources/Body.json" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/Body.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/horizon_data/earth.txt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/horizon_data/earth.txt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/horizon_data/jupiter.txt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/horizon_data/jupiter.txt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/horizon_data/moon.txt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/horizon_data/moon.txt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/horizon_data/saturn.txt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/horizon_data/saturn.txt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/horizon_data/sun.txt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/horizon_data/sun.txt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/horizon_data/venus.txt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/horizon_data/venus.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/Trappist.json" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/Trappist.json" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -81,11 +77,11 @@
       <recent name="com.jamesdpeters.interfaces" />
     </key>
     <key name="CopyClassDialog.RECENTS_KEY">
+      <recent name="com.jamesdpeters.eclipse" />
       <recent name="com.jamesdpeters" />
+      <recent name="com.jamesdpeters.json" />
       <recent name="com.jamesdpeters.builders" />
       <recent name="com.jamesdpeters.universes" />
-      <recent name="com.jamesdpeters.integrators" />
-      <recent name="com.jamesdpeters.integrators.types" />
     </key>
     <key name="CopyFile.RECENT_KEYS">
       <recent name="C:\Users\James\Documents\GitHub\Java-NBody-Simulation\src\main\resources" />
@@ -103,20 +99,7 @@
       </list>
     </option>
   </component>
-  <component name="RunManager" selected="Application.TimeStepMeasure">
-    <configuration name="Graph" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
-      <option name="MAIN_CLASS_NAME" value="com.jamesdpeters.json.Graph" />
-      <module name="3DTests" />
-      <extension name="coverage">
-        <pattern>
-          <option name="PATTERN" value="com.jamesdpeters.json.*" />
-          <option name="ENABLED" value="true" />
-        </pattern>
-      </extension>
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
+  <component name="RunManager" selected="Application.StartUniverse">
     <configuration name="Json" type="Application" factoryName="Application">
       <option name="MAIN_CLASS_NAME" value="com.jamesdpeters.json.JsonConverter" />
       <module name="3DTests" />
@@ -131,8 +114,8 @@
         <option name="Maven.BeforeRunTask" enabled="true" file="$PROJECT_DIR$/pom.xml" goal="javafx:compile" />
       </method>
     </configuration>
-    <configuration name="Main" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
-      <option name="MAIN_CLASS_NAME" value="com.jamesdpeters.Main" />
+    <configuration name="JsonConverterTrappist" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="com.jamesdpeters.json.JsonConverterTrappist" />
       <module name="3DTests" />
       <extension name="coverage">
         <pattern>
@@ -141,8 +124,20 @@
         </pattern>
       </extension>
       <method v="2">
-        <option name="Maven.BeforeRunTask" enabled="true" file="$PROJECT_DIR$/pom.xml" goal="clean:clean" />
-        <option name="Maven.BeforeRunTask" enabled="true" file="$PROJECT_DIR$/pom.xml" goal="javafx:compile" />
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="StartTrappist" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="com.jamesdpeters.StartTrappist" />
+      <module name="3DTests" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="com.jamesdpeters.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <method v="2">
+        <option name="Make" enabled="true" />
       </method>
     </configuration>
     <configuration name="StartUniverse" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
@@ -240,20 +235,20 @@
     </configuration>
     <list>
       <item itemvalue="Application.Json" />
-      <item itemvalue="Application.Main" />
-      <item itemvalue="Application.Graph" />
       <item itemvalue="Application.StartUniverse" />
+      <item itemvalue="Application.TimeStepMeasure" />
+      <item itemvalue="Application.JsonConverterTrappist" />
+      <item itemvalue="Application.StartTrappist" />
       <item itemvalue="Maven.Run" />
       <item itemvalue="Maven.3DTests [javafx:run]" />
-      <item itemvalue="Application.TimeStepMeasure" />
     </list>
     <recent_temporary>
       <list>
-        <item itemvalue="Application.TimeStepMeasure" />
         <item itemvalue="Application.StartUniverse" />
+        <item itemvalue="Application.StartTrappist" />
+        <item itemvalue="Application.JsonConverterTrappist" />
+        <item itemvalue="Application.TimeStepMeasure" />
         <item itemvalue="Maven.3DTests [javafx:run]" />
-        <item itemvalue="Application.Graph" />
-        <item itemvalue="Application.Main" />
       </list>
     </recent_temporary>
   </component>
@@ -294,6 +289,8 @@
       <workItem from="1580483367852" duration="64546000" />
       <workItem from="1581007021078" duration="4839000" />
       <workItem from="1581080879149" duration="17206000" />
+      <workItem from="1581414893477" duration="36786000" />
+      <workItem from="1581603711090" duration="2695000" />
     </task>
     <servers />
   </component>

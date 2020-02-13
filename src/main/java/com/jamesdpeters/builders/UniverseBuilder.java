@@ -10,58 +10,32 @@ import java.io.FileReader;
 import java.util.ArrayList;
 import java.util.List;
 
-public class UniverseBuilder {
+public abstract class UniverseBuilder {
 
-    private String name;
-    private double dt, G;
-    private List<BodyBuilder> bodies;
+    protected String name;
+    protected double dt;
 
-    private UniverseBuilder(){
-        bodies = new ArrayList<>();
-    }
 
-    public static UniverseBuilder getInstance(){
-        return new UniverseBuilder();
-    }
-
-    public UniverseBuilder setName(String name) {
+    public void setName(String name) {
         this.name = name;
-        return this;
     }
 
-    public UniverseBuilder setDt(double dt) {
+    public void setDt(double dt) {
         this.dt = dt;
-        return this;
     }
 
-    public UniverseBuilder setG(double g) {
-        G = g;
-        return this;
-    }
-
-    public UniverseBuilder addBody(BodyBuilder bodyBuilder){
-        bodies.add(bodyBuilder);
-        return this;
-    }
 
     /**
      * GETTERS
      */
 
-    public List<Body> createBodies() {
-        List<Body> bodyList = new ArrayList<>();
-        bodies.forEach(bodyBuilder -> bodyList.add(bodyBuilder.create()));
-        return bodyList;
-    }
+    public abstract List<Body> createBodies();
 
     public String getName() {
         return name;
     }
     public double getDt() {
         return dt;
-    }
-    public double getG() {
-        return G;
     }
 
     /**

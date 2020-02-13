@@ -1,7 +1,8 @@
-package com.jamesdpeters.builders;
+package com.jamesdpeters.builders.jpl;
 
 import com.google.gson.Gson;
 import com.jamesdpeters.bodies.Body;
+import com.jamesdpeters.builders.BodyBuilder;
 import com.jamesdpeters.json.JPLHorizonsParser;
 
 public class JPLInfo {
@@ -11,15 +12,7 @@ public class JPLInfo {
     private double mass, radius, GM;
     private boolean originBody = false;
 
-    public String serialise(Gson gson){
-        return gson.toJson(this);
-    }
-
-    public JPLInfo fromString(Gson gson, String json){
-        return gson.fromJson(json, JPLInfo.class);
-    }
-
-    public Body getBody() {
+    public Body getBody(){
         return getBodyBuilder().create();
     }
 
