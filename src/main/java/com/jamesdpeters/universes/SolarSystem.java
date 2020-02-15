@@ -9,6 +9,7 @@ import com.jamesdpeters.builders.jpl.UniverseBuilderJPL;
 import com.jamesdpeters.eclipse.EclipseCalculator;
 import com.jamesdpeters.integrators.IntegratorFactory;
 import com.jamesdpeters.json.CSVWriter;
+import com.jamesdpeters.json.Graph;
 
 import java.io.File;
 import java.io.IOException;
@@ -39,7 +40,7 @@ public class SolarSystem extends Universe {
     }
 
     protected String getJsonFilePath(){
-        return "/BodyEclipse.json";
+        return "/Body.json";
     }
 
     @Override
@@ -52,10 +53,11 @@ public class SolarSystem extends Universe {
     @Override
     protected void onFinish() throws IOException {
 //        universe.getBodies().forEach(BodyErrorWorker::calculateError);
-//        universe.getBodies().forEach(Graph::plotBody);
+        getBodies().forEach(Graph::plotBody);
         for (Body body : getBodies()) {
-            CSVWriter.writeBody(body,1000);
+            CSVWriter.writeBody(body,5);
         }
+        Graph.plotTrajectory(this,1);
         onFinish.forEach(Runnable::run);
         EclipseCalculator.findEclipses(this);
     }
@@ -80,7 +82,7 @@ public class SolarSystem extends Universe {
 
     @Override
     public double runningTime() {
-        return (long) (365*5); // Run for 500 Simulated Days
+        return (long) (365*15); // Run for 500 Simulated Days
     }
 
     @Override

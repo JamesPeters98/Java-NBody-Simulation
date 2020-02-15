@@ -41,7 +41,7 @@ public class Graph {
     public static void plotTrajectory(Universe universe, int resolution){
         MultiScatter scatter = getMultiScatter(universe,resolution);
 
-        Chart chart = AWTChartComponentFactory.chart(Quality.Fastest, "newt");
+        Chart chart = AWTChartComponentFactory.chart(Quality.Nicest, "newt");
         chart.getScene().add(scatter);
 
         Settings.getInstance().setHardwareAccelerated(true);
