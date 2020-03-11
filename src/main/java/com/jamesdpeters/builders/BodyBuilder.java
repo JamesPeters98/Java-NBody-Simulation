@@ -4,6 +4,7 @@ import com.google.gson.Gson;
 import com.jamesdpeters.bodies.Body;
 import com.jamesdpeters.vectors.Vector3D;
 
+import java.awt.*;
 import java.time.LocalDateTime;
 import java.util.HashMap;
 import java.util.TreeMap;
@@ -16,6 +17,7 @@ public class BodyBuilder {
     private TreeMap<Double, Vector3D> JPLpositions, JPLvelocities;
     private boolean isOrigin = false;
     private LocalDateTime startDate;
+    private Color color;
 
     public static BodyBuilder getInstance(){
         return new BodyBuilder();
@@ -73,8 +75,13 @@ public class BodyBuilder {
         return this;
     }
 
+    public BodyBuilder setColor(Color color) {
+        this.color = color;
+        return this;
+    }
+
     public Body create(){
-        return new Body() {
+        Body body = new Body() {
             @Override
             public Vector3D getInitialPosition() {
                 return initPos;
@@ -125,6 +132,8 @@ public class BodyBuilder {
                 return startDate;
             }
         };
+        body.setColor(color);
+        return body;
     }
 
     public String serialise(Gson gson){

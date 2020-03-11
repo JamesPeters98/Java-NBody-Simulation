@@ -3,6 +3,7 @@ package com.jamesdpeters.json;
 import com.jamesdpeters.bodies.Body;
 import com.jamesdpeters.eclipse.EclipseInfo;
 import com.jamesdpeters.helpers.Constants;
+import com.jamesdpeters.helpers.chisquare.ChiSquareValue;
 import com.jamesdpeters.universes.Universe;
 import com.jamesdpeters.vectors.Vector3D;
 
@@ -14,9 +15,7 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.time.Duration;
 import java.time.format.DateTimeFormatter;
-import java.util.HashMap;
-import java.util.Map;
-import java.util.TreeMap;
+import java.util.*;
 import java.util.concurrent.atomic.AtomicInteger;
 
 public class CSVWriter {
@@ -103,6 +102,41 @@ public class CSVWriter {
         }
         outputFile.close(); // close the output file
         System.out.println("Saved CSV Data for: Eclipse - "+folderPath);
+    }
+
+    public static void writeTransitData(String folderPath, TreeMap<Body, TreeMap<Double,Double>> transits, TreeMap<Double,Double> totalTransits) throws IOException {
+        Path path = Paths.get("outputs/eclipse/"+folderPath+"/totalTransits.csv");
+        Files.createDirectories(path.getParent());
+        FileWriter file = new FileWriter(String.valueOf(path));     // this creates the file with the given name
+        PrintWriter outputFile = new PrintWriter(file); // this sends the output to file1
+
+        outputFile.print("time");
+        transits.keySet().forEach(body -> outputFile.print(", "+body.getName()));
+        outputFile.println(", Total");
+
+        Set<Double> times = transits.get(transits.firstKey()).keySet();
+        times.forEach(time -> {
+            outputFile.print(time);
+            transits.forEach((body, map) -> {
+                outputFile.print(", "+map.get(time));
+            });
+            outputFile.println(", "+totalTransits.get(time));
+        });
+        outputFile.close(); // close the output file
+        System.out.println("Saved CSV Data for: Total Transits - "+folderPath);
+    }
+
+    public static void writeChi2Data(String folderPath, TreeMap<Double,ChiSquareValue> values) throws IOException {
+        Path path = Paths.get("outputs/eclipse/"+folderPath+"/chi2fit.csv");
+        Files.createDirectories(path.getParent());
+        FileWriter file = new FileWriter(String.valueOf(path));     // this creates the file with the given name
+        PrintWriter outputFile = new PrintWriter(file); // this sends the output to file1
+        outputFile.println("Time, Model Luminosity, Observed Luminosity, Error, Chi^2");
+        values.forEach((time,chiSquareValue) -> {
+            outputFile.println(time+", "+chiSquareValue.model+", "+chiSquareValue.observed+", "+chiSquareValue.error+", "+chiSquareValue.getChi2());
+        });
+        outputFile.close(); // close the output file
+        System.out.println("Saved CSV Data for: Chi^2 fits - "+folderPath);
     }
 
     public static void writeEclipseInfo(String folderPath, HashMap<Integer, EclipseInfo> eclipseInfo, Universe universe) throws IOException {

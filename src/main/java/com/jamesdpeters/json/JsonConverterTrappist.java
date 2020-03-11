@@ -9,6 +9,7 @@ import com.jamesdpeters.builders.trappist.TrappistBody;
 import com.jamesdpeters.builders.trappist.UniverseBuilderTrappist;
 import org.apache.commons.io.FileUtils;
 
+import java.awt.*;
 import java.io.File;
 import java.io.IOException;
 import java.nio.charset.Charset;
@@ -48,6 +49,9 @@ public class JsonConverterTrappist {
         info.setSemiMajorAxis(1);
         info.setStartPhase(0);
         info.setEarthRadiusRatio(1);
+        info.setColor("#FF0000");
+        info.setMeanAnomaly(36.0);
+        info.setPeriapsisArgument(235.23);
 
         UniverseBuilderTrappist builder = UniverseBuilderTrappist.getInstance();
         builder.setDt(0.1);

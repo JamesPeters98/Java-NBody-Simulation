@@ -4,8 +4,10 @@ import com.jamesdpeters.vectors.Vector3D;
 
 import org.jzy3d.maths.Coord3d;
 
+import java.awt.*;
 import java.net.URI;
 import java.net.URISyntaxException;
+import java.util.Random;
 import java.util.TreeMap;
 
 public class Utils {
@@ -53,6 +55,22 @@ public class Utils {
         } else {
             map.put(key,valueToAdd);
         }
+    }
+
+    public static String colorToHex(Color color){
+        return String.format("#%02x%02x%02x", color.getRed(), color.getGreen(), color.getBlue());
+    }
+
+    public static Color randomColor(){
+        Random random = new Random();
+        int R = random.nextInt(256);
+        int G = random.nextInt(256);
+        int B = random.nextInt(256);
+        return new Color(R,B,G);
+    }
+
+    public static org.jzy3d.colors.Color convert(Color color){
+        return new org.jzy3d.colors.Color(color.getRed(),color.getGreen(),color.getBlue());
     }
 
 }

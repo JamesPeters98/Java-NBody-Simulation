@@ -16,6 +16,10 @@
       "semiMajorAxis": 0.01154775,
       "startPhase": -4.023678401,
       "earthRadiusRatio": 1.121,
+      "eccentricity": 0.00622,
+      "color": "#b04796",
+      "periapsisArgument": 336.86,
+      "meanAnomaly": 203.12,
       "originBody": false
     },
     {
@@ -26,6 +30,10 @@
       "semiMajorAxis": 0.01581512,
       "startPhase": 0.0,
       "earthRadiusRatio": 1.095,
+      "eccentricity": 0.00654,
+      "color": "#d4647b",
+      "periapsisArgument": 282.45,
+      "meanAnomaly": 69.86,
       "originBody": false
     },
     {
@@ -36,6 +44,10 @@
       "semiMajorAxis": 0.02228038,
       "startPhase": -4.691065209,
       "earthRadiusRatio": 0.784,
+      "eccentricity": 0.00837,
+      "color": "#e2c97e",
+      "periapsisArgument": -8.73,
+      "meanAnomaly": 173.92,
       "originBody": false
     },
     {
@@ -46,6 +58,10 @@
       "semiMajorAxis": 0.02928285,
       "startPhase": -3.465020917,
       "earthRadiusRatio": 0.910,
+      "eccentricity": 0.00510,
+      "color": "#9c963e",
+      "periapsisArgument": 108.37,
+      "meanAnomaly": 347.95,
       "originBody": false
     },
     {
@@ -56,6 +72,10 @@
       "semiMajorAxis": 0.03853361,
       "startPhase": -1.400348028,
       "earthRadiusRatio": 1.046,
+      "eccentricity": 0.01007,
+      "color": "#007639",
+      "periapsisArgument": 368.81,
+      "meanAnomaly": 113.61,
       "originBody": false
     }
   ],

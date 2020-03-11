@@ -15,10 +15,12 @@ import java.util.TreeMap;
 
 public class TransitCalculator {
 
-    public static void plotTotalTransits(Universe universe, Vector3D direction){
+    public static TransitInfo plotTotalTransits(Universe universe, Vector3D direction) throws IOException {
+        TreeMap<Body, TreeMap<Double,Double>> transits = new TreeMap<>();
         TreeMap<Double,Double> totalTransit = new TreeMap<>();
         for(Body body : universe.getOriginBody().getExclusiveBodies()){
-            TreeMap<Double,Double> transit = findTransits(universe,body,direction,true);
+            TreeMap<Double,Double> transit = findTransits(universe,body,direction,false);
+            transits.put(body,transit);
             for(Map.Entry<Double,Double> entry : transit.entrySet()){
                 double value = entry.getValue()-1;
                 Utils.addToTreeMapValue(totalTransit,entry.getKey(),value);
@@ -28,7 +30,11 @@ public class TransitCalculator {
         for(Map.Entry<Double,Double> entry : totalTransit.entrySet()){
             Utils.addToTreeMapValue(totalTransit,entry.getKey(),1.0);
         }
-        Graph.plotEclipse("Total Transits",totalTransit,null);
+
+        //CSVWriter.writeTransitData("Trappist",transits,totalTransit);
+        //Graph.plotEclipse("Total Transits",transits,totalTransit);
+
+        return new TransitInfo(totalTransit,transits);
     }
 
     //This will calculate the Transits for the given body in the given direction.
@@ -50,16 +56,16 @@ public class TransitCalculator {
 
         HashMap<Integer,EclipseInfo> eclipseInfoHashMap = calculateEclipseFeatures(star.getStartDate(),Area);
         if(plot) Graph.plotEclipse("Transits for "+planet.getName(),Area,null);
-            try {
-                CSVWriter.writeEclipseData("Trappist/"+planet.getName(),ConeRadius,EdgeOfMoonDist,Lambda,Area);
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-            try {
-                CSVWriter.writeEclipseInfo("Trappist/"+planet.getName(),eclipseInfoHashMap,universe);
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
+//            try {
+//                CSVWriter.writeEclipseData("Trappist/"+planet.getName(),ConeRadius,EdgeOfMoonDist,Lambda,Area);
+//            } catch (IOException e) {
+//                e.printStackTrace();
+//            }
+//            try {
+//                CSVWriter.writeEclipseInfo("Trappist/"+planet.getName(),eclipseInfoHashMap,universe);
+//            } catch (IOException e) {
+//                e.printStackTrace();
+//            }
 
             return Area;
     }

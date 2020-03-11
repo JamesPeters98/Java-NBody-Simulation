@@ -43,9 +43,10 @@ public class UniverseBuilderTrappist extends UniverseBuilder {
 
     public List<Body> createBodies() {
         System.out.println("Start Date: "+startDate);
+        TrappistBody originBody = trappistBodies.stream().filter(TrappistBody::isOriginBody).findFirst().orElseThrow();
         List<Body> bodyList = new ArrayList<>();
         trappistBodies.forEach(trappistBody -> {
-            BodyBuilder builder = trappistBody.getBodyBuilder().setStartDate(startDate);
+            BodyBuilder builder = trappistBody.getBodyBuilder(originBody).setStartDate(startDate);
             bodyList.add(builder.create());
         });
         return bodyList;

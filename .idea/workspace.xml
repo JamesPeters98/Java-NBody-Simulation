@@ -2,14 +2,26 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="c10789bf-efff-4737-8ba7-343012b8843c" name="Default Changelist" comment="">
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/jamesdpeters/eclipse/TransitInfo.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/jamesdpeters/helpers/chisquare/ChiSquareValue.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/jamesdpeters/helpers/chisquare/ChiSquaredFitter.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/jamesdpeters/helpers/chisquare/Value.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/pom.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/jamesdpeters/StartTrappist.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/jamesdpeters/StartTrappist.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/jamesdpeters/bodies/Body.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/jamesdpeters/bodies/Body.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/jamesdpeters/builders/BodyBuilder.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/jamesdpeters/builders/BodyBuilder.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/jamesdpeters/builders/trappist/TrappistBody.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/jamesdpeters/builders/trappist/TrappistBody.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/jamesdpeters/builders/trappist/UniverseBuilderTrappist.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/jamesdpeters/builders/trappist/UniverseBuilderTrappist.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/jamesdpeters/eclipse/EclipseInfo.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/jamesdpeters/eclipse/EclipseInfo.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/jamesdpeters/eclipse/TransitCalculator.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/jamesdpeters/eclipse/TransitCalculator.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/jamesdpeters/helpers/Utils.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/jamesdpeters/helpers/Utils.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/jamesdpeters/json/CSVWriter.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/jamesdpeters/json/CSVWriter.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/jamesdpeters/json/Graph.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/jamesdpeters/json/Graph.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/jamesdpeters/universes/SolarSystem.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/jamesdpeters/universes/SolarSystem.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/horizon_data_timespan_0.1day/earth.txt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/horizon_data_timespan_0.1day/earth.txt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/horizon_data_timespan_0.1day/moon.txt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/horizon_data_timespan_0.1day/moon.txt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/horizon_data_timespan_0.1day/sun.txt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/horizon_data_timespan_0.1day/sun.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/jamesdpeters/json/JsonConverterTrappist.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/jamesdpeters/json/JsonConverterTrappist.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/jamesdpeters/universes/TrappistSystem.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/jamesdpeters/universes/TrappistSystem.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/jamesdpeters/vectors/Vector3D.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/jamesdpeters/vectors/Vector3D.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/Trappist.json" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/Trappist.json" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -79,7 +91,7 @@
       <module name="3DTests" />
       <extension name="coverage">
         <pattern>
-          <option name="PATTERN" value="com.jamesdpeters.json.*" />
+          <option name="PATTERN" value="com.jamesdpeters.helpers.chisquare.*" />
           <option name="ENABLED" value="true" />
         </pattern>
       </extension>
@@ -93,7 +105,7 @@
       <module name="3DTests" />
       <extension name="coverage">
         <pattern>
-          <option name="PATTERN" value="com.jamesdpeters.json.*" />
+          <option name="PATTERN" value="com.jamesdpeters.helpers.chisquare.*" />
           <option name="ENABLED" value="true" />
         </pattern>
       </extension>
@@ -104,6 +116,7 @@
     <configuration name="StartTrappist" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
       <option name="MAIN_CLASS_NAME" value="com.jamesdpeters.StartTrappist" />
       <module name="3DTests" />
+      <option name="VM_PARAMETERS" value="-Xms10G -Xmx10G" />
       <extension name="coverage">
         <pattern>
           <option name="PATTERN" value="com.jamesdpeters.*" />
@@ -219,8 +232,8 @@
     <recent_temporary>
       <list>
         <item itemvalue="Application.StartTrappist" />
-        <item itemvalue="Application.StartUniverse" />
         <item itemvalue="Application.JsonConverterTrappist" />
+        <item itemvalue="Application.StartUniverse" />
         <item itemvalue="Application.TimeStepMeasure" />
         <item itemvalue="Maven.3DTests [javafx:run]" />
       </list>
@@ -265,6 +278,10 @@
       <workItem from="1581080879149" duration="17206000" />
       <workItem from="1581414893477" duration="36786000" />
       <workItem from="1581603711090" duration="5695000" />
+      <workItem from="1581957662438" duration="22192000" />
+      <workItem from="1582461428632" duration="121000" />
+      <workItem from="1583063206676" duration="19810000" />
+      <workItem from="1583867141413" duration="2404000" />
     </task>
     <servers />
   </component>

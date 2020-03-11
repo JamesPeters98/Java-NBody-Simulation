@@ -414,4 +414,12 @@ public class Vector3D {
 
         return new Vector3D(x,y,z);
     }
+
+    public Vector3D rotateAroundX(double radians){
+        double x = getX();
+        double y = getY()*Math.cos(radians)-getZ()*Math.sin(radians);
+        double z = getY()*Math.sin(radians)+getZ()*Math.cos(radians);
+
+        return new Vector3D(x,y,z);
+    }
 }

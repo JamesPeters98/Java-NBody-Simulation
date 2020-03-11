@@ -10,6 +10,6 @@ public class EclipseInfo {
     public LocalDateTime startDate,endDate; //DateTime for start of eclipse.
 
     public Duration getDuration(){
-        return Duration.between(endDate,startDate);
+        return Duration.between(startDate,endDate);
     }
 }

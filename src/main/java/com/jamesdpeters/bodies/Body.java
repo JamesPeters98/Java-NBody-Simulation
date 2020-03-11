@@ -1,16 +1,19 @@
 package com.jamesdpeters.bodies;
 
 import com.jamesdpeters.helpers.Constants;
+import com.jamesdpeters.helpers.Utils;
 import com.jamesdpeters.universes.Universe;
 import com.jamesdpeters.vectors.Vector3D;
 
 
+import java.awt.*;
 import java.time.LocalDateTime;
 import java.util.*;
+import java.util.List;
 import java.util.concurrent.Callable;
 import java.util.concurrent.atomic.AtomicBoolean;
 
-public abstract class Body implements Callable<Boolean> {
+public abstract class Body implements Callable<Boolean>, Comparable<Body> {
 
     // BODIES PROPERTIES
     private transient Vector3D velocity, nextVelocity, tempVelocity; //Velocity in Metres per second (m/s)
@@ -23,7 +26,7 @@ public abstract class Body implements Callable<Boolean> {
 
     private int loop = -1;
     private double GMinAU;
-
+    private Color color = Utils.randomColor();
 
     public Body(){
         super();
@@ -93,6 +96,15 @@ public abstract class Body implements Callable<Boolean> {
     public abstract boolean isOrigin();
     public abstract LocalDateTime getStartDate();
 
+    public Color getColor(){
+        return color;
+    }
+
+    public Body setColor(Color color) {
+        this.color = color;
+        return this;
+    }
+
     public double getBodyRadiusAU(){
         return getBodyRadius()/ Constants.KILOMETERS.AU;
     }
@@ -111,6 +123,10 @@ public abstract class Body implements Callable<Boolean> {
         return true;
     }
 
+    @Override
+    public int compareTo(Body o) {
+        return getName().compareTo(o.getName());
+    }
 
     public Vector3D getVelocity() {
         return velocity;

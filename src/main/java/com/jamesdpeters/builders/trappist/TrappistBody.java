@@ -6,11 +6,16 @@ import com.jamesdpeters.builders.BodyBuilder;
 import com.jamesdpeters.helpers.Constants;
 import com.jamesdpeters.vectors.Vector3D;
 
+import java.awt.*;
+
 public class TrappistBody {
 
     private String name;
-    private double sunMassRatio, earthMassRatio, inclination, orbitalPeriod, semiMajorAxis, startPhase, sunRadiusRatio, earthRadiusRatio;
+    private double sunMassRatio, earthMassRatio, inclination, orbitalPeriod, semiMajorAxis, startPhase, sunRadiusRatio, earthRadiusRatio, eccentricity, periapsisArgument, meanAnomaly;
     private boolean originBody = false;
+
+    //Hex color code.
+    private String color = "#FF0000"; //Default color is red!
 
     public String serialise(Gson gson){
         return gson.toJson(this);
@@ -20,27 +25,33 @@ public class TrappistBody {
         return gson.fromJson(json, TrappistBody.class);
     }
 
-    public Body getBody() {
-        return getBodyBuilder().create();
-    }
+//    public Body getBody() {
+//        return getBodyBuilder().create();
+//    }
 
-    public BodyBuilder getBodyBuilder(){
-        System.out.println(getName()+" Radius KM: "+calculateRadius());
+    public BodyBuilder getBodyBuilder(TrappistBody origin){
         return BodyBuilder.getInstance()
                 .setName(name)
                 .setMass(calculateMass())
                 .setRadius(calculateRadius())
                 .setGM(calculateGM())
                 .setInitPos(calculateInitialPosition())
-                .setInitVelocity(calculateInitialVelocity())
-                .setOrigin(originBody);
+                .setInitVelocity(calculateInitialVelocity(origin))
+                .setOrigin(originBody)
+                .setColor(Color.decode(color));
     }
 
 
-    private Vector3D calculateInitialVelocity(){
+    private Vector3D calculateInitialVelocity(TrappistBody origin){
         if(originBody) return Vector3D.ZERO;
-        double velocity = Math.PI*2*semiMajorAxis/orbitalPeriod; // M/s
-        Vector3D velo = new Vector3D(0,velocity,0); //Start with velocity at x=0 in y direction. z=0
+        double GM = origin.calculateGM()*Constants.CONVERSIONS.GM_to_AU;
+        double r = distFromFoci();
+        double v2 = GM*((2/r)-(1/semiMajorAxis));
+//        double vOld = 2*Math.PI*semiMajorAxis/orbitalPeriod;
+        double v = Math.sqrt(v2);
+//        System.out.println(getName()+" : "+v+" vs : "+vOld);
+
+        Vector3D velo = new Vector3D(0,v,0); //Start with velocity at x=0 in y direction. z=0
         velo = velo.rotateAroundZ(startPhase).rotateAroundY(Math.toRadians(90-inclination));
         //System.out.println("Initial Velocity "+getName()+": "+velo);
         return velo;
@@ -48,9 +59,16 @@ public class TrappistBody {
 
     private Vector3D calculateInitialPosition(){
         if(originBody) return Vector3D.ZERO;
-        //Assume always starts at semi-major axis.
-        Vector3D pos = new Vector3D(semiMajorAxis,0,0);
+
+        //Calculate distance from foci (Star)
+        double r = distFromFoci();
+        Vector3D pos = new Vector3D(r,0,0);
         return pos.rotateAroundZ(startPhase).rotateAroundY(Math.toRadians(90-inclination));
+    }
+
+    private double distFromFoci(){
+        return semiMajorAxis*(1-eccentricity*eccentricity) /
+                (1+eccentricity*Math.cos(startPhase));
     }
 
 
@@ -178,6 +196,26 @@ public class TrappistBody {
 
     public TrappistBody setEarthRadiusRatio(double earthRadiusRatio) {
         this.earthRadiusRatio = earthRadiusRatio;
+        return this;
+    }
+
+    public TrappistBody setEccentricity(double eccentricity) {
+        this.eccentricity = eccentricity;
+        return this;
+    }
+
+    public TrappistBody setColor(String color) {
+        this.color = color;
+        return this;
+    }
+
+    public TrappistBody setPeriapsisArgument(double periapsisArgument) {
+        this.periapsisArgument = periapsisArgument;
+        return this;
+    }
+
+    public TrappistBody setMeanAnomaly(double meanAnomaly) {
+        this.meanAnomaly = meanAnomaly;
         return this;
     }
 }

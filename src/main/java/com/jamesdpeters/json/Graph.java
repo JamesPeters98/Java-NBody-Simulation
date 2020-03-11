@@ -4,8 +4,10 @@ import com.github.sh0nk.matplotlib4j.*;
 import com.github.sh0nk.matplotlib4j.builder.PlotBuilder;
 import com.github.sh0nk.matplotlib4j.builder.ScaleBuilder;
 import com.jamesdpeters.bodies.Body;
+import com.jamesdpeters.eclipse.TransitInfo;
 import com.jamesdpeters.helpers.MultiScatter;
 import com.jamesdpeters.helpers.Utils;
+import com.jamesdpeters.helpers.chisquare.Value;
 import com.jamesdpeters.universes.Universe;
 import com.jamesdpeters.vectors.Vector3D;
 import com.sun.source.tree.Tree;
@@ -20,10 +22,7 @@ import org.jzy3d.plot3d.primitives.Scatter;
 import org.jzy3d.plot3d.rendering.canvas.Quality;
 
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
-import java.util.TreeMap;
+import java.util.*;
 
 public class Graph {
 
@@ -94,7 +93,7 @@ public class Graph {
 
 
             coordList.add(coords);
-            colors[k] = Color.random();
+            colors[k] = Utils.convert(body.getColor());
             k++;
 
             System.out.println("Points: "+coords.size());
@@ -184,12 +183,55 @@ public class Graph {
         plotData(plt,time,areas,datasetName,color);
     }
 
+    private static void plotEclipseValue(Plot plt, TreeMap<Double,Value> area, String color, String datasetName){
+        List<Number> time = new ArrayList<>();
+        List<Number> areas = new ArrayList<>();
+
+        area.forEach((t, a) -> {
+            time.add(t);
+            areas.add(a.value);
+        });
+
+        PlotBuilder plotBuilder = plt.plot()
+                .add(time,areas,".")
+                .label(datasetName)
+                .color(color);
+        plt.xlabel("Day");
+        plt.ylabel("Position (AU)");
+        plt.legend().loc("upper right");
+    }
+
     public static void plotEclipse(String title, TreeMap<Double,Double> area, TreeMap<Double, Double> JPLArea){
         Plot plt = getPlot();
         plt.figure(title);
         plt.subplot(1,1,1);
         plotEclipse(plt,area, "blue","Simulated Data");
         if(JPLArea != null) plotEclipse(plt,JPLArea, "red", "JPL Data");
+        plt.ylabel("Luminosity Ratio (L/L0)");
+        openPlot(plt);
+    }
+
+    public static void plotEclipse(String title, Map<Body,TreeMap<Double, Double>> areas, TreeMap<Double, Double> totalArea){
+        Plot plt = getPlot();
+        plt.figure(title);
+        plt.subplot(1,1,1);
+        plotEclipse(plt,totalArea, "black","Total Luminosity");
+        areas.forEach((planet, map) -> {
+            plotEclipse(plt,map, Utils.colorToHex(planet.getColor()),planet.getName());
+        });
+        plt.ylabel("Luminosity Ratio (L/L0)");
+        openPlot(plt);
+    }
+
+    public static void plotEclipseWithObservations(String title, TransitInfo transitInfo, TreeMap<Double, Value> experimentalData){
+        Plot plt = getPlot();
+        plt.figure(title);
+        plt.subplot(1,1,1);
+        plotEclipse(plt,transitInfo.totalTransits, "black","Total Luminosity");
+        transitInfo.transits.forEach((planet, map) -> {
+            plotEclipse(plt,map, Utils.colorToHex(planet.getColor()),planet.getName());
+        });
+        plotEclipseValue(plt,experimentalData,"r","Experimental Data");
         plt.ylabel("Luminosity Ratio (L/L0)");
         openPlot(plt);
     }
