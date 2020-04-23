@@ -4,25 +4,22 @@ import com.jamesdpeters.helpers.Constants;
 import com.jamesdpeters.helpers.Utils;
 import com.jamesdpeters.universes.Universe;
 import com.jamesdpeters.vectors.Vector3D;
-
-
 import java.awt.*;
 import java.time.LocalDateTime;
 import java.util.*;
 import java.util.List;
 import java.util.concurrent.Callable;
-import java.util.concurrent.atomic.AtomicBoolean;
 
 public abstract class Body implements Callable<Boolean>, Comparable<Body> {
 
-    // BODIES PROPERTIES
-    private transient Vector3D velocity, nextVelocity, tempVelocity; //Velocity in Metres per second (m/s)
-    private transient Vector3D position, nextPos, tempPos; //Position in Kilometers (Km)
-    public transient TreeMap<Integer, Vector3D>  positions;   // Store history of positions. Key - time.
-    private transient List<Body> bodies;    //List of bodies to interact with.
+    /** BODIES PROPERTIES **/
+    private transient Vector3D velocity, nextVelocity; // (A.U/day)
+    private transient Vector3D position, nextPos, tempPos; //Position in Kilometers (A.U)
+    private transient List<Body> bodies;  //List of bodies to interact with.
     private transient List<Body> exclusiveBodies; //List of bodies without this body.
-    private transient Universe universe;    //Universe this Body belongs too.
+    private transient Universe universe;  //Universe this Body belongs too.
     private transient HashMap<Integer, Vector3D> tempAccelMap, tempVeloMap, tempPosMap;
+    public  transient TreeMap<Integer, Vector3D>  positions; //History of positions. Key - time.
 
     private int loop = -1;
     private double GMinAU;
@@ -37,22 +34,6 @@ public abstract class Body implements Callable<Boolean>, Comparable<Body> {
         tempVeloMap = new HashMap<>();
         tempPosMap = new HashMap<>();
         GMinAU = getGM()* Constants.CONVERSIONS.GM_to_AU;
-    }
-
-    public double getEnergy(){
-        return kinteticEnergy()+potentialEnergy();
-    }
-
-    private double kinteticEnergy(){
-        return 0.5*getMass()*getVelocity().magnitude();
-    }
-
-    private double potentialEnergy(){
-        return bodies.stream().filter(body -> body != this).mapToDouble(body -> -getGM() * (body.getMass() / distTo(body).magnitude())).sum();
-    }
-
-    public Vector3D distTo(Body body){
-        return body.position.subtract(position);
     }
 
     public void update(){
@@ -71,17 +52,6 @@ public abstract class Body implements Callable<Boolean>, Comparable<Body> {
        position = nextPos;
     }
 
-    public void setBodies(List<Body> bodies){
-        this.bodies = bodies;
-        this.exclusiveBodies = new ArrayList<>(bodies);
-        exclusiveBodies.remove(this);
-    }
-
-    public void setUniverse(Universe universe){
-        this.universe = universe;
-    }
-
-
     /**
      * IMPLEMENTATIONS
      */
@@ -95,6 +65,36 @@ public abstract class Body implements Callable<Boolean>, Comparable<Body> {
     public abstract TreeMap<Double, Vector3D> getJPLVelocities();
     public abstract boolean isOrigin();
     public abstract LocalDateTime getStartDate();
+
+    @Override
+    public String toString() {
+        return "["+getName()+"] " + "\n Pos:"+getInitialPosition()+ "\n Velocity:"+velocity;
+    }
+
+    @Override
+    public Boolean call() {
+        update();
+        return true;
+    }
+
+    @Override
+    public int compareTo(Body o) {
+        return getName().compareTo(o.getName());
+    }
+
+    /**
+     * GETTERS & SETTERS
+     **/
+
+    public void setBodies(List<Body> bodies){
+        this.bodies = bodies;
+        this.exclusiveBodies = new ArrayList<>(bodies);
+        exclusiveBodies.remove(this);
+    }
+
+    public void setUniverse(Universe universe){
+        this.universe = universe;
+    }
 
     public Color getColor(){
         return color;
@@ -110,22 +110,20 @@ public abstract class Body implements Callable<Boolean>, Comparable<Body> {
     }
     public double getGMAU() { return GMinAU;}
 
-    @Override
-    public String toString() {
-        return "["+getName()+"] " +
-                "\n Pos:"+getInitialPosition()+
-                "\n Velocity:"+velocity;
+    public Vector3D distTo(Body body){
+        return body.position.subtract(position);
     }
 
-    @Override
-    public Boolean call() {
-        update();
-        return true;
+    public double getEnergy(){
+        return kinteticEnergy()+potentialEnergy();
     }
 
-    @Override
-    public int compareTo(Body o) {
-        return getName().compareTo(o.getName());
+    private double kinteticEnergy(){
+        return 0.5*getMass()*getVelocity().magnitude();
+    }
+
+    private double potentialEnergy(){
+        return bodies.stream().filter(body -> body != this).mapToDouble(body -> -getGM() * (body.getMass() / distTo(body).magnitude())).sum();
     }
 
     public Vector3D getVelocity() {

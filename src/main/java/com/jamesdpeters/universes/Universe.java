@@ -22,12 +22,8 @@ public abstract class Universe {
     private long lastTime = 0;
     private int universeStep = 0;
     public transient TreeMap<Double, Double> energyShift;
-
-    private static final int WIDTH = 1800;
-    private static final int HEIGHT = 900;
     private boolean running = true;
     private boolean output = true;
-
     Integrator integrator;
     private Universe universe;
     private SimulationPerformanceTracker performanceTracker;

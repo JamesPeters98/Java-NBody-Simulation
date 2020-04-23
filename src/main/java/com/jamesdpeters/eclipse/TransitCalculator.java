@@ -2,7 +2,6 @@ package com.jamesdpeters.eclipse;
 
 import com.jamesdpeters.bodies.Body;
 import com.jamesdpeters.helpers.Utils;
-import com.jamesdpeters.json.CSVWriter;
 import com.jamesdpeters.json.Graph;
 import com.jamesdpeters.universes.Universe;
 import com.jamesdpeters.vectors.Vector3D;
@@ -45,6 +44,7 @@ public class TransitCalculator {
         TreeMap<Double,Double> EdgeOfMoonDist = new TreeMap<>();
         TreeMap<Double,Double> Lambda = new TreeMap<>();
         TreeMap<Double,Double> Area = new TreeMap<>();
+
 
         for(Integer step: star.positions.keySet()) {
             //Simulated data
@@ -91,18 +91,22 @@ public class TransitCalculator {
             double r2 = planet.getBodyRadiusAU();
             double d = planetToP;
             double A = 0;
+            double ratio = LimbDarkening.intensityRatio(star.getBodyRadiusAU(),d,planet.getBodyRadiusAU());
+            //double ratio = 1;
 
             if (d >= r1 + r2) { // No intersection = 0 area;
                 A = 0;
-            } else if (d <= r1 - r2) { // If moon is inside cone area it's just the moons total area.
+            } else if (d < r1 - r2) { // If moon is inside cone area it's just the moons total area.
                 A = Math.PI * r2 * r2;
             } else { // Otherwise it's the intersection area between the two.
+                //double totalA =  Math.PI * r2 * r2;
                 double d1 = (r1 * r1 - r2 * r2 + d * d) / (2 * d);
                 double d2 = d - d1;
                 A = (r1 * r1) * Math.acos(d1 / r1) - d1 * Math.sqrt(r1 * r1 - d1 * d1)
                         + (r2 * r2) * Math.acos(d2 / r2) - d2 * Math.sqrt(r2 * r2 - d2 * d2);
+
             }
-            areaRatio = 1 - A / (Math.PI * r1 * r1);
+            areaRatio = (1 - (A*ratio) / (Math.PI * r1 * r1));
         }
 
         if(ConeRadius != null) ConeRadius.put(time, r1);

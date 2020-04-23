@@ -6,7 +6,6 @@ import com.jamesdpeters.vectors.Vector3D;
 
 import java.awt.*;
 import java.time.LocalDateTime;
-import java.util.HashMap;
 import java.util.TreeMap;
 
 public class BodyBuilder {
@@ -14,7 +13,7 @@ public class BodyBuilder {
     private String name;
     private Vector3D initPos, initVelocity;
     private double mass, radius, GM;
-    private TreeMap<Double, Vector3D> JPLpositions, JPLvelocities;
+    private TreeMap<Double, Vector3D> truePositions, trueVelocities;
     private boolean isOrigin = false;
     private LocalDateTime startDate;
     private Color color;
@@ -22,7 +21,6 @@ public class BodyBuilder {
     public static BodyBuilder getInstance(){
         return new BodyBuilder();
     }
-
     private BodyBuilder(){}
 
     public BodyBuilder setName(String name){
@@ -51,12 +49,12 @@ public class BodyBuilder {
     }
 
     public BodyBuilder setPositions(TreeMap<Double, Vector3D> positions) {
-        this.JPLpositions = positions;
+        this.truePositions = positions;
         return this;
     }
 
     public BodyBuilder setVelocities(TreeMap<Double, Vector3D> velocities) {
-        this.JPLvelocities = velocities;
+        this.trueVelocities = velocities;
         return this;
     }
 
@@ -86,47 +84,38 @@ public class BodyBuilder {
             public Vector3D getInitialPosition() {
                 return initPos;
             }
-
             @Override
             public Vector3D getInitialVelocity() {
                 return initVelocity;
             }
-
             @Override
             public String getName() {
                 return name;
             }
-
             @Override
             public double getMass() {
                 return mass;
             }
-
             @Override
             public double getGM() {
                 return GM;
             }
-
             @Override
             public double getBodyRadius() {
                 return radius;
             }
-
             @Override
             public TreeMap<Double, Vector3D> getJPLPositions() {
-                return JPLpositions;
+                return truePositions;
             }
-
             @Override
             public TreeMap<Double, Vector3D> getJPLVelocities() {
-                return JPLvelocities;
+                return trueVelocities;
             }
-
             @Override
             public boolean isOrigin() {
                 return isOrigin;
             }
-
             @Override
             public LocalDateTime getStartDate() {
                 return startDate;
@@ -139,7 +128,6 @@ public class BodyBuilder {
     public String serialise(Gson gson){
         return gson.toJson(this);
     }
-
     public BodyBuilder fromString(Gson gson, String json){
         return gson.fromJson(json, BodyBuilder.class);
     }

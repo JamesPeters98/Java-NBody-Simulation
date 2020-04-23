@@ -28,7 +28,7 @@ public class StartTrappist {
 
         TrappistSystem universe = new TrappistSystem();
         universe.setOutput(true);
-        universe.overrideTimeStep(0.0001);
+        universe.overrideTimeStep(0.00001);
         universe.start();
 
     }

@@ -14,24 +14,16 @@ import java.util.List;
 public class UniverseBuilderJPL extends UniverseBuilder {
 
     private List<JPLInfo> JPLInfo;
-
     private UniverseBuilderJPL(){
         JPLInfo = new ArrayList<>();
     }
-
     public static UniverseBuilderJPL getInstance(){
         return new UniverseBuilderJPL();
-    }
-
-    public UniverseBuilderJPL addBodyInfo(JPLInfo jplInfo){
-        JPLInfo.add(jplInfo);
-        return this;
     }
 
     /**
      * GETTERS
      */
-
     public List<Body> createBodies() {
         List<Body> bodyList = new ArrayList<>();
         JPLInfo.forEach(jplInfo -> {
@@ -39,26 +31,17 @@ public class UniverseBuilderJPL extends UniverseBuilder {
         });
         return bodyList;
     }
-
     public String getName() {
         return name;
     }
     public double getDt() {
         return dt;
     }
-//    //public double getG() {
-//        return G;
-//    }
-    public List<JPLInfo> getJPLInfo() { return JPLInfo; }
+
 
     /**
      *  SERIALIZER
      */
-
-    public String serialise(Gson gson){
-        return gson.toJson(this);
-    }
-
     public UniverseBuilderJPL fromString(Gson gson, String json){
         return gson.fromJson(json, UniverseBuilderJPL.class);
     }

@@ -15,22 +15,17 @@ public abstract class UniverseBuilder {
     protected String name;
     protected double dt;
 
-
+    /**
+     * SETTERS & GETTERS
+     */
     public void setName(String name) {
         this.name = name;
     }
-
     public void setDt(double dt) {
         this.dt = dt;
     }
 
-
-    /**
-     * GETTERS
-     */
-
     public abstract List<Body> createBodies();
-
     public String getName() {
         return name;
     }
@@ -41,17 +36,8 @@ public abstract class UniverseBuilder {
     /**
      *  SERIALIZER
      */
-
     public String serialise(Gson gson){
         return gson.toJson(this);
     }
 
-    public UniverseBuilder fromString(Gson gson, String json){
-        return gson.fromJson(json, UniverseBuilder.class);
-    }
-
-    public UniverseBuilder fromFile(Gson gson, File file) throws FileNotFoundException {
-        JsonReader reader = new JsonReader(new FileReader(file));
-        return gson.fromJson(reader, UniverseBuilder.class);
-    }
 }

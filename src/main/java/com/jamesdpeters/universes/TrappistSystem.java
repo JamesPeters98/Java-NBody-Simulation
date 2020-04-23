@@ -40,7 +40,7 @@ public class TrappistSystem extends SolarSystem {
 
     @Override
     protected void onFinish() {
-        Graph.plotTrajectory(this, 10);
+        //Graph.plotTrajectory(this, 10);
 
         try {
             TransitInfo info = TransitCalculator.plotTotalTransits(this,directionForTransits);
@@ -64,7 +64,7 @@ public class TrappistSystem extends SolarSystem {
 
     @Override
     public double runningTime() {
-        return 30; // Run for 500 Simulated Days
+        return 5; // Run for 500 Simulated Days
     }
 
     @Override
