@@ -1,0 +1,77 @@
+{
+  "name": "Solar System",
+  "dt": 0.01,
+  "JPLInfo": [
+    {
+      "name": "Earth",
+      "filename": "horizon_data_96day/earth.txt",
+      "mass": 5.97219E24,
+      "radius": 6371.01,
+      "GM": 398600.435436
+    },
+    {
+      "name": "Moon",
+      "filename": "horizon_data_96day/moon.txt",
+      "mass": 7.349E22,
+      "radius": 1737.53,
+      "GM": 4902.800066
+    },
+    {
+      "name": "Jupiter",
+      "filename": "horizon_data_96day/jupiter.txt",
+      "mass": 1898.13E24,
+      "radius": 69911,
+      "GM": 126686534.911
+    },
+    {
+      "name": "Venus",
+      "filename": "horizon_data_96day/venus.txt",
+      "mass": 48.685E23,
+      "radius": 6051.84,
+      "GM": 324858.592
+    },
+    {
+      "name": "Saturn",
+      "filename": "horizon_data_96day/saturn.txt",
+      "mass": 5.6834E26,
+      "radius": 58232,
+      "GM": 37931206.159
+    },
+    {
+      "name": "Mars",
+      "filename": "horizon_data_96day/mars.txt",
+      "mass": 6.4171E23,
+      "radius": 3389.92,
+      "GM": 42828.375214
+    },
+    {
+      "name": "Mercury",
+      "filename": "horizon_data_96day/mercury.txt",
+      "mass": 3.302E23,
+      "radius": 2440,
+      "GM": 22031.78
+    },
+    {
+      "name": "Neptune",
+      "filename": "horizon_data_96day/neptune.txt",
+      "mass": 102.413E24,
+      "radius": 24624,
+      "GM": 6835099.5
+    },
+    {
+      "name": "Uranus",
+      "filename": "horizon_data_96day/uranus.txt",
+      "mass": 86.813E24,
+      "radius": 25362,
+      "GM": 5793951.322
+    },
+    {
+      "name": "Sun",
+      "filename": "horizon_data_96day/sun.txt",
+      "mass": 1988500E24,
+      "radius": 695700.0,
+      "GM": 132712440041.93938,
+      "originBody": true
+    }
+  ]
+}

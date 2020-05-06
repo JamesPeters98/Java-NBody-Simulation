@@ -91,11 +91,7 @@ public class ChiSquaredFitter {
             }
             values.put(time,new ChiSquareValue(modelVal,observation.value,observation.error));
         });
-        try {
-            CSVWriter.writeChi2Data(folderpath,values);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+        CSVWriter.writeChi2Data(folderpath,values);
     }
 
     public void plot(TransitInfo transitInfo){

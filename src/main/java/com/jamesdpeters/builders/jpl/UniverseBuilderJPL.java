@@ -14,6 +14,7 @@ import java.util.List;
 public class UniverseBuilderJPL extends UniverseBuilder {
 
     private List<JPLInfo> JPLInfo;
+
     private UniverseBuilderJPL(){
         JPLInfo = new ArrayList<>();
     }
@@ -31,13 +32,6 @@ public class UniverseBuilderJPL extends UniverseBuilder {
         });
         return bodyList;
     }
-    public String getName() {
-        return name;
-    }
-    public double getDt() {
-        return dt;
-    }
-
 
     /**
      *  SERIALIZER
@@ -46,8 +40,14 @@ public class UniverseBuilderJPL extends UniverseBuilder {
         return gson.fromJson(json, UniverseBuilderJPL.class);
     }
 
-    public UniverseBuilderJPL fromFile(Gson gson, File file) throws FileNotFoundException {
-        JsonReader reader = new JsonReader(new FileReader(file));
-        return gson.fromJson(reader, UniverseBuilderJPL.class);
+    public UniverseBuilderJPL fromFile(Gson gson, File file) {
+        try {
+            JsonReader reader = new JsonReader(new FileReader(file));
+            return gson.fromJson(reader, UniverseBuilderJPL.class);
+        } catch (FileNotFoundException e){
+            e.printStackTrace();
+            System.exit(1);
+            return null;
+        }
     }
 }

@@ -6,10 +6,7 @@ import com.jamesdpeters.StartUniverse;
 import com.jamesdpeters.bodies.Body;
 import com.jamesdpeters.builders.UniverseBuilder;
 import com.jamesdpeters.builders.jpl.UniverseBuilderJPL;
-import com.jamesdpeters.eclipse.EclipseCalculator;
 import com.jamesdpeters.integrators.IntegratorFactory;
-import com.jamesdpeters.json.CSVWriter;
-import com.jamesdpeters.json.Graph;
 
 import java.io.File;
 import java.io.IOException;
@@ -21,22 +18,26 @@ public class SolarSystem extends Universe {
     private UniverseBuilder builder;
     private double dt = 0;
     private List<Runnable> onFinish;
+    private double runningTime = (365*15);
+    private int resolution = 1;
 
     public SolarSystem() {
-        System.out.println("JSON File name: "+getJsonFilePath());
-        builder = getBuilder();
+        this(null);
+    }
+
+    public SolarSystem(String jsonFileName){
+        String file = (jsonFileName != null) ? jsonFileName : getJsonFilePath();
+        System.out.println("JSON File name: "+file);
+        builder = getBuilder(file);
         integrator = IntegratorFactory.getDefaultIntegrator();
         onFinish = new ArrayList<>();
         init();
     }
 
-    protected UniverseBuilder getBuilder(){
+    protected UniverseBuilder getBuilder(String jsonFilePath){
         Gson gson = new GsonBuilder().setPrettyPrinting().create();
-        try {
-            String jsonFile = StartUniverse.class.getResource(getJsonFilePath()).getFile();
-            return UniverseBuilderJPL.getInstance().fromFile(gson, new File(jsonFile));
-        } catch (Exception e){e.printStackTrace();}
-        return null;
+        String jsonFile = StartUniverse.class.getResource(jsonFilePath).getFile();
+        return UniverseBuilderJPL.getInstance().fromFile(gson, new File(jsonFile));
     }
 
     protected String getJsonFilePath(){
@@ -46,20 +47,19 @@ public class SolarSystem extends Universe {
     @Override
     protected void loop() {
         integrator.step(this);
-        bodies.forEach(Body::update); // Step each body doesn't update their actual positions.
-        bodies.forEach(Body::postUpdate); // Updates all bodies to new position using the step.
+        bodies.forEach(Body::update);
     }
 
     @Override
     protected void onFinish() throws IOException {
 //        universe.getBodies().forEach(BodyErrorWorker::calculateError);
-        getBodies().forEach(Graph::plotBody);
-        for (Body body : getBodies()) {
-            CSVWriter.writeBody(body,5);
-        }
-        Graph.plotTrajectory(this,1);
+//        getBodies().forEach(Graph::plotBody);
+//        for (Body body : getBodies()) {
+//            CSVWriter.writeBody(body,5);
+//        }
+//        Graph.plotTrajectory(this,1);
         onFinish.forEach(Runnable::run);
-        EclipseCalculator.findEclipses(this);
+        //EclipseCalculator.findEclipses(this);
     }
 
     @Override
@@ -82,13 +82,14 @@ public class SolarSystem extends Universe {
 
     @Override
     public double runningTime() {
-        return (long) (365*15); // Run for 500 Simulated Days
+        return runningTime; // Run for 500 Simulated Days
     }
 
     @Override
     public int resolution() {
         //dt needs to be a factor of (1/24)
-        return Math.max((int) ((1/24)/dt()),1);
+        //return Math.max((int) ((1/24)/dt()),1);
+        return resolution;
     }
 
     public void overrideTimeStep(double dt){
@@ -98,5 +99,13 @@ public class SolarSystem extends Universe {
 
     public void addOnFinishListener(Runnable runnable){
         onFinish.add(runnable);
+    }
+
+    public void setRunningTime(double runningTime){
+        this.runningTime = runningTime;
+    }
+
+    public void setResolution(int resolution) {
+        this.resolution = resolution;
     }
 }

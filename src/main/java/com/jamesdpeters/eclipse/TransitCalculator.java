@@ -2,6 +2,7 @@ package com.jamesdpeters.eclipse;
 
 import com.jamesdpeters.bodies.Body;
 import com.jamesdpeters.helpers.Utils;
+import com.jamesdpeters.json.CSVWriter;
 import com.jamesdpeters.json.Graph;
 import com.jamesdpeters.universes.Universe;
 import com.jamesdpeters.vectors.Vector3D;
@@ -30,9 +31,8 @@ public class TransitCalculator {
             Utils.addToTreeMapValue(totalTransit,entry.getKey(),1.0);
         }
 
-        //CSVWriter.writeTransitData("Trappist",transits,totalTransit);
-        //Graph.plotEclipse("Total Transits",transits,totalTransit);
-
+        CSVWriter.writeTransitData("Trappist",transits,totalTransit);
+        Graph.plotEclipse("Total Transits",transits,totalTransit);
         return new TransitInfo(totalTransit,transits);
     }
 
@@ -45,7 +45,6 @@ public class TransitCalculator {
         TreeMap<Double,Double> Lambda = new TreeMap<>();
         TreeMap<Double,Double> Area = new TreeMap<>();
 
-
         for(Integer step: star.positions.keySet()) {
             //Simulated data
             Vector3D planetPos = planet.positions.get(step);
@@ -53,46 +52,29 @@ public class TransitCalculator {
             calc(step*universe.dt(),direction,starPos,planetPos,star,planet, ConeRadius, EdgeOfMoonDist, Lambda, Area);
         }
 
-
         HashMap<Integer,EclipseInfo> eclipseInfoHashMap = calculateEclipseFeatures(star.getStartDate(),Area);
         if(plot) Graph.plotEclipse("Transits for "+planet.getName(),Area,null);
-//            try {
-//                CSVWriter.writeEclipseData("Trappist/"+planet.getName(),ConeRadius,EdgeOfMoonDist,Lambda,Area);
-//            } catch (IOException e) {
-//                e.printStackTrace();
-//            }
-//            try {
-//                CSVWriter.writeEclipseInfo("Trappist/"+planet.getName(),eclipseInfoHashMap,universe);
-//            } catch (IOException e) {
-//                e.printStackTrace();
-//            }
-
-            return Area;
+        CSVWriter.writeEclipseData("Trappist/"+planet.getName(),ConeRadius,EdgeOfMoonDist,Lambda,Area);
+        CSVWriter.writeEclipseInfo("Trappist/"+planet.getName(),eclipseInfoHashMap,universe);
+        return Area;
     }
 
     private static void calc(double time, Vector3D direction, Vector3D starPos, Vector3D planetPos, Body star, Body planet, TreeMap<Double,Double> ConeRadius, TreeMap<Double,Double> EdgeOfMoonDist,TreeMap<Double,Double> Lambda,TreeMap<Double,Double> Area){
-
-        //Point perpendicular to line
         //Lambda < 0 means Moon is behind Earth from Sun's perspective.
         double lambda = (planetPos.subtract(starPos).dotProduct(direction)) / (direction.dotProduct(direction));
-
-
+        //Point perpendicular to line
         Vector3D P = direction.multiply(lambda).add(starPos);
 
         // Radius of circle at point of cone perpendicular to Moon.
         double r1 = star.getBodyRadiusAU();
-        double planetToP = dist(planetPos, P).magnitude();
-        double EdgeOfPlanet = planetToP - planet.getBodyRadiusAU();
-
+        double d = dist(planetPos, P).magnitude();
         double areaRatio = 1;
 
         if(lambda > 0) {
             //Calculate Area of eclipse
             double r2 = planet.getBodyRadiusAU();
-            double d = planetToP;
-            double A = 0;
+            double A;
             double ratio = LimbDarkening.intensityRatio(star.getBodyRadiusAU(),d,planet.getBodyRadiusAU());
-            //double ratio = 1;
 
             if (d >= r1 + r2) { // No intersection = 0 area;
                 A = 0;
@@ -109,6 +91,7 @@ public class TransitCalculator {
             areaRatio = (1 - (A*ratio) / (Math.PI * r1 * r1));
         }
 
+        double EdgeOfPlanet = d - planet.getBodyRadiusAU();
         if(ConeRadius != null) ConeRadius.put(time, r1);
         //if(EdgeOfMoonDist != null) EdgeOfMoonDist.put(time, EdgeOfMoon);
         if(Lambda != null) Lambda.put(time, lambda);

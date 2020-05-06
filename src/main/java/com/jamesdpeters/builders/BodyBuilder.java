@@ -2,6 +2,7 @@ package com.jamesdpeters.builders;
 
 import com.google.gson.Gson;
 import com.jamesdpeters.bodies.Body;
+import com.jamesdpeters.helpers.Utils;
 import com.jamesdpeters.vectors.Vector3D;
 
 import java.awt.*;
@@ -16,7 +17,7 @@ public class BodyBuilder {
     private TreeMap<Double, Vector3D> truePositions, trueVelocities;
     private boolean isOrigin = false;
     private LocalDateTime startDate;
-    private Color color;
+    private Color color = Utils.randomColor();
 
     public static BodyBuilder getInstance(){
         return new BodyBuilder();

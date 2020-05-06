@@ -9,9 +9,7 @@ import org.apache.commons.csv.CSVParser;
 import org.apache.commons.csv.CSVRecord;
 import org.apache.commons.lang3.StringUtils;
 
-import java.io.IOException;
 import java.net.URI;
-import java.net.URISyntaxException;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Path;
@@ -23,12 +21,7 @@ import java.util.List;
 import java.util.Locale;
 import java.util.TreeMap;
 
-
 public class JPLHorizonsParser {
-
-    public static void main(String[] args) throws IOException, URISyntaxException {
-        parse("horizon_data/earth.txt", "Earth");
-    }
 
     public static BodyBuilder parse(String filename, String bodyName){
         try {

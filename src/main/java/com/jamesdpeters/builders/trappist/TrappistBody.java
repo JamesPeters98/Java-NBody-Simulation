@@ -67,8 +67,7 @@ public class TrappistBody {
     }
 
     private double distFromFoci(){
-        return semiMajorAxis*(1-eccentricity*eccentricity) /
-                (1+eccentricity*Math.cos(startPhase));
+        return semiMajorAxis*(1-eccentricity*eccentricity) / (1+eccentricity*Math.cos(startPhase));
     }
 
 

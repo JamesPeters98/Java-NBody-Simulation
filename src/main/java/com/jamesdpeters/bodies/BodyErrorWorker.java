@@ -11,7 +11,7 @@ import java.util.TreeMap;
 
 public class BodyErrorWorker {
 
-    public static double calculateError(Body body){
+    public static double calculateError(Body body, double maxStep){
         double dt = body.getUniverse().dt();
         Body origin = body.getUniverse().getOriginBody();
         int steps = 0;
@@ -21,7 +21,11 @@ public class BodyErrorWorker {
         if(body.getJPLPositions() != null && body.getJPLPositions().size() > 0) {
             for (Map.Entry<Double, Vector3D> entry : body.getJPLPositions().entrySet()) {
                 double time = entry.getKey();
-                int step = (int) (time/dt);
+                double stepDouble = (time/dt);
+                int step = (int) Math.round(stepDouble);
+                if(step != stepDouble) continue;
+                if((step % maxStep) != 0) continue;
+                System.out.println("Current step: "+step);
                 Vector3D truePos = entry.getValue();
                     if (body.positions.containsKey(step)) {
                         steps++;

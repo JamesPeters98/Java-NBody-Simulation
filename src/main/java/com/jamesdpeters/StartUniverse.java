@@ -1,5 +1,9 @@
 package com.jamesdpeters;
 
+import com.jamesdpeters.eclipse.EclipseCalculator;
+import com.jamesdpeters.integrators.IntegratorFactory;
+import com.jamesdpeters.json.CSVWriter;
+import com.jamesdpeters.json.Graph;
 import com.jamesdpeters.universes.SolarSystem;
 
 public class StartUniverse {
@@ -25,9 +29,36 @@ public class StartUniverse {
         System.out.println("********************************************");
 
 
-        SolarSystem universe = new SolarSystem();
+//        SolarSystem universe = new SolarSystem("/BodyEclipse.json");
+//        universe.setOutput(true);
+//        universe.setRunningTime(0.25*365);
+//        universe.setIntegrator(IntegratorFactory.getRK4Integrator());
+//        universe.overrideTimeStep(0.0001);
+//        universe.addOnFinishListener(() -> {
+//            EclipseCalculator.findEclipses(universe);
+//            //universe.getBodies().forEach(body -> CSVWriter.writeBody(body,10));
+//            //Graph.plotTrajectory(universe,1);
+//        });
+//        universe.start();
+
+        SolarSystem universe = new SolarSystem("/Body.json");
         universe.setOutput(true);
-        universe.overrideTimeStep(0.1);
+        universe.setRunningTime(30*365);
+        universe.setIntegrator(IntegratorFactory.getRK4Integrator());
+        double dt = 1;
+        double res = 96; //Store every 15 days of data.
+        universe.overrideTimeStep(dt);
+        universe.setResolution((int) (res/dt));
+        universe.addOnFinishListener(() -> {
+            //EclipseCalculator.findEclipses(universe);
+            universe.getBodies().stream().filter(body -> body.getName().equals("Moon")).forEach(body -> {
+                Graph.plotBody(body);
+                CSVWriter.writeBodyDelta(body);
+            });
+            //universe.getBodies().forEach(Graph::plotBody);
+            //universe.getBodies().forEach(body -> CSVWriter.writeBody(body,10));
+            //Graph.plotTrajectory(universe,1);
+        });
         universe.start();
 
     }

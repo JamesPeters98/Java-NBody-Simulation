@@ -6,7 +6,7 @@ import com.jamesdpeters.vectors.Vector3D;
 
 public abstract class Integrator {
 
-    //Integrator can decide to evolve each
+    //Integrator can decide how to evolve the system at each step.
     public abstract void step(Universe universe);
 
     public abstract String getIntegratorName();
@@ -23,5 +23,4 @@ public abstract class Integrator {
         }
         return accel;
     }
-
 }

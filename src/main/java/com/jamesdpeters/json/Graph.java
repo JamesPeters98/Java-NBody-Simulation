@@ -2,7 +2,6 @@ package com.jamesdpeters.json;
 
 import com.github.sh0nk.matplotlib4j.*;
 import com.github.sh0nk.matplotlib4j.builder.PlotBuilder;
-import com.github.sh0nk.matplotlib4j.builder.ScaleBuilder;
 import com.jamesdpeters.bodies.Body;
 import com.jamesdpeters.eclipse.TransitInfo;
 import com.jamesdpeters.helpers.MultiScatter;
@@ -10,7 +9,6 @@ import com.jamesdpeters.helpers.Utils;
 import com.jamesdpeters.helpers.chisquare.Value;
 import com.jamesdpeters.universes.Universe;
 import com.jamesdpeters.vectors.Vector3D;
-import com.sun.source.tree.Tree;
 import org.jzy3d.chart.Chart;
 import org.jzy3d.chart.ChartLauncher;
 import org.jzy3d.chart.Settings;
@@ -26,8 +24,8 @@ import java.util.*;
 
 public class Graph {
 
-    public static void plotTrajectory(Body body) throws Exception {
-                Scatter scatter = getScatter(body,Color.CYAN);
+    public static void plotTrajectory(Body body) {
+                Scatter scatter = getScatter(body);
                 Chart chart = AWTChartComponentFactory.chart(Quality.Fastest, "newt");
                 chart.getScene().add(scatter);
 
@@ -65,7 +63,7 @@ public class Graph {
         ChartLauncher.openChart(chart, new Rectangle(200, 200, 1280, 720), "Points Plot");
     }
 
-    private static Scatter getScatter(Body body, Color color){
+    private static Scatter getScatter(Body body){
         Coord3d[] coords = new Coord3d[body.positions.size()];
         int i=0;
         for(Vector3D vector3D : body.positions.values()) {
@@ -91,13 +89,10 @@ public class Graph {
                 }
             }
 
-
             coordList.add(coords);
             colors[k] = Utils.convert(body.getColor());
             k++;
-
             System.out.println("Points: "+coords.size());
-
         }
 
         return new MultiScatter(coordList,colors,1.0f);
@@ -167,11 +162,10 @@ public class Graph {
         plotData(plt, timeJPL, magJPL, "R JPL", "red");
 
         //plt.title(body.getName());
-
         openPlot(plt);
     }
 
-    private static void plotEclipse(Plot plt, TreeMap<Double,Double> area, String color, String datasetName){
+    private static void plotEclipse(Plot plt, TreeMap<Double,Double> area, String color, String datasetName, String linestyle, String fmt){
         List<Number> time = new ArrayList<>();
         List<Number> areas = new ArrayList<>();
 
@@ -180,11 +174,11 @@ public class Graph {
             areas.add(a);
         });
 
-        plotData(plt,time,areas,datasetName,color);
+        plotData(plt,time,areas,datasetName,color,linestyle,fmt);
     }
 
     private static void plotEclipseValue(Plot plt, TreeMap<Double,Value> area, String color, String datasetName){
-        List<Number> time = new ArrayList<>();
+        List<Number> time = new ArrayList<Number>();
         List<Number> areas = new ArrayList<>();
 
         area.forEach((t, a) -> {
@@ -205,8 +199,8 @@ public class Graph {
         Plot plt = getPlot();
         plt.figure(title);
         plt.subplot(1,1,1);
-        plotEclipse(plt,area, "blue","Simulated Data");
-        if(JPLArea != null) plotEclipse(plt,JPLArea, "red", "JPL Data");
+        plotEclipse(plt,area, "blue","Simulated Data","solid","");
+        if(JPLArea != null) plotEclipse(plt,JPLArea, "red", "JPL Data","","r*");
         plt.ylabel("Luminosity Ratio (L/L0)");
         openPlot(plt);
     }
@@ -215,9 +209,9 @@ public class Graph {
         Plot plt = getPlot();
         plt.figure(title);
         plt.subplot(1,1,1);
-        plotEclipse(plt,totalArea, "black","Total Luminosity");
+        plotEclipse(plt,totalArea, "black","Total Luminosity","solid","");
         areas.forEach((planet, map) -> {
-            plotEclipse(plt,map, Utils.colorToHex(planet.getColor()),planet.getName());
+            plotEclipse(plt,map, Utils.colorToHex(planet.getColor()),planet.getName(),"solid","");
         });
         plt.ylabel("Luminosity Ratio (L/L0)");
         openPlot(plt);
@@ -227,9 +221,9 @@ public class Graph {
         Plot plt = getPlot();
         plt.figure(title);
         plt.subplot(1,1,1);
-        plotEclipse(plt,transitInfo.totalTransits, "black","Total Luminosity");
+        plotEclipse(plt,transitInfo.totalTransits, "black","Total Luminosity","solid","");
         transitInfo.transits.forEach((planet, map) -> {
-            plotEclipse(plt,map, Utils.colorToHex(planet.getColor()),planet.getName());
+            plotEclipse(plt,map, Utils.colorToHex(planet.getColor()),planet.getName(),"solid","");
         });
         plotEclipseValue(plt,experimentalData,"r","Experimental Data");
         plt.ylabel("Luminosity Ratio (L/L0)");
@@ -255,10 +249,14 @@ public class Graph {
     }
 
     public static PlotBuilder plotData(Plot plt, List<Number> x, List<Number> y, String label, String color){
+        return plotData(plt, x, y, label, color,"solid","");
+    }
+
+    public static PlotBuilder plotData(Plot plt, List<Number> x, List<Number> y, String label, String color, String linestyle, String fmt){
         PlotBuilder plotBuilder = plt.plot()
-                .add(x,y)
+                .add(x,y,fmt)
                 .label(label)
-                .linestyle("solid")
+                .linestyle(linestyle)
                 .color(color);
         plt.xlabel("Day");
         plt.ylabel("Position (AU)");
@@ -267,32 +265,24 @@ public class Graph {
         return plotBuilder;
     }
 
-    public static void plot2DLine(){
+    public static void main(String[] args) {
         Plot plt = getPlot();
+        plt.figure("Title");
 
-        //plt.subplot(1,2,1);
+        List<Number>
+                x = Arrays.asList(1,2,3,4,5),
+                y = Arrays.asList(2,4,6,8,10);
+
+        String fmt = "ro";
+
         plt.plot()
-                .add(Arrays.asList(1.3, 20, 200, 300, 400, 1000))
+                .add(x,y,fmt)
                 .label("label")
                 .linestyle("solid");
+        plt.xlabel("X");
+        plt.ylabel("Y");
+        plt.legend().loc("upper right");
 
-
-        plt.xscale(ScaleBuilder.Scale.log);
-        plt.yscale(ScaleBuilder.Scale.log);
-        plt.xlabel("xlabel");
-        plt.ylabel("ylabel");
-        plt.text(0.5, 0.2, "text");
-        plt.title("Title!");
-        plt.legend();
-
-        try {
-            plt.show();
-        } catch (Exception e){
-            e.printStackTrace();
-        }
+        openPlot(plt);
     }
-
-    public static void main(String[] args) {
-        plot2DLine();
     }
-}

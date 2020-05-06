@@ -13,12 +13,11 @@ public class RK4Integrator extends Integrator {
 
         for(Body body : universe.getBodies()){
             body.setTempPos(1,body.getPosition());          //x1
-            body.setTempVelocity(1, body.getVelocity());    //v1
         }
 
         for(Body body : universe.getBodies()){
             Vector3D a1 = accel(body,1);
-            Vector3D v1 = body.getTempVelocity(1);
+            Vector3D v1 = body.getVelocity();
 
             Vector3D x2 = body.getPosition().add(v1.multiply(dt/2));
             Vector3D v2 = body.getVelocity().add(a1.multiply(dt/2));
@@ -54,7 +53,7 @@ public class RK4Integrator extends Integrator {
 
         for(Body body : universe.getBodies()){
             Vector3D a4 = accel(body,4);
-            Vector3D dx = sumRK4(body.getTempVelocity(1),body.getTempVelocity(2),body.getTempVelocity(3),body.getTempVelocity(4)).multiply(dt);
+            Vector3D dx = sumRK4(body.getVelocity(),body.getTempVelocity(2),body.getTempVelocity(3),body.getTempVelocity(4)).multiply(dt);
             Vector3D dv = sumRK4(body.getTempAccel(1),body.getTempAccel(2),body.getTempAccel(3),a4).multiply(dt);
             body.setNextPosition(body.getPosition().add(dx));
             body.setNextVelocity(body.getVelocity().add(dv));
@@ -74,6 +73,4 @@ public class RK4Integrator extends Integrator {
         sumdx = sumdx.add(k4);
         return sumdx.multiply((double) 1 / (double) 6);
     }
-
-
 }

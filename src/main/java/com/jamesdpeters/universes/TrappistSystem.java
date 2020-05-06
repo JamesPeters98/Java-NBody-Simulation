@@ -24,7 +24,7 @@ public class TrappistSystem extends SolarSystem {
     }
 
     @Override
-    protected UniverseBuilder getBuilder() {
+    protected UniverseBuilder getBuilder(String jsonFileName) {
         Gson gson = new GsonBuilder().setPrettyPrinting().create();
         try {
             String jsonFile = StartUniverse.class.getResource(getJsonFilePath()).getFile();

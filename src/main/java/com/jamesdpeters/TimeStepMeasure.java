@@ -36,11 +36,12 @@ public class TimeStepMeasure {
         universes = new ArrayList<>();
 
         Integrator integrator = IntegratorFactory.getRK4Integrator();
-
-        double[] timesteps = {2,1,0.5,0.25,0.2,0.1,0.05};
+        double[] timesteps = {1,0.5,0.25,0.1,0.05,0.025};
+        double runningTime = 365*10;
 
         for(double timestep : timesteps){
             SolarSystem universe = getUniverse(timestep,integrator);
+            universe.setRunningTime(runningTime);
             universe.start();
             universes.add(universe);
         }
@@ -70,7 +71,7 @@ public class TimeStepMeasure {
         universe.setIntegrator(integrator);
         universe.addOnFinishListener(() -> universe.getBodies().forEach(body -> {
             System.out.println("Running listener!");
-            double error = BodyErrorWorker.calculateError(body);
+            double error = BodyErrorWorker.calculateError(body,2);
             TreeMap<Double, Double> timestepErrors = bodyErrors.computeIfAbsent(body.getName(), k -> new TreeMap<>());
             timestepErrors.put(timestep,error);
         }));

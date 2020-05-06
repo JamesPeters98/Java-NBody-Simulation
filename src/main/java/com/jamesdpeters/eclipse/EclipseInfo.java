@@ -12,4 +12,8 @@ public class EclipseInfo {
     public Duration getDuration(){
         return Duration.between(startDate,endDate);
     }
+
+    public LocalDateTime midpoint(){
+        return startDate.plus(getDuration().dividedBy(2));
+    }
 }

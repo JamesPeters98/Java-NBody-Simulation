@@ -36,20 +36,18 @@ public abstract class Body implements Callable<Boolean>, Comparable<Body> {
         GMinAU = getGM()* Constants.CONVERSIONS.GM_to_AU;
     }
 
+    /**
+     * Call this after all bodies have been updated.
+     */
     public void update(){
         if(loop >= universe.resolution() || loop == -1) {
             positions.put(universe.getUniverseStep(), position);
             loop = 0;
         }
         loop++;
-    }
 
-    /**
-     * Call this after all bodies have been updated.
-     */
-    public void postUpdate(){
-       velocity = nextVelocity;
-       position = nextPos;
+        velocity = nextVelocity;
+        position = nextPos;
     }
 
     /**

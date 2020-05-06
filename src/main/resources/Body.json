@@ -38,6 +38,20 @@
       "GM": 37931206.159
     },
     {
+      "name": "Mars",
+      "filename": "horizon_data/mars.txt",
+      "mass": 6.4171E23,
+      "radius": 3389.92,
+      "GM": 42828.375214
+    },
+    {
+      "name": "Mercury",
+      "filename": "horizon_data/mercury.txt",
+      "mass": 3.302E23,
+      "radius": 2440,
+      "GM": 22031.78
+    },
+    {
       "name": "Sun",
       "filename": "horizon_data/sun.txt",
       "mass": 1988500E24,

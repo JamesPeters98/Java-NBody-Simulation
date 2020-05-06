@@ -2,16 +2,32 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="c10789bf-efff-4737-8ba7-343012b8843c" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/jamesdpeters/eclipse/LimbDarkening.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/jamesdpeters/StartSolarSystemError.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/jamesdpeters/bodies/ErrorCalculator.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/Body96Timestep.json" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/horizon_data/mercury.txt" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/jamesdpeters/StartTrappist.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/jamesdpeters/StartTrappist.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/jamesdpeters/StartUniverse.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/jamesdpeters/StartUniverse.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/jamesdpeters/TimeStepMeasure.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/jamesdpeters/TimeStepMeasure.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/jamesdpeters/bodies/Body.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/jamesdpeters/bodies/Body.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/jamesdpeters/bodies/BodyErrorWorker.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/jamesdpeters/bodies/BodyErrorWorker.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/jamesdpeters/builders/BodyBuilder.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/jamesdpeters/builders/BodyBuilder.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/jamesdpeters/builders/UniverseBuilder.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/jamesdpeters/builders/UniverseBuilder.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/jamesdpeters/builders/jpl/UniverseBuilderJPL.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/jamesdpeters/builders/jpl/UniverseBuilderJPL.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/jamesdpeters/builders/trappist/TrappistBody.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/jamesdpeters/builders/trappist/TrappistBody.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/jamesdpeters/eclipse/EclipseCalculator.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/jamesdpeters/eclipse/EclipseCalculator.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/jamesdpeters/eclipse/EclipseInfo.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/jamesdpeters/eclipse/EclipseInfo.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/jamesdpeters/eclipse/LimbDarkening.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/jamesdpeters/eclipse/LimbDarkening.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/jamesdpeters/eclipse/TransitCalculator.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/jamesdpeters/eclipse/TransitCalculator.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/jamesdpeters/helpers/chisquare/ChiSquaredFitter.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/jamesdpeters/helpers/chisquare/ChiSquaredFitter.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/jamesdpeters/integrators/abstracts/Integrator.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/jamesdpeters/integrators/abstracts/Integrator.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/jamesdpeters/integrators/types/RK4Integrator.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/jamesdpeters/integrators/types/RK4Integrator.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/jamesdpeters/json/CSVWriter.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/jamesdpeters/json/CSVWriter.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/jamesdpeters/json/Graph.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/jamesdpeters/json/Graph.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/jamesdpeters/json/JPLHorizonsParser.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/jamesdpeters/json/JPLHorizonsParser.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/jamesdpeters/universes/SolarSystem.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/jamesdpeters/universes/SolarSystem.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/jamesdpeters/universes/TrappistSystem.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/jamesdpeters/universes/TrappistSystem.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/jamesdpeters/universes/Universe.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/jamesdpeters/universes/Universe.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/Body.json" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/Body.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/BodyEclipse.json" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/BodyEclipse.json" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -52,15 +68,18 @@
     <key name="CreateClassDialog.RecentsKey">
       <recent name="com.jamesdpeters.interfaces" />
     </key>
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="C:\Users\James\Documents\GitHub\Java-NBody-Simulation\src\main\resources" />
+    </key>
     <key name="CopyClassDialog.RECENTS_KEY">
-      <recent name="com.jamesdpeters.eclipse" />
       <recent name="com.jamesdpeters" />
+      <recent name="com.jamesdpeters.eclipse" />
       <recent name="com.jamesdpeters.json" />
       <recent name="com.jamesdpeters.builders" />
       <recent name="com.jamesdpeters.universes" />
     </key>
-    <key name="CopyFile.RECENT_KEYS">
-      <recent name="C:\Users\James\Documents\GitHub\Java-NBody-Simulation\src\main\resources" />
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="C:\Users\James\Documents\GitHub\Java-NBody-Simulation\src\main\resources\horizon_data" />
     </key>
   </component>
   <component name="RunDashboard">
@@ -75,7 +94,20 @@
       </list>
     </option>
   </component>
-  <component name="RunManager" selected="Application.StartUniverse">
+  <component name="RunManager" selected="Application.StartSolarSystemError">
+    <configuration name="Graph" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="com.jamesdpeters.json.Graph" />
+      <module name="3DTests" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="com.jamesdpeters.json.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
     <configuration name="Json" type="Application" factoryName="Application">
       <option name="MAIN_CLASS_NAME" value="com.jamesdpeters.json.JsonConverter" />
       <module name="3DTests" />
@@ -90,12 +122,12 @@
         <option name="Maven.BeforeRunTask" enabled="true" file="$PROJECT_DIR$/pom.xml" goal="javafx:compile" />
       </method>
     </configuration>
-    <configuration name="JsonConverterTrappist" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
-      <option name="MAIN_CLASS_NAME" value="com.jamesdpeters.json.JsonConverterTrappist" />
+    <configuration name="StartSolarSystemError" type="Application" factoryName="Application" singleton="false" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="com.jamesdpeters.StartSolarSystemError" />
       <module name="3DTests" />
       <extension name="coverage">
         <pattern>
-          <option name="PATTERN" value="com.jamesdpeters.helpers.chisquare.*" />
+          <option name="PATTERN" value="com.jamesdpeters.*" />
           <option name="ENABLED" value="true" />
         </pattern>
       </extension>
@@ -144,31 +176,6 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="3DTests [javafx:run]" type="MavenRunConfiguration" factoryName="Maven" temporary="true">
-      <MavenSettings>
-        <option name="myGeneralSettings" />
-        <option name="myRunnerSettings" />
-        <option name="myRunnerParameters">
-          <MavenRunnerParameters>
-            <option name="profiles">
-              <set />
-            </option>
-            <option name="goals">
-              <list>
-                <option value="javafx:run" />
-              </list>
-            </option>
-            <option name="pomFileName" value="pom.xml" />
-            <option name="profilesMap">
-              <map />
-            </option>
-            <option name="resolveToWorkspace" value="false" />
-            <option name="workingDirPath" value="$PROJECT_DIR$" />
-          </MavenRunnerParameters>
-        </option>
-      </MavenSettings>
-      <method v="2" />
-    </configuration>
     <configuration name="Run" type="MavenRunConfiguration" factoryName="Maven">
       <MavenSettings>
         <option name="myGeneralSettings" />
@@ -214,18 +221,18 @@
       <item itemvalue="Application.Json" />
       <item itemvalue="Application.StartUniverse" />
       <item itemvalue="Application.TimeStepMeasure" />
-      <item itemvalue="Application.JsonConverterTrappist" />
       <item itemvalue="Application.StartTrappist" />
+      <item itemvalue="Application.Graph" />
+      <item itemvalue="Application.StartSolarSystemError" />
       <item itemvalue="Maven.Run" />
-      <item itemvalue="Maven.3DTests [javafx:run]" />
     </list>
     <recent_temporary>
       <list>
-        <item itemvalue="Application.StartTrappist" />
-        <item itemvalue="Application.JsonConverterTrappist" />
+        <item itemvalue="Application.StartSolarSystemError" />
         <item itemvalue="Application.StartUniverse" />
         <item itemvalue="Application.TimeStepMeasure" />
-        <item itemvalue="Maven.3DTests [javafx:run]" />
+        <item itemvalue="Application.StartTrappist" />
+        <item itemvalue="Application.Graph" />
       </list>
     </recent_temporary>
   </component>
@@ -278,6 +285,10 @@
       <workItem from="1586943502313" duration="11000" />
       <workItem from="1587052377158" duration="14049000" />
       <workItem from="1587331463931" duration="12397000" />
+      <workItem from="1587668027894" duration="1496000" />
+      <workItem from="1588075325792" duration="24832000" />
+      <workItem from="1588245548433" duration="56055000" />
+      <workItem from="1588673521490" duration="20423000" />
     </task>
     <servers />
   </component>

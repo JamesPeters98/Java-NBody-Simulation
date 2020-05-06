@@ -8,7 +8,7 @@ public class LimbDarkening {
             return 1;
         }
 
-        System.out.println("Star Radius: "+starRadius+" Planet Radius: "+planet+" D: "+distanceFromCenter);
+        //System.out.println("Star Radius: "+starRadius+" Planet Radius: "+planet+" D: "+distanceFromCenter);
 
         double a = (2.0/5.0);
         double b = (3.0/5.0);
@@ -18,7 +18,7 @@ public class LimbDarkening {
 //            System.out.println("Using center of segment.");
 //        }
         double ratio = (a + b*(starRadius/Math.sqrt(starRadius*starRadius+d*d)));
-        System.out.println("Ratio: "+ratio);
+        //System.out.println("Ratio: "+ratio);
 
         return ratio;
     }
