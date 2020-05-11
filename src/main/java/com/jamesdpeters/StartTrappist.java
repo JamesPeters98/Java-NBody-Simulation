@@ -1,5 +1,6 @@
 package com.jamesdpeters;
 
+import com.jamesdpeters.integrators.IntegratorFactory;
 import com.jamesdpeters.universes.SolarSystem;
 import com.jamesdpeters.universes.TrappistSystem;
 
@@ -28,7 +29,9 @@ public class StartTrappist {
 
         TrappistSystem universe = new TrappistSystem();
         universe.setOutput(true);
-        universe.overrideTimeStep(0.00001);
+        universe.setIntegrator(IntegratorFactory.getRK4Integrator());
+        universe.overrideTimeStep(0.0001);
+        universe.setRunningTime(10);
         universe.start();
 
     }

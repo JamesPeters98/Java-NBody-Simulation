@@ -9,6 +9,7 @@ import com.jamesdpeters.helpers.Utils;
 import com.jamesdpeters.helpers.chisquare.Value;
 import com.jamesdpeters.universes.Universe;
 import com.jamesdpeters.vectors.Vector3D;
+import org.fxyz3d.geometry.Point3D;
 import org.jzy3d.chart.Chart;
 import org.jzy3d.chart.ChartLauncher;
 import org.jzy3d.chart.Settings;
@@ -111,6 +112,7 @@ public class Graph {
 
         int res = 1;
         final int[] point = {res};
+        double maxStep = body.positions.lastKey();
         body.positions.forEach((step, point3D) -> {
             if (point[0] >= res) {
                 Vector3D originPoint = origin.positions.get(step);
@@ -134,32 +136,35 @@ public class Graph {
         List<Number> magJPL = new ArrayList<>();
 
         if(body.getJPLPositions() != null) {
-            body.getJPLPositions().forEach((t, point3D) -> {
+            for(Map.Entry<Double,Vector3D> entry : body.getJPLPositions().entrySet()){
+                double t = entry.getKey();
+                if(t > maxStep*body.getUniverse().dt()) break;
+                Vector3D point3D = entry.getValue();
                 timeJPL.add(t);
                 xJPL.add(point3D.getX());
                 yJPL.add(point3D.getY());
                 zJPL.add(point3D.getZ());
                 magJPL.add(point3D.magnitude());
-            });
+            }
         }
 
         Plot plt = getPlot();
-        plt.figure(body.getName());
+        plt.figure(body.getUniverse().getIntegrator().getIntegratorName()+" - "+body.getName());
         plt.subplot(2, 2, 1);
-        plotData(plt, time, x, "X Simulated", "blue");
         plotData(plt, timeJPL, xJPL, "X JPL", "red");
+        plotData(plt, time, x, "X Simulated", "blue");
 
         plt.subplot(2, 2, 2);
-        plotData(plt, time, y, "Y Simulated", "blue");
         plotData(plt, timeJPL, yJPL, "Y JPL", "red");
+        plotData(plt, time, y, "Y Simulated", "blue");
 
         plt.subplot(2, 2, 3);
-        plotData(plt, time, z, "Z Simulated", "blue");
         plotData(plt, timeJPL, zJPL, "Z JPL", "red");
+        plotData(plt, time, z, "Z Simulated", "blue");
 
         plt.subplot(2, 2, 4);
-        plotData(plt, time, mag, "R Simulated", "blue");
         plotData(plt, timeJPL, magJPL, "R JPL", "red");
+        plotData(plt, time, mag, "R Simulated", "blue");
 
         //plt.title(body.getName());
         openPlot(plt);
@@ -200,7 +205,7 @@ public class Graph {
         plt.figure(title);
         plt.subplot(1,1,1);
         plotEclipse(plt,area, "blue","Simulated Data","solid","");
-        if(JPLArea != null) plotEclipse(plt,JPLArea, "red", "JPL Data","","r*");
+        //if(JPLArea != null) plotEclipse(plt,JPLArea, "red", "JPL Data","","r*");
         plt.ylabel("Luminosity Ratio (L/L0)");
         openPlot(plt);
     }
@@ -214,6 +219,7 @@ public class Graph {
             plotEclipse(plt,map, Utils.colorToHex(planet.getColor()),planet.getName(),"solid","");
         });
         plt.ylabel("Luminosity Ratio (L/L0)");
+        plt.legend().loc("best");
         openPlot(plt);
     }
 
@@ -221,12 +227,13 @@ public class Graph {
         Plot plt = getPlot();
         plt.figure(title);
         plt.subplot(1,1,1);
+        plotEclipseValue(plt,experimentalData,"r","Experimental Data");
         plotEclipse(plt,transitInfo.totalTransits, "black","Total Luminosity","solid","");
         transitInfo.transits.forEach((planet, map) -> {
             plotEclipse(plt,map, Utils.colorToHex(planet.getColor()),planet.getName(),"solid","");
         });
-        plotEclipseValue(plt,experimentalData,"r","Experimental Data");
         plt.ylabel("Luminosity Ratio (L/L0)");
+        plt.legend().loc("best");
         openPlot(plt);
     }
 
@@ -257,10 +264,11 @@ public class Graph {
                 .add(x,y,fmt)
                 .label(label)
                 .linestyle(linestyle)
+                .linewidth("1")
                 .color(color);
         plt.xlabel("Day");
         plt.ylabel("Position (AU)");
-        plt.legend().loc("upper right");
+        //plt.legend().loc("best");
 
         return plotBuilder;
     }

@@ -1,6 +1,7 @@
 package com.jamesdpeters;
 
 import com.github.sh0nk.matplotlib4j.Plot;
+import com.github.sh0nk.matplotlib4j.builder.ScaleBuilder;
 import com.jamesdpeters.bodies.BodyErrorWorker;
 import com.jamesdpeters.integrators.IntegratorFactory;
 import com.jamesdpeters.integrators.abstracts.Integrator;
@@ -24,48 +25,70 @@ public class StartSolarSystemError {
     private static List<Universe> universes;
     private static HashMap<Integrator,TreeMap<Double,TreeMap<Double,Double>>> intergratorTimestepErrors;
     private static HashMap<Integrator,TreeMap<Double,Double>> integratorAccumulatedError;
+    private static HashMap<Integrator,TreeMap<Double,Double>> integratorComputationalTime;
     private static String bodyToCalculate = "";
 
     static double[] timesteps;
     static Integrator[] integrators;
     static int cols, rows;
 
+    static double runningTime;
+
+    @SuppressWarnings("ConstantConditions")
     public static void main(String[] args) throws InterruptedException {
 
         universes = new ArrayList<>();
         intergratorTimestepErrors = new HashMap<>();
         integratorAccumulatedError = new HashMap<>();
-        timesteps = new double[]{0.6,0.5,0.4,0.3,0.2};
-        integrators = new Integrator[]{IntegratorFactory.getRK4Integrator(),IntegratorFactory.getLeapFrogIntegrator(),IntegratorFactory.getYoshidaIntegrator()};
-        rows = 1; cols = 3;
+        integratorComputationalTime = new HashMap<>();
+//        timesteps = new double[]{0.025,0.05,0.1,0.15,0.2,0.25,0.3};
+        timesteps = new double[]{0.0025,0.005,0.01,0.05,0.06,0.64,0.075};
+        integrators = new Integrator[]{IntegratorFactory.getRK4Integrator(),IntegratorFactory.getYoshidaIntegrator()};
+        rows = 2; cols = 2;
         double res = 192; //Store every 96 days of data (96 because it's divisible by lots of decimals e.g 0.1,0.2,0.3,0.4,0.5)
-        double runningTime = res*250; //Stores 100 deltas.
+        runningTime = res*25
+        ; //Stores 100 deltas.
         bodyToCalculate = "Moon";
+
+        boolean runInParallel = false;
 
         for(Integrator integrator : integrators) {
             intergratorTimestepErrors.put(integrator, new TreeMap<>());
             integratorAccumulatedError.put(integrator, new TreeMap<>());
+            integratorComputationalTime.put(integrator, new TreeMap<>());
             for (double timestep : timesteps) {
                 SolarSystem universe = getUniverse(timestep, integrator, runningTime, res);
                 universe.start();
+                if(!runInParallel){
+                    while(!universe.hasFinished()){
+                        Thread.sleep(1000);
+                    }
+                    TreeMap<Double,Double> computationTime = integratorComputationalTime.get(integrator);
+                    computationTime.put(timestep,universe.performanceTracker.timeTaken());
+                    integratorComputationalTime.put(integrator,computationTime);
+                }
                 universes.add(universe);
             }
         }
 
-        while(true){
-            boolean finished = true;
-            for(Universe u : universes) {
-                if(!u.hasFinished()){
-                    finished = false;
-                    break;
+        if(runInParallel) {
+            while (true) {
+                boolean finished = true;
+                for (Universe u : universes) {
+                    if (!u.hasFinished()) {
+                        finished = false;
+                        break;
+                    }
                 }
+                if (finished) break;
+                Thread.sleep(1000);
             }
-            if(finished) break;
-            Thread.sleep(1000);
         }
         System.out.println("FINISHED!");
-        plot();
-        plotAccumulated();
+        plotComputationalTime();
+        plotComputationalTimeVsError();
+        //plot();
+        //plotAccumulated();
     }
 
     private static SolarSystem getUniverse(double dt, Integrator integrator, double runningTime, double res){
@@ -77,7 +100,7 @@ public class StartSolarSystemError {
         universe.setResolution((int) (res/dt));
         universe.addOnFinishListener(() -> {
             universe.getBodies().stream().filter(body -> body.getName().equals(bodyToCalculate)).forEach(body -> {
-                if(integrator.getIntegratorName().equals("RK4")) Graph.plotBody(body);
+                if((integrator.getIntegratorName().equals("Yoshida") || integrator.getIntegratorName().equals("LeapFrog")) && dt == 0.005) Graph.plotBody(body);
                 TreeMap<Double,TreeMap<Double,Double>> timestepErrors = intergratorTimestepErrors.get(integrator);
                 TreeMap<Double,Double> accumulatedError = integratorAccumulatedError.get(integrator);
 
@@ -98,7 +121,7 @@ public class StartSolarSystemError {
         plt.figure("Timestep Errors - "+bodyToCalculate+" - "+Arrays.toString(timesteps));
 
         int index = 1;
-        final double[] minMaxY = {0.0,0.0};
+        final double[] minMaxY = {1,0.0};
         for(Map.Entry<Integrator,TreeMap<Double,TreeMap<Double,Double>>> entry : intergratorTimestepErrors.entrySet()) {
             entry.getValue().values().forEach(map -> {
                 Optional<Map.Entry<Double,Double>> max = map.entrySet().stream().max(Comparator.comparing(Map.Entry::getValue));
@@ -117,8 +140,11 @@ public class StartSolarSystemError {
                 List<Number> step = new ArrayList<>();
                 List<Number> errorVals = new ArrayList<>();
                 for (Map.Entry<Double, Double> values : errors.entrySet()) {
-                    step.add(values.getKey());
-                    errorVals.add(values.getValue());
+                    double val = values.getValue();
+                    if(val > 0) {
+                        step.add(values.getKey());
+                        errorVals.add(Math.log10(val));
+                    }
                 }
                 plt.plot()
                         .add(step, errorVals)
@@ -127,9 +153,11 @@ public class StartSolarSystemError {
                         .linewidth("1")
                         .color("C" + pos[0]);
                 plt.xlabel("Time (Days)");
-                plt.ylabel("Error (AU)");
-                plt.legend().loc("upper left");
-                plt.ylim(minMaxY[0],minMaxY[1]);
+                plt.ylabel("$Log_{10}$ (Error (AU))");
+                //plt.yscale(ScaleBuilder.Scale.symlog);
+                plt.legend().loc("best");
+                System.out.println("Y limit: "+minMaxY[1]);
+                plt.ylim(Math.log10(minMaxY[0]),0);
 
                 pos[0]++;
             });
@@ -144,7 +172,7 @@ public class StartSolarSystemError {
 
     private static void plotAccumulated(){
         Plot plt = Graph.getPlot();
-        plt.figure("Accumulated Errors "+bodyToCalculate+" "+Arrays.toString(timesteps));
+        plt.figure("Accumulated Errors "+bodyToCalculate+" "+Arrays.toString(timesteps)+" RunningTime: "+runningTime+" Days");
         plt.subplot(1, 1, 1);
         final int[] pos = {0};
 
@@ -163,7 +191,67 @@ public class StartSolarSystemError {
                     .color("C" + pos[0]);
             plt.xlabel("Time-Step (Days)");
             plt.ylabel("Accumulated Error (AU)");
-            plt.legend().loc("upper left");
+            //plt.yscale(ScaleBuilder.Scale.log);
+            plt.legend().loc("best");
+
+            pos[0]++;
+        }
+
+        Graph.openPlot(plt);
+    }
+
+    private static void plotComputationalTime(){
+        Plot plt = Graph.getPlot();
+        plt.figure("Computational Time: "+runningTime+" Days");
+        plt.subplot(1, 1, 1);
+        final int[] pos = {0};
+
+        for(Map.Entry<Integrator,TreeMap<Double,Double>> entry : integratorComputationalTime.entrySet()) {
+            TreeMap<Double,Double> computationalTime = entry.getValue();
+            List<Number> step = new ArrayList<>();
+            List<Number> timeVals = new ArrayList<>();
+            computationalTime.forEach((timestep, time) -> {
+                step.add(timestep);
+                timeVals.add(time);
+            });
+            plt.plot()
+                    .add(step, timeVals)
+                    .label(entry.getKey().getIntegratorName())
+                    .linestyle("solid")
+                    .color("C" + pos[0]);
+            plt.xlabel("Time-Step (Days)");
+            plt.ylabel("Computational Time (s)");
+            plt.legend().loc("best");
+
+            pos[0]++;
+        }
+
+        Graph.openPlot(plt);
+    }
+
+    private static void plotComputationalTimeVsError(){
+        Plot plt = Graph.getPlot();
+        plt.figure("Computational Time Vs Error: "+runningTime+" Days");
+        plt.subplot(1, 1, 1);
+        final int[] pos = {0};
+
+        for(Map.Entry<Integrator,TreeMap<Double,Double>> entry : integratorComputationalTime.entrySet()) {
+            TreeMap<Double,Double> computationalTime = entry.getValue();
+            TreeMap<Double,Double> accumulatedError = integratorAccumulatedError.get(entry.getKey());
+            List<Number> accumulatedErrors = new ArrayList<>();
+            List<Number> timeVals = new ArrayList<>();
+            computationalTime.forEach((timestep, time) -> {
+                accumulatedErrors.add(accumulatedError.get(timestep));
+                timeVals.add(time);
+            });
+            plt.plot()
+                    .add(timeVals, accumulatedErrors)
+                    .label(entry.getKey().getIntegratorName())
+                    .linestyle("solid")
+                    .color("C" + pos[0]);
+            plt.xlabel("Computational Time (s)");
+            plt.ylabel("Accumulated Error (AU)");
+            plt.legend().loc("best");
 
             pos[0]++;
         }

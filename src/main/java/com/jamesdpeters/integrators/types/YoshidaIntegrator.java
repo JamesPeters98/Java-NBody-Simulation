@@ -7,11 +7,6 @@ import com.jamesdpeters.vectors.Vector3D;
 
 public class YoshidaIntegrator extends Integrator {
 
-    public YoshidaIntegrator() {
-        System.out.println("c1:"+c1);
-        System.out.println("c2:"+c2);
-    }
-
     private static final double w0 = -Math.cbrt(2)/(2-Math.cbrt(2));
     private static final double w1 = 1/(2-Math.cbrt(2));
     private static final double c1 = w1/2;
@@ -34,8 +29,7 @@ public class YoshidaIntegrator extends Integrator {
         for(Body body : universe.getBodies()){
             Vector3D a1 = accel(body,1);
             Vector3D v1 = body.getTempVelocity(0).add(a1.multiply(d1*dt));
-            Vector3D x1 = body.getTempPos(1);
-            Vector3D x2 = x1.add(v1.multiply(c2*dt));
+            Vector3D x2 = body.getTempPos(1).add(v1.multiply(c2*dt));
             body.setTempPos(2,x2);
             body.setTempVelocity(1,v1);
         }

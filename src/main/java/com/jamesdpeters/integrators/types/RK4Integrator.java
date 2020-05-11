@@ -19,8 +19,8 @@ public class RK4Integrator extends Integrator {
             Vector3D a1 = accel(body,1);
             Vector3D v1 = body.getVelocity();
 
-            Vector3D x2 = body.getPosition().add(v1.multiply(dt/2));
-            Vector3D v2 = body.getVelocity().add(a1.multiply(dt/2));
+            Vector3D x2 = body.getPosition().add(v1.multiply(dt/2.0));
+            Vector3D v2 = body.getVelocity().add(a1.multiply(dt/2.0));
 
             body.setTempPos(2,x2);
             body.setTempVelocity(2,v2);
@@ -31,8 +31,8 @@ public class RK4Integrator extends Integrator {
             Vector3D a2 = accel(body,2);
             Vector3D v2 = body.getTempVelocity(2);
 
-            Vector3D x3 = body.getPosition().add(v2.multiply(dt/2));
-            Vector3D v3 = body.getVelocity().add(a2.multiply(dt/2));
+            Vector3D x3 = body.getPosition().add(v2.multiply(dt/2.0));
+            Vector3D v3 = body.getVelocity().add(a2.multiply(dt/2.0));
 
             body.setTempPos(3,x3);
             body.setTempVelocity(3,v3);
@@ -68,8 +68,8 @@ public class RK4Integrator extends Integrator {
     private Vector3D sumRK4(Vector3D k1, Vector3D k2, Vector3D k3, Vector3D k4){
         Vector3D sumdx = Vector3D.ZERO;
         sumdx = sumdx.add(k1);
-        sumdx = sumdx.add(k2.multiply(2));
-        sumdx = sumdx.add(k3.multiply(2));
+        sumdx = sumdx.add(k2.multiply(2.0));
+        sumdx = sumdx.add(k3.multiply(2.0));
         sumdx = sumdx.add(k4);
         return sumdx.multiply((double) 1 / (double) 6);
     }

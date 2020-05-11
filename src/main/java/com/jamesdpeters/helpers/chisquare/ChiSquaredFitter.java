@@ -20,16 +20,12 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 import java.util.TreeMap;
+import java.util.stream.Collectors;
 
 public class ChiSquaredFitter {
 
-
     TreeMap<Double, Value> experimentalData;
     double TDBoffset = 0;
-
-    public ChiSquaredFitter(){
-
-    }
 
     public void load(String experimentalDataPath, double TDBoffset){
         this.TDBoffset = TDBoffset;
@@ -57,8 +53,18 @@ public class ChiSquaredFitter {
     }
 
     public double chiSquare(TreeMap<Double,Double> modelData){
-        final double[] chi2 = {0};
-        experimentalData.forEach((time,value) -> {
+        double chi2 = 0;
+        double maxKey = modelData.keySet().stream().max(Double::compareTo).get();
+        double minKey = modelData.keySet().stream().min(Double::compareTo).get();
+        int vals = 0;
+        Map<Double,Value> filteredData = experimentalData.entrySet().stream().filter(entry -> (entry.getKey() >= minKey && entry.getKey() <= maxKey)).collect(Collectors.toMap(Map.Entry::getKey, Map.Entry::getValue));
+        for(Map.Entry<Double,Value> entry : filteredData.entrySet()){
+            double time = entry.getKey();
+            if(time > maxKey){
+                break;
+            }
+            vals++;
+            Value value = entry.getValue();
             Map.Entry<Double,Double> low = modelData.floorEntry(time);
             Map.Entry<Double,Double> high = modelData.ceilingEntry(time);
             double modelVal = 0;
@@ -70,10 +76,9 @@ public class ChiSquaredFitter {
                 modelVal = low != null ? low.getValue() : high.getValue();
             }
             double chi = Math.pow(value.value-modelVal,2)/Math.pow(value.error,2);
-            chi2[0] += chi;
-        });
-        double reducedChi = chi2[0]/(experimentalData.size()-1);
-        return reducedChi;
+            chi2 += chi;
+        }
+        return chi2/(vals-1);
     }
 
     public void outputData(String folderpath, TreeMap<Double,Double> modelData){

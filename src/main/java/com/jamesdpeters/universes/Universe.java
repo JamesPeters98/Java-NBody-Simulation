@@ -26,7 +26,7 @@ public abstract class Universe {
     private boolean output = true;
     Integrator integrator;
     private Universe universe;
-    private SimulationPerformanceTracker performanceTracker;
+    public SimulationPerformanceTracker performanceTracker;
 
     public Universe(){
         energyShift = new TreeMap<>();

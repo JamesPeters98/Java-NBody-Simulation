@@ -22,7 +22,7 @@ public class SimulationPerformanceTracker {
     }
 
     public double timeTaken(){
-        return (endTime-startTime)/1000;
+        return (endTime-startTime)/1000.0;
     }
 
     public void printStats(){

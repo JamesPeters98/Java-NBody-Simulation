@@ -52,7 +52,7 @@ public class TrappistBody {
 //        System.out.println(getName()+" : "+v+" vs : "+vOld);
 
         Vector3D velo = new Vector3D(0,v,0); //Start with velocity at x=0 in y direction. z=0
-        velo = velo.rotateAroundZ(startPhase).rotateAroundY(Math.toRadians(90-inclination));
+        velo = velo.rotateAroundY(Math.toRadians(90-inclination)).rotateAroundZ(startPhase);
         //System.out.println("Initial Velocity "+getName()+": "+velo);
         return velo;
     }
@@ -63,7 +63,7 @@ public class TrappistBody {
         //Calculate distance from foci (Star)
         double r = distFromFoci();
         Vector3D pos = new Vector3D(r,0,0);
-        return pos.rotateAroundZ(startPhase).rotateAroundY(Math.toRadians(90-inclination));
+        return pos.rotateAroundY(Math.toRadians(90-inclination)).rotateAroundZ(startPhase);
     }
 
     private double distFromFoci(){

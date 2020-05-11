@@ -15,7 +15,7 @@ import java.util.TreeMap;
 public class EclipseCalculator {
 
     //This is just for Earth, Sun and Moon (Luna). Needs to be adapted for more general scenario.
-    public static void findEclipses(Universe universe){
+    public static HashMap<Integer,EclipseInfo> findEclipses(Universe universe){
         Body sun = null, earth = null, moon = null;
         for(Body body : universe.getBodies()){
             if(body.isOrigin()) sun = body;
@@ -40,11 +40,13 @@ public class EclipseCalculator {
                 calc(time, EarthPos, SunPos, MoonPos, sun, earth, moon, null, null, null, JPLArea);
             }
 
-            HashMap<Integer,EclipseInfo> eclipseInfoHashMap = calculateEclipseFeatures(sun.getStartDate(),Area);
+            HashMap<Integer,EclipseInfo> eclipseInfoHashMap = calculateEclipseFeatures(sun.getStartDate(),Area,Lambda);
             CSVWriter.writeEclipseData("SolarSystem",ConeRadius,EdgeOfMoonDist,Lambda,Area);
             CSVWriter.writeEclipseInfo("SolarSystem",eclipseInfoHashMap,universe);
             Graph.plotEclipse("Eclipse Plot",Area,JPLArea);
+            return eclipseInfoHashMap;
         }
+        return new HashMap<>();
     }
 
     private static void calc(double time, Vector3D EarthPos, Vector3D SunPos, Vector3D MoonPos, Body sun, Body earth, Body moon, TreeMap<Double,Double> ConeRadius, TreeMap<Double,Double> EdgeOfMoonDist,TreeMap<Double,Double> Lambda,TreeMap<Double,Double> Area){
@@ -92,7 +94,7 @@ public class EclipseCalculator {
         return dist(from,to).normalize();
     }
 
-    private static HashMap<Integer, EclipseInfo> calculateEclipseFeatures(LocalDateTime startDate, TreeMap<Double,Double> area){
+    private static HashMap<Integer, EclipseInfo> calculateEclipseFeatures(LocalDateTime startDate, TreeMap<Double,Double> area, TreeMap<Double,Double> lambdas){
         double prevL = 1;
         HashMap<Integer,EclipseInfo> eclipseList = new HashMap<>();
         int eclipses = 0;
@@ -108,6 +110,9 @@ public class EclipseCalculator {
                 //Start of eclipse.
                 EclipseInfo info = new EclipseInfo();
                 info.startDate = prevDate;
+                double lambda = lambdas.get(time);
+                if(lambda < 0) info.setEclipseType(EclipseInfo.Type.LUNAR);
+                if(lambda > 0) info.setEclipseType(EclipseInfo.Type.SOLAR);
                 eclipseList.put(eclipses,info);
             }
             if(prevL < 1 && L == 1){

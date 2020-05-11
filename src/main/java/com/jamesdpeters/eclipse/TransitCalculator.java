@@ -15,11 +15,11 @@ import java.util.TreeMap;
 
 public class TransitCalculator {
 
-    public static TransitInfo plotTotalTransits(Universe universe, Vector3D direction) throws IOException {
+    public static TransitInfo plotTotalTransits(Universe universe, Vector3D direction, boolean plot) throws IOException {
         TreeMap<Body, TreeMap<Double,Double>> transits = new TreeMap<>();
         TreeMap<Double,Double> totalTransit = new TreeMap<>();
         for(Body body : universe.getOriginBody().getExclusiveBodies()){
-            TreeMap<Double,Double> transit = findTransits(universe,body,direction,false);
+            TreeMap<Double,Double> transit = findTransits(universe,body,direction,plot);
             transits.put(body,transit);
             for(Map.Entry<Double,Double> entry : transit.entrySet()){
                 double value = entry.getValue()-1;
@@ -30,9 +30,10 @@ public class TransitCalculator {
         for(Map.Entry<Double,Double> entry : totalTransit.entrySet()){
             Utils.addToTreeMapValue(totalTransit,entry.getKey(),1.0);
         }
-
-        CSVWriter.writeTransitData("Trappist",transits,totalTransit);
-        Graph.plotEclipse("Total Transits",transits,totalTransit);
+        if(plot) {
+            CSVWriter.writeTransitData("Trappist", transits, totalTransit);
+            Graph.plotEclipse("Total Transits", transits, totalTransit);
+        }
         return new TransitInfo(totalTransit,transits);
     }
 
@@ -53,9 +54,11 @@ public class TransitCalculator {
         }
 
         HashMap<Integer,EclipseInfo> eclipseInfoHashMap = calculateEclipseFeatures(star.getStartDate(),Area);
-        if(plot) Graph.plotEclipse("Transits for "+planet.getName(),Area,null);
-        CSVWriter.writeEclipseData("Trappist/"+planet.getName(),ConeRadius,EdgeOfMoonDist,Lambda,Area);
-        CSVWriter.writeEclipseInfo("Trappist/"+planet.getName(),eclipseInfoHashMap,universe);
+        if(plot) {
+            Graph.plotEclipse("Transits for " + planet.getName(), Area, null);
+            CSVWriter.writeEclipseData("Trappist/" + planet.getName(), ConeRadius, EdgeOfMoonDist, Lambda, Area);
+            CSVWriter.writeEclipseInfo("Trappist/" + planet.getName(), eclipseInfoHashMap, universe);
+        }
         return Area;
     }
 
@@ -75,6 +78,7 @@ public class TransitCalculator {
             double r2 = planet.getBodyRadiusAU();
             double A;
             double ratio = LimbDarkening.intensityRatio(star.getBodyRadiusAU(),d,planet.getBodyRadiusAU());
+//            double ratio = 1;
 
             if (d >= r1 + r2) { // No intersection = 0 area;
                 A = 0;

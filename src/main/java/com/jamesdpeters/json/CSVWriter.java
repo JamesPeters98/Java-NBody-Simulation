@@ -2,6 +2,7 @@ package com.jamesdpeters.json;
 
 import com.jamesdpeters.bodies.Body;
 import com.jamesdpeters.bodies.ErrorCalculator;
+import com.jamesdpeters.eclipse.CompareInfo;
 import com.jamesdpeters.eclipse.EclipseInfo;
 import com.jamesdpeters.helpers.Constants;
 import com.jamesdpeters.helpers.chisquare.ChiSquareValue;
@@ -132,9 +133,9 @@ public class CSVWriter {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("uuuu-MMM-dd");
         PrintWriter outputFile = getOutputFile("eclipse/"+folderPath +"/eclipseInfo-" +universe.getOriginBody().getStartDate().format(formatter) +"-dt-"+universe.dt() +"-"+universe.getIntegrator().getIntegratorName()+".csv");
         if (outputFile != null) {
-            outputFile.println("Eclipse, Start Date, Start Time, End Date, End Time, Duration (Seconds), Peak Time");
+            outputFile.println("Eclipse, Start Date, Start Time, End Date, End Time, Duration (Seconds), Peak Time, Type");
             for (Map.Entry<Integer, EclipseInfo> entry : eclipseInfo.entrySet()) {
-                outputFile.println(entry.getKey() + "," + entry.getValue().startDate.toLocalDate() + "," + entry.getValue().startDate.toLocalTime() + "," + entry.getValue().endDate.toLocalDate() + "," + entry.getValue().endDate.toLocalTime() + "," + entry.getValue().getDuration().toSeconds()+ "," +entry.getValue().midpoint().toLocalTime());
+                outputFile.println(entry.getKey() + "," + entry.getValue().startDate.toLocalDate() + "," + entry.getValue().startDate.toLocalTime() + "," + entry.getValue().endDate.toLocalDate() + "," + entry.getValue().endDate.toLocalTime() + "," + entry.getValue().getDuration().toSeconds()+ "," +entry.getValue().midpoint().toLocalTime()+ ","+entry.getValue().getEclipseType());
             }
             outputFile.close(); // close the output file
             System.out.println("Saved CSV Data for: Eclipse Info - " + folderPath);
@@ -158,4 +159,20 @@ public class CSVWriter {
         }
         return deltas;
     }
+
+    public static void writeEclipseMidpoint(List<CompareInfo> infos, EclipseInfo.Type type) {
+        PrintWriter outputFile = getOutputFile("eclipse/"+type.toString()+"-comparison.csv"); // this sends the output to file1
+        if(outputFile != null) {
+            // Write the file as a comma seperated file (.csv) so it can be read it into EXCEL
+            outputFile.println("Nasa Date, Nasa Time, Simulated Date, Simulated Time, Delta (s)");
+            infos.forEach((info) -> {
+                if(info.hasSimulatedValue()) outputFile.println(info.getNASA().toLocalDate()+ "," + info.getNASA().toLocalTime() +"," + info.getSimulated().toLocalDate() +"," + info.getSimulated().toLocalTime() + "," + info.getDeltaSeconds());
+                else outputFile.println(info.getNASA().toLocalDate()+","+info.getNASA().toLocalTime()+", - , - , -");
+            });
+            outputFile.close(); // close the output file
+            System.out.println("Written CSV Data for: " +type+" Deltas");
+        }
+    }
+
+
 }
